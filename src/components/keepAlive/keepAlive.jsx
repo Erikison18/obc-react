@@ -16,6 +16,7 @@ export default class AuthLayout extends Component {
     }
 
     componentWillReceiveProps(nextProps){
+        console.log('keepAlive')
         if(
             nextProps.location.search!==this.props.location.search||
             JSON.stringify(nextProps.match.params)!==JSON.stringify(this.props.match.params)
