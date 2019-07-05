@@ -10,9 +10,22 @@ import CatchErrorBoundary from '@common/catchErrorBoundary';
 
 @withRouter
 export default class AuthLayout extends Component {
+    constructor(props, ...args){
+        super(props, ...args);
+        // props.cacheLifecycles.didCache(this.componentDidCache)
+        // props.cacheLifecycles.didRecover(this.componentDidRecover)
+    }
 
     componentDidMount() {
         //action
+    }
+
+    componentDidCache(){
+        console.log('List cached')
+    }
+
+    componentDidRecover() {
+        console.log('List recovered')
     }
 
     componentWillReceiveProps(nextProps){

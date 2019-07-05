@@ -114,6 +114,7 @@ const getConfirmation = (pathname, callback) => {
             });
 
     }catch(e){
+        message.error(e.toString());
         store.dispatch(hideLoading());
         callback(true);
     }
