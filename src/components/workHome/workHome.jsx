@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import { renderRoutes } from 'react-router-config';
-import CatchErrorBoundary from '@common/catchErrorBoundary';
 
-
-const style = {float:'right'};
 
 export default class WorkHome extends Component {
 
@@ -25,7 +21,7 @@ export default class WorkHome extends Component {
     render() {
         return (
             <div className="block-two">
-                <a onClick={this.drawChannel.bind(this,'clear')} className="underline-words week">清除地图</a>
+                <a onClick={this.drawChannel.bind(this, 'clear')} className="underline-words week">清除地图</a>
                 <div onClick={this.mapZoomTo} className="zoom-btn"></div>
             </div>
         );

@@ -32,14 +32,13 @@ import './App.less';
 import { renderRoutes, matchRoutes } from 'react-router-config';
 import routes from '@router';
 import { showLoading, hideLoading} from 'react-redux-loading-bar';
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 import {getAutoPathPrefix} from "@js/utils.js";
 
 const autoPathPrefix = getAutoPathPrefix();
 
 message.config({
-  top: 200,
-  maxCount: 1,
+    top: 200,
+    maxCount: 1,
 });
 
 fetch.default({
@@ -64,12 +63,12 @@ fetch.default({
 
             if (response.ok===false) {
                 message.error(`${response.status}\n${response.statusText}`);
-                return {}
+                return {};
             }
 
             let data = await response.json();
 
-            let {code,message:messageDes} = data;
+            let {code, message:messageDes} = data;
 
             //未登录
             // if(code === 5000){
@@ -84,13 +83,13 @@ fetch.default({
             return data;
 
         }else{
-            return response
+            return response;
         }
 
     },
     fail(e) {
         message.error(e.toString());
-        return {e}
+        return {e};
     }
 });
 
@@ -98,18 +97,18 @@ const store = configureStore();
 
 const getConfirmation = (pathname, callback) => {
 
-    store.dispatch(showLoading())
+    store.dispatch(showLoading());
 
     try{
 
-        let branch = matchRoutes(routes,pathname);
+        let branch = matchRoutes(routes, pathname);
         let componentsPreload = branch.map(({ route, match })=>route.component.preload());
 
         Promise.all(componentsPreload)
             .then((datas)=>{
                 setTimeout(function(){
                     store.dispatch(hideLoading());
-                },500);
+                }, 500);
                 callback(true);
             });
 
@@ -119,7 +118,7 @@ const getConfirmation = (pathname, callback) => {
         callback(true);
     }
 
-}
+};
 // const supportsHistory = 'pushState' in window.history
 
 class App extends Component {
@@ -157,16 +156,17 @@ class App extends Component {
 @withRouter
 class Layout extends Component {
     render(){
-        let key;
+        let key = '';
         try{
-            key = this.props.location.pathname.match(/^\/[^\/]+/)[0]
+            key = this.props.location.pathname.match(/^\/[^/]+/)[0];
         }catch(e){
-            key='';
+            key = '';
         }
+        console.log(key);
         return(
 
-                    renderRoutes(routes,this.props,{location:this.props.location})
-        )
+            renderRoutes(routes, this.props, {location:this.props.location})
+        );
     }
 }
 

@@ -37,4 +37,4 @@ class UnAuthLayout extends Component {
     }
 }
 
-export default UnAuthLayout
+export default UnAuthLayout;

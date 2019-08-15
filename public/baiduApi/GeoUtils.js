@@ -30,7 +30,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
      */
     BMapLib.GeoUtils = function(){
         
-    }
+    };
     
     /**
      * 判断点是否在矩形内
@@ -47,7 +47,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
         var sw = bounds.getSouthWest(); //西南脚点
         var ne = bounds.getNorthEast(); //东北脚点
         return (point.lng >= sw.lng && point.lng <= ne.lng && point.lat >= sw.lat && point.lat <= ne.lat);
-    }
+    };
     
     /**
      * 判断点是否在圆形内
@@ -72,7 +72,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
         } else {
             return false;
         }
-    }
+    };
     
     /**
      * 判断点是否在折线上
@@ -112,7 +112,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
         }
         
         return false;
-    }
+    };
     
     /**
      * 判断点是否多边形内
@@ -199,7 +199,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
         } else { //奇数在多边形内
             return true;
         }            
-    }
+    };
 
     /**
      * 将度转化为弧度
@@ -208,7 +208,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
      */
     GeoUtils.degreeToRad =  function(degree){
         return Math.PI * degree/180;    
-    }
+    };
     
     /**
      * 将弧度转化为度
@@ -217,17 +217,17 @@ var BMapLib = window.BMapLib = BMapLib || {};
      */
     GeoUtils.radToDegree = function(rad){
         return (180 * rad) / Math.PI;       
-    }
+    };
     
     /**
      * 将v值限定在a,b之间，纬度使用
      */
     function _getRange(v, a, b){
         if(a != null){
-          v = Math.max(v, a);
+            v = Math.max(v, a);
         }
         if(b != null){
-          v = Math.min(v, b);
+            v = Math.min(v, b);
         }
         return v;
     }
@@ -237,10 +237,10 @@ var BMapLib = window.BMapLib = BMapLib || {};
      */
     function _getLoop(v, a, b){
         while( v > b){
-          v -= b - a
+            v -= b - a;
         }
         while(v < a){
-          v += b - a
+            v += b - a;
         }
         return v;
     }
@@ -270,7 +270,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
         y2 = GeoUtils.degreeToRad(point2.lat);
 
         return EARTHRADIUS * Math.acos((Math.sin(y1) * Math.sin(y2) + Math.cos(y1) * Math.cos(y2) * Math.cos(x2 - x1)));    
-    }
+    };
     
     /**
      * 计算折线或者点数组的长度
@@ -297,7 +297,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
             var totalDis = 0;
             for(var i =0; i < pts.length - 1; i++){
                 var curPt = pts[i];
-                var nextPt = pts[i + 1]
+                var nextPt = pts[i + 1];
                 var dis = GeoUtils.getDistance(curPt, nextPt);
                 totalDis += dis;
             }
@@ -307,7 +307,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
         } else {
             return 0;
         }
-    }
+    };
     
     /**
      * 计算多边形面或点数组构建图形的面积,注意：坐标类型只能是经纬度，且不适合计算自相交多边形的面积
@@ -447,6 +447,6 @@ var BMapLib = window.BMapLib = BMapLib || {};
         totalArea = (Sum - (Count - 2) * Math.PI) * Radius * Radius;
 
         return totalArea; //返回总面积
-    }
+    };
    
 })();//闭包结束

@@ -7,35 +7,35 @@ export const AMapAsync=(optins={})=>{
 
     plugin = plugin && plugin instanceof Array ? `&plugin=${plugin.join(',')}`:'';
 
-    return setCallBackLoadScript(`https://webapi.amap.com/maps?v=1.4.8&key=99d77e072f09ea55969ce6b5f1593609${plugin}`,'AMap',optins)
+    return setCallBackLoadScript(`https://webapi.amap.com/maps?v=1.4.8&key=99d77e072f09ea55969ce6b5f1593609${plugin}`, 'AMap', optins);
 
 };
 //高德可视化api
-export const LocaAsync=()=>loadScript('https://webapi.amap.com/loca?v=1.2.0&key=99d77e072f09ea55969ce6b5f1593609','Loca');
+export const LocaAsync=()=>loadScript('https://webapi.amap.com/loca?v=1.2.0&key=99d77e072f09ea55969ce6b5f1593609', 'Loca');
 
 //百度地图下载脚本
 export const BMapAsync = async ()=>{
    
     if (process.env.NODE_ENV==='production'){ 
         window.__BAIDU__API__CONFIG__={
-            scriptPath:`${process.env.PUBLIC_URL}/baiduApi/`,//脚本目录地址
-            imagePath:`${process.env.PUBLIC_URL}/baiduApi/images/`,//百度小图标目录地址
+            scriptPath:`${process.env.PUBLIC_URL}/baiduApi/`, //脚本目录地址
+            imagePath:`${process.env.PUBLIC_URL}/baiduApi/images/`, //百度小图标目录地址
             maptilePath:mapPath, //瓦片图目录
             maptileFormate:pictureType//瓦片图格式
-        }
-        return await loadScript(`${process.env.PUBLIC_URL}/baiduApi/apiv2.0_street.js`,'BMap');
+        };
+        return await loadScript(`${process.env.PUBLIC_URL}/baiduApi/apiv2.0_street.js`, 'BMap');
      
     }else{
-        return setCallBackLoadScript('https://api.map.baidu.com/api?v=2.0&ak=19d4aa4182c4809347bbf96f0820dc69&s=1','BMap');
+        return setCallBackLoadScript('https://api.map.baidu.com/api?v=2.0&ak=19d4aa4182c4809347bbf96f0820dc69&s=1', 'BMap');
     }
-}
+};
 export const BDrawAsync=()=>{
     if (process.env.NODE_ENV==='production'){
-        return loadScript(`${process.env.PUBLIC_URL}/baiduApi/DrawingManager_1.4.js`,'BMapLib');
+        return loadScript(`${process.env.PUBLIC_URL}/baiduApi/DrawingManager_1.4.js`, 'BMapLib');
     }else{
-        return loadScript('https://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js','BMapLib');
+        return loadScript('https://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js', 'BMapLib');
     }
-}
+};
 export const HeatAsync=()=>loadScript('https://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js');
 
 //按官方异步加载需要回调参数的脚本下载函数
@@ -55,13 +55,13 @@ let setCallBackLoadScript = (function(){
 
         let optinsValue = JSON.stringify(optins);
 
-        return new Promise(function(resolve,reject){
+        return new Promise(function(resolve, reject){
 
             let loadCallBackName = `${className}OnLoad`;
 
             //如果某脚本要加载的资源为当前加载的资源
             if(cacheLibForScriptOptions[className]===optinsValue){
-                return resolve(window[className])
+                return resolve(window[className]);
             }
 
             url+=`&callback=${loadCallBackName}`;
@@ -72,12 +72,12 @@ let setCallBackLoadScript = (function(){
                 cacheLibForScriptOptions[className]=optinsValue;
                 resolve(window[className]);
 
-            }
+            };
 
             createScript(url);
 
         });
-    }
+    };
 
 })();
 
@@ -90,7 +90,7 @@ function loadScript(
     className
 ){
 
-    return new Promise(function(resolve,reject){
+    return new Promise(function(resolve, reject){
 
         //如果已加载过该jsdk
         // if(className&&window[className]){
@@ -104,7 +104,7 @@ function loadScript(
         };
         script.onerror = function(e){
             reject(e);
-        }
+        };
 
     });
 
@@ -119,7 +119,7 @@ function createScript(url){
     script.src = url;
     document.head.appendChild(script);
 
-    return script
+    return script;
 
 }
 

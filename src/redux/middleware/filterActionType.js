@@ -8,9 +8,9 @@ import {
 } from '@redux/config';
 
 let FULFILLED = promiseTypeSuffixes[1];
-let REJECTED = promiseTypeSuffixes[2]
+let REJECTED = promiseTypeSuffixes[2];
 
-const reg = new RegExp(`${promiseTypeDelimiter.replace(/([\s\S])/g,'\\$1')}(${FULFILLED.replace(/([\s\S])/g,'\\$1')}|${REJECTED.replace(/([\s\S])/g,'\\$1')})$`);
+const reg = new RegExp(`${promiseTypeDelimiter.replace(/([\s\S])/g, '\\$1')}(${FULFILLED.replace(/([\s\S])/g, '\\$1')}|${REJECTED.replace(/([\s\S])/g, '\\$1')})$`);
 
 export default function filterActionType(config) {
     return (store) => (next) => (action) => {
@@ -18,8 +18,8 @@ export default function filterActionType(config) {
         let newType = action.type.replace(reg, '');
         let newAction = Object.assign({}, action, {
             type: newType
-        })
+        });
 
-        return next(newAction)
-    }
+        return next(newAction);
+    };
 }

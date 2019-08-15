@@ -6,7 +6,7 @@
     "commonjs": true
   },
   "root": true,
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "parserOptions": {
     "ecmaVersion": 2017,
     "ecmaFeatures": {
@@ -25,6 +25,10 @@
     "jsx-a11y"
   ],
   "rules": {
+    // @off 不强制要求写 displayName
+    "react/display-name": "off",
+    // 不强制要求写 prop-types
+    "react/prop-types": "off",
     // 禁止使用已废弃的 api
     "react/no-deprecated": "error",
     // 禁止直接修改 this.state

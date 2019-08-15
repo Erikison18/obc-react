@@ -7,7 +7,7 @@ import {
 
 import {
     loadingBarMiddleware
-} from 'react-redux-loading-bar'
+} from 'react-redux-loading-bar';
 import {
     createLogger
 } from 'redux-logger';
@@ -50,7 +50,7 @@ let applyMiddlewares = [
 
 //如果是生产环境不打日志
 if(process.env.NODE_ENV==='production')
-    applyMiddlewares.splice(3,1);
+    applyMiddlewares.splice(3, 1);
 
 let composes = [applyMiddleware(...applyMiddlewares)];
 
@@ -68,6 +68,6 @@ export default (initialState = {}) => {
 
     let store = createStore(rootReducer, mergeState, enhancer);
 
-    return store
+    return store;
 
-}
+};

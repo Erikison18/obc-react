@@ -6,7 +6,7 @@ function ErrorComponent(){
 
     return (
         <div>error 404</div>
-    )
+    );
 
 }
 
@@ -16,4 +16,4 @@ function ErrorComponent(){
 // })
 
 
-export default ErrorComponent
+export default ErrorComponent;

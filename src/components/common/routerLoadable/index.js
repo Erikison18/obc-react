@@ -61,19 +61,19 @@ function loading(){
         <Modal>
             <Spin delay={300}/>
         </Modal>
-    )
+    );
 }
 
 
 function RouterLoadable(opts){
 // console.log(opts.loader())
     return Loadable(
-        Object.assign({},{
+        Object.assign({}, {
             loading
-        },opts)
-    )
+        }, opts)
+    );
 
 }
 
 
-export default RouterLoadable
+export default RouterLoadable;

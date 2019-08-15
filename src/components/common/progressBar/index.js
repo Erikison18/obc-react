@@ -60,9 +60,9 @@ function ProgressBar(props){
         <Modal>
             <LoadingBar className="progress-loading-bar"/>
         </Modal>
-    )
+    );
 
 }
 
 
-export default ProgressBar
+export default ProgressBar;

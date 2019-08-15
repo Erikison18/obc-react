@@ -20,7 +20,7 @@
 
             this.opt = opt;
 
-            this.init()
+            this.init();
 
         }
 
@@ -29,13 +29,13 @@
             this.oldFetchPromise = oldFetch(...this.opt);
             this.oldFetchPromise.abort = this.abort.bind(this.oldFetchPromise);
             this.oldThen = this.oldFetchPromise.then;
-            this.oldFetchPromise.then = this.then.bind(this.oldFetchPromise, this.oldFetchPromise, this.oldFetchPromise, this.then, this.abort,this.oldThen);
+            this.oldFetchPromise.then = this.then.bind(this.oldFetchPromise, this.oldFetchPromise, this.oldFetchPromise, this.then, this.abort, this.oldThen);
 
         }
 
         then(oldFetchPromise, curFetchPromise, then, abort, oldThen, resFn = () => {}, rejFn = () => {}) {
 
-            let afterPromise = oldThen.call(curFetchPromise,(...arg) => {
+            let afterPromise = oldThen.call(curFetchPromise, (...arg) => {
                 oldFetchPromise.abort = abort.bind(afterPromise); //把第一个promise的abort上下文指向下一个promise
                 if (this.__abort) afterPromise.__abort = this.__abort; // 传递 abort
                 if (!this.__abort) return resFn(...arg); //没阻断
@@ -48,7 +48,7 @@
             afterPromise.abort = abort.bind(afterPromise);
             afterPromise.then = then.bind(afterPromise, oldFetchPromise, afterPromise, then, abort, oldThen);
 
-            return afterPromise
+            return afterPromise;
 
         }
 
@@ -57,7 +57,7 @@
         }
 
         getFetch() {
-            return this.oldFetchPromise
+            return this.oldFetchPromise;
         }
 
     }
@@ -86,7 +86,7 @@
 
         cacheFetch = [];
 
-    }
+    };
 
     for (let s in oldFetch) {
         fetch[s] = oldFetch[s];
@@ -102,7 +102,7 @@
         //整合所有opts
         let allOpts = Object.assign({}, opt, ...rest, {
             uri: uriPrefix ? (uriPrefix + uri) : uri
-        })
+        });
 
         //请求前callback
         if (beforeSend) {
@@ -111,8 +111,8 @@
 
         let oldFetchPromise = oldFetch(allOpts.uri, allOpts);
 
-        if (fail) oldFetchPromise = oldFetchPromise.then((response) => response,(reject) => fail.call(oldFetchPromise,reject));
-        if (dataFilter) oldFetchPromise = oldFetchPromise.then((response) => dataFilter.call(oldFetchPromise,response));
+        if (fail) oldFetchPromise = oldFetchPromise.then((response) => response, (reject) => fail.call(oldFetchPromise, reject));
+        if (dataFilter) oldFetchPromise = oldFetchPromise.then((response) => dataFilter.call(oldFetchPromise, response));
 
         return oldFetchPromise;
 

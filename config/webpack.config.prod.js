@@ -42,9 +42,9 @@ const cssFilename = 'static/css/[name].[contenthash:8].css';
 // However, our output is structured with css, js and media folders.
 // To have this structure working with relative paths, we have to use custom options.
 const extractTextPluginOptions = shouldUseRelativeAssetPaths ? // Making sure that the publicPath goes back to to build folder.
-    {
-        publicPath: Array(cssFilename.split('/').length).join('../')
-    } : {};
+{
+    publicPath: Array(cssFilename.split('/').length).join('../')
+} : {};
 
 //custom dbp
 let {
@@ -75,8 +75,8 @@ module.exports = prodCustom({
         // Point sourcemap entries to original disk location (format as URL on Windows)
         devtoolModuleFilenameTemplate: info =>
             path
-            .relative(paths.appSrc, info.absoluteResourcePath)
-            .replace(/\\/g, '/'),
+                .relative(paths.appSrc, info.absoluteResourcePath)
+                .replace(/\\/g, '/'),
     },
     resolve: {
         // This allows you to set a fallback for where Webpack should look for modules.
@@ -170,41 +170,41 @@ module.exports = prodCustom({
                         test: /\.css$/,
                         loader: ExtractTextPlugin.extract(
                             Object.assign({
-                                    fallback: {
-                                        loader: require.resolve('style-loader'),
-                                        options: {
-                                            hmr: false,
-                                        },
+                                fallback: {
+                                    loader: require.resolve('style-loader'),
+                                    options: {
+                                        hmr: false,
                                     },
-                                    use: [{
-                                        loader: require.resolve('css-loader'),
-                                        options: {
-                                            importLoaders: 1,
-                                            minimize: true,
-                                            sourceMap: shouldUseSourceMap,
-                                        },
-                                    }, {
-                                        loader: require.resolve('postcss-loader'),
-                                        options: {
-                                            // Necessary for external CSS imports to work
-                                            // https://github.com/facebookincubator/create-react-app/issues/2677
-                                            ident: 'postcss',
-                                            plugins: () => [
-                                                require('postcss-flexbugs-fixes'),
-                                                autoprefixer({
-                                                    browsers: [
-                                                        '>1%',
-                                                        'last 4 versions',
-                                                        'Firefox ESR',
-                                                        'not ie < 9', // React doesn't support IE8 anyway
-                                                    ],
-                                                    flexbox: 'no-2009',
-                                                }),
-                                            ],
-                                        },
-                                    }],
                                 },
-                                extractTextPluginOptions,{allChunks:true}
+                                use: [{
+                                    loader: require.resolve('css-loader'),
+                                    options: {
+                                        importLoaders: 1,
+                                        minimize: true,
+                                        sourceMap: shouldUseSourceMap,
+                                    },
+                                }, {
+                                    loader: require.resolve('postcss-loader'),
+                                    options: {
+                                        // Necessary for external CSS imports to work
+                                        // https://github.com/facebookincubator/create-react-app/issues/2677
+                                        ident: 'postcss',
+                                        plugins: () => [
+                                            require('postcss-flexbugs-fixes'),
+                                            autoprefixer({
+                                                browsers: [
+                                                    '>1%',
+                                                    'last 4 versions',
+                                                    'Firefox ESR',
+                                                    'not ie < 9', // React doesn't support IE8 anyway
+                                                ],
+                                                flexbox: 'no-2009',
+                                            }),
+                                        ],
+                                    },
+                                }],
+                            },
+                            extractTextPluginOptions, {allChunks:true}
                             )
                         ),
                         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.

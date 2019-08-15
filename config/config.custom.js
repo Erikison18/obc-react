@@ -4,14 +4,14 @@ module.exports = {
     //本地开发设置iconfont cdn 地址 注意每次ui修改iconfont后都会生成最新的cdn地址，记得及时替换。
     iconFontCDNUrl:'//at.alicdn.com/t/font_639300_3fp1riujcg5.css',
     //发布时iconfont位置
-    proIconFontDirectory:path.join(homepage,'/iconfont'),
+    proIconFontDirectory:path.join(homepage, '/iconfont'),
     //iconfont生成文件名
     iconfontFileName:'iconfont',
     //请求前缀
     fetchPrefix:'',
     //使用路由缓存，这种方案不能使用路由动画
     useKeepAlive:false
-}
+};
 
 
 /*  useKeepAlive

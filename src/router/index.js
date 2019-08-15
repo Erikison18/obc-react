@@ -75,7 +75,7 @@ let ErrorComponent = RouterLoadable({
 });
 
 const routes = [{
-path: '/auth/:id',
+    path: '/auth/:id',
     component: AuthLayout,
     routes: [{
         path: '/auth/:id/workhome',
@@ -89,7 +89,7 @@ path: '/auth/:id',
             component: Project,
             exact: true
         }, {
-            component: (props) => <Redirect to='/error'/>
+            component: () => <Redirect to='/error'/>
         }]
     }]
 }, {
@@ -108,7 +108,7 @@ path: '/auth/:id',
     path: '/amap1',
     component: AMap1,
     exact: true
-},{
+}, {
     path: '/date',
     component: DateC,
     exact: true
@@ -132,9 +132,9 @@ path: '/auth/:id',
     path: '/error',
     exact: true,
     component: ErrorComponent
-},{
+}, {
     component: (props) => <Redirect to='/error'/>
-}]
+}];
 
 
 // if(process.env.NODE_ENV!=='production') {
@@ -149,4 +149,4 @@ path: '/auth/:id',
 //     })
 // }
 
-export default routes
+export default routes;

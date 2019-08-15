@@ -21,15 +21,15 @@ export default class AuthLayout extends Component {
     }
 
     componentDidCache(){
-        console.log('List cached')
+        console.log('List cached');
     }
 
     componentDidRecover() {
-        console.log('List recovered')
+        console.log('List recovered');
     }
 
     componentWillReceiveProps(nextProps){
-        console.log('keepAlive')
+        console.log('keepAlive');
         if(
             nextProps.location.search!==this.props.location.search||
             JSON.stringify(nextProps.match.params)!==JSON.stringify(this.props.match.params)
@@ -40,7 +40,7 @@ export default class AuthLayout extends Component {
                 3.如果访问的路由包含通配符（如：xxx/yyy/:id）和查询参数（如：xxx/yyy?id=1）并且通配符和查询参数有所改变，其实对于当前页面是需要更新数据的。
                 4.所以现在我们需要对该情况路由下受到通配符和查询参数影响的conponents进行改造，在该模块下通过componentWillReceiveProps进行处理数据的更新。
             */
-            console.log('action')
+            console.log('action');
         }
     }
 

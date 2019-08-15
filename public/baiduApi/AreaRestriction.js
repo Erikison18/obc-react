@@ -24,7 +24,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
          * @class AreaRestriction类提供的都是静态方法，勿需实例化即可使用。     
          */
         BMapLib.AreaRestriction = function(){
-        }
+        };
     
     /**
      * 是否已经对区域进行过限定的标识
@@ -59,8 +59,8 @@ var BMapLib = window.BMapLib = BMapLib || {};
         if (!map || 
             !bounds || 
             !(bounds instanceof BMap.Bounds)) {
-                throw "请检查传入参数值的合法性";
-                return false;
+            throw "请检查传入参数值的合法性";
+            return false;
         }
         
         if (_isRestricted) {
@@ -89,38 +89,38 @@ var BMapLib = window.BMapLib = BMapLib || {};
 
         // 两个需要对比的bound区域的边界值
         var curBounds = _map.getBounds(),
-              curBoundsSW = curBounds.getSouthWest(),
-              curBoundsNE = curBounds.getNorthEast(),
-              _boundsSW = _bounds.getSouthWest(),
-              _boundsNE = _bounds.getNorthEast();
+            curBoundsSW = curBounds.getSouthWest(),
+            curBoundsNE = curBounds.getNorthEast(),
+            _boundsSW = _bounds.getSouthWest(),
+            _boundsNE = _bounds.getNorthEast();
 
         // 需要计算定位中心点的四个边界
         var boundary = {n : 0, e : 0, s : 0, w : 0};
         
         // 计算需要定位的中心点的上方边界
         boundary.n = (curBoundsNE.lat < _boundsNE.lat) ? 
-                                    curBoundsNE.lat :
-                                    _boundsNE.lat;
+            curBoundsNE.lat :
+            _boundsNE.lat;
 
         // 计算需要定位的中心点的右边边界
         boundary.e = (curBoundsNE.lng < _boundsNE.lng) ? 
-                                    curBoundsNE.lng :
-                                    _boundsNE.lng;
+            curBoundsNE.lng :
+            _boundsNE.lng;
 
         // 计算需要定位的中心点的下方边界
         boundary.s = (curBoundsSW.lat < _boundsSW.lat) ? 
-                                    _boundsSW.lat :
-                                    curBoundsSW.lat;
+            _boundsSW.lat :
+            curBoundsSW.lat;
 
         // 计算需要定位的中心点的左边边界
         boundary.w = (curBoundsSW.lng < _boundsSW.lng) ? 
-                                    _boundsSW.lng :
-                                    curBoundsSW.lng;
+            _boundsSW.lng :
+            curBoundsSW.lng;
         
         // 设置新的中心点
-       var center = new BMap.Point(boundary.w + (boundary.e - boundary.w) / 2,
-                                                         boundary.s + (boundary.n - boundary.s) / 2);
-       setTimeout(function() {
+        var center = new BMap.Point(boundary.w + (boundary.e - boundary.w) / 2,
+            boundary.s + (boundary.n - boundary.s) / 2);
+        setTimeout(function() {
             _map.panTo(center, {noAnimation : "no"});
         }, 1);
     };

@@ -69,11 +69,11 @@ export default class AuthLayout extends Component {
                 <CatchErrorBoundary>
                     <TransitionGroup>
                         <CSSTransition
-                          key={this.props.location.pathname}
-                          classNames='fade-node'
-                          timeout={300}
+                            key={this.props.location.pathname}
+                            classNames='fade-node'
+                            timeout={300}
                         >
-                            {renderRoutes(this.props.route.routes,{},{location:this.props.location})}
+                            {renderRoutes(this.props.route.routes, {}, {location:this.props.location})}
                         </CSSTransition>
                     </TransitionGroup>
                 </CatchErrorBoundary>

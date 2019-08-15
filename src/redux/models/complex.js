@@ -9,8 +9,8 @@ function request(num=1){
     return new Promise((resolve)=>{
         setTimeout(()=>{
             resolve(num);
-        },3000)
-    })
+        }, 3000);
+    });
 
 }
 
@@ -23,8 +23,8 @@ export const actiontor = createActions({
             dispatch(actiontor.complexLoadingStatus(true));
             let res =  await request(payload);
             dispatch(actiontor.complexLoadingStatus(false));
-            return res
-        }
+            return res;
+        };
     },
     complex_loading_status:(payload) => payload
 });

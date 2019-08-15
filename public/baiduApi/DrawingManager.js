@@ -178,7 +178,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             }
             !this.__listeners && (this.__listeners = {});
             var t = this.__listeners, id;
-            if (typeof key == "string" && key) {
+            if (typeof key === "string" && key) {
                 if (/[^\w\-]/.test(key)) {
                     throw("nonstandard key:" + key);
                 } else {
@@ -187,7 +187,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
                 }
             }
             type.indexOf("on") != 0 && (type = "on" + type);
-            typeof t[type] != "object" && (t[type] = {});
+            typeof t[type] !== "object" && (t[type] = {});
             id = id || baidu.lang.guid();
             handler.hashCode = id;
             t[type][id] = handler;
@@ -239,7 +239,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             event.currentTarget = this;
             p.indexOf("on") != 0 && (p = "on" + p);
             baidu.lang.isFunction(this[p]) && this[p].apply(this, arguments);
-            if (typeof t[p] == "object") {
+            if (typeof t[p] === "object") {
                 for (i in t[p]) {
                     t[p][i].apply(this, arguments);
                 }
@@ -275,7 +275,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             subClass.prototype.constructor = subClass;
             subClass.superClass = superClass.prototype;
 
-            if ("string" == typeof className) {
+            if ("string" === typeof className) {
                 proto._className = className;
             }
         };
@@ -311,7 +311,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
          * @returns {HTMLElement|null} 获取的元素，查找不到时返回null,如果参数不合法，直接返回参数
          */
         baidu.g = baidu.dom.g = function (id) {
-            if ('string' == typeof id || id instanceof String) {
+            if ('string' === typeof id || id instanceof String) {
                 return document.getElementById(id);
             } else if (id && id.nodeName && (id.nodeType == 1 || id.nodeType == 9)) {
                 return id;
@@ -340,7 +340,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
          */
         baidu.insertHTML = baidu.dom.insertHTML = function (element, position, html) {
             element = baidu.dom.g(element);
-            var range,begin;
+            var range, begin;
 
             if (element.insertAdjacentHTML) {
                 element.insertAdjacentHTML(position, html);
@@ -387,9 +387,9 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
                 l = classArray.length;
 
             for (; i < l; i++){
-                 if ( classMatch.indexOf( " " + classArray[i] + " " ) < 0 ) {
-                     result += (result ? ' ' : '') + classArray[i];
-                 }
+                if ( classMatch.indexOf( " " + classArray[i] + " " ) < 0 ) {
+                    result += (result ? ' ' : '') + classArray[i];
+                }
             }
 
             element.className = result;
@@ -436,12 +436,12 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             var realListener = function (ev) {
                 // 1. 这里不支持EventArgument,  原因是跨frame的事件挂载
                 // 2. element是为了修正this
-                listener.call(element, ev);
-            },
-            lis = baidu.event._listeners,
-            filter = baidu.event._eventFilter,
-            afterFilter,
-            realType = type;
+                    listener.call(element, ev);
+                },
+                lis = baidu.event._listeners,
+                filter = baidu.event._eventFilter,
+                afterFilter,
+                realType = type;
             type = type.toLowerCase();
             // filter过滤
             if(filter && filter[type]){
@@ -517,7 +517,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
          */
         baidu.getEvent = baidu.event.getEvent = function (event) {
             return window.event || event;
-        }
+        };
 
         /**
          * 获取event.target,解决不同浏览器兼容问题
@@ -527,7 +527,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
         baidu.getTarget = baidu.event.getTarget = function (event) {
             var event = baidu.getEvent(event);
             return event.target || event.srcElement;
-        }
+        };
 
         /**
          * 阻止事件的默认行为
@@ -538,12 +538,12 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
          * @meta standard
          */
         baidu.preventDefault = baidu.event.preventDefault = function (event) {
-           var event = baidu.getEvent(event);
-           if (event.preventDefault) {
-               event.preventDefault();
-           } else {
-               event.returnValue = false;
-           }
+            var event = baidu.getEvent(event);
+            if (event.preventDefault) {
+                event.preventDefault();
+            } else {
+                event.returnValue = false;
+            }
         };
 
         /**
@@ -553,7 +553,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
         baidu.stopBubble = baidu.event.stopBubble = function (event) {
             event = baidu.getEvent(event);
             event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
-        }
+        };
 
     })();
 
@@ -614,7 +614,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             opts = opts || {};
 
             this._initialize(map, opts);
-        }
+        };
 
     // 通过baidu.lang下的inherits方法，让DrawingManager继承baidu.lang.Class
     baidu.lang.inherits(DrawingManager, baidu.lang.Class, "DrawingManager");
@@ -633,7 +633,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
         closeInstanceExcept(this);
 
         this._open();
-    }
+    };
 
     /**
      * 关闭地图的绘制状态
@@ -649,7 +649,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
         }
 
         this._close();
-    }
+    };
 
     /**
      * 设置当前的绘制模式，参数DrawingType，为5个可选常量:
@@ -670,7 +670,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             closeInstanceExcept(this);
             this._setDrawingMode(drawingType);
         }
-    }
+    };
 
     /**
      * 获取当前的绘制模式
@@ -681,7 +681,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
      */
     DrawingManager.prototype.getDrawingMode = function() {
         return this._drawingType;
-    }
+    };
 
     /**
      * 打开距离或面积计算
@@ -692,7 +692,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
     DrawingManager.prototype.enableCalculate = function() {
         this._enableCalculate = true;
         this._addGeoUtilsLibrary();
-    }
+    };
 
     /**
      * 关闭距离或面积计算
@@ -702,9 +702,9 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
      */
     DrawingManager.prototype.disableCalculate = function() {
         this._enableCalculate = false;
-    }
+    };
 
-	/**
+    /**
    	 * 鼠标绘制完成后，派发总事件的接口
      * @name DrawingManager#overlaycomplete
      * @event
@@ -845,7 +845,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
         this._map.addOverlay(this._mask);
         this._setDrawingMode(this._drawingType);
 
-    }
+    };
 
     /**
      * 设置当前的绘制模式
@@ -863,19 +863,19 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             this._mask.__listeners = {};
 
             switch (drawingType) {
-                case BMAP_DRAWING_MARKER:
-                    this._bindMarker();
-                    break;
-                case BMAP_DRAWING_CIRCLE:
-                    this._bindCircle();
-                    break;
-                case BMAP_DRAWING_POLYLINE:
-                case BMAP_DRAWING_POLYGON:
-                    this._bindPolylineOrPolygon();
-                    break;
-                case BMAP_DRAWING_RECTANGLE:
-                    this._bindRectangle();
-                    break;
+            case BMAP_DRAWING_MARKER:
+                this._bindMarker();
+                break;
+            case BMAP_DRAWING_CIRCLE:
+                this._bindCircle();
+                break;
+            case BMAP_DRAWING_POLYLINE:
+            case BMAP_DRAWING_POLYGON:
+                this._bindPolylineOrPolygon();
+                break;
+            case BMAP_DRAWING_RECTANGLE:
+                this._bindRectangle();
+                break;
             }
         }
 
@@ -885,7 +885,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
         if (this._drawingTool && this._isOpen) {
             this._drawingTool.setStyleByDrawingMode(drawingType);
         }
-    }
+    };
 
     /**
      * 关闭地图的绘制状态
@@ -905,7 +905,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
         if (this._drawingTool) {
             this._drawingTool.setStyleByDrawingMode("hander");
         }
-    }
+    };
 
     /**
      * 绑定鼠标画点的事件
@@ -924,10 +924,10 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             var marker = new BMap.Marker(e.point, me.markerOptions);
             map.addOverlay(marker);
             me._dispatchOverlayComplete(marker);
-        }
+        };
 
         mask.addEventListener('click', clickAction);
-    }
+    };
 
     /**
      * 绑定鼠标画圆的事件
@@ -950,14 +950,14 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             mask.enableEdgeMove();
             mask.addEventListener('mousemove', moveAction);
             baidu.on(document, 'mouseup', endAction);
-        }
+        };
 
         /**
          * 绘制圆形过程中，鼠标移动过程的事件
          */
         var moveAction = function(e) {
             circle.setRadius(me._map.getDistance(centerPoint, e.point));
-        }
+        };
 
         /**
          * 绘制圆形结束
@@ -969,7 +969,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             mask.disableEdgeMove();
             mask.removeEventListener('mousemove', moveAction);
             baidu.un(document, 'mouseup', endAction);
-        }
+        };
 
         /**
          * 鼠标点击起始点
@@ -980,10 +980,10 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             if (centerPoint == null) {
                 startAction(e);
             } 
-        }
+        };
 
         mask.addEventListener('mousedown', mousedownAction);
-    }
+    };
 
     /**
      * 画线和画多边形相似性比较大，公用一个方法
@@ -995,8 +995,8 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             mask         = this._mask,
             points       = [],   //用户绘制的点
             drawPoint    = null; //实际需要画在地图上的点
-            overlay      = null,
-            isBinded     = false;
+        overlay      = null,
+        isBinded     = false;
 
         /**
          * 鼠标点击的事件
@@ -1020,14 +1020,14 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
                 mask.addEventListener('mousemove', mousemoveAction);
                 mask.addEventListener('dblclick', dblclickAction);
             }
-        }
+        };
 
         /**
          * 鼠标移动过程的事件
          */
         var mousemoveAction = function(e) {
             overlay.setPositionAt(drawPoint.length - 1, e.point);
-        }
+        };
 
         /**
          * 鼠标双击的事件
@@ -1043,7 +1043,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             me._dispatchOverlayComplete(overlay, calculate);
             points.length = 0;
             drawPoint.length = 0;
-        }
+        };
 
         mask.addEventListener('click', startAction);
 
@@ -1051,7 +1051,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
         mask.addEventListener('dblclick', function(e){
             baidu.stopBubble(e);
         });
-    }
+    };
 
     /**
      * 绑定鼠标画矩形的事件
@@ -1077,14 +1077,14 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             mask.enableEdgeMove();
             mask.addEventListener('mousemove', moveAction);
             baidu.on(document, 'mouseup', endAction);
-        }
+        };
 
         /**
          * 绘制矩形过程中，鼠标移动过程的事件
          */
         var moveAction = function(e) {
             polygon.setPath(me._getRectanglePoint(startPoint, e.point));
-        }
+        };
 
         /**
          * 绘制矩形结束
@@ -1096,10 +1096,10 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             mask.disableEdgeMove();
             mask.removeEventListener('mousemove', moveAction);
             baidu.un(document, 'mouseup', endAction);
-        }
+        };
 
         mask.addEventListener('mousedown', startAction);
-    }
+    };
 
     /**
      * 添加显示所绘制图形的面积或者长度
@@ -1115,16 +1115,16 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             var type = overlay.toString();
             //不同覆盖物调用不同的计算方法
             switch (type) {
-                case "[object Polyline]":
-                    result.data = BMapLib.GeoUtils.getPolylineDistance(overlay);
-                    break;
-                case "[object Polygon]":
-                    result.data = BMapLib.GeoUtils.getPolygonArea(overlay);
-                    break;
-                case "[object Circle]":
-                    var radius = overlay.getRadius();
-                    result.data = Math.PI * radius * radius;
-                    break;
+            case "[object Polyline]":
+                result.data = BMapLib.GeoUtils.getPolylineDistance(overlay);
+                break;
+            case "[object Polygon]":
+                result.data = BMapLib.GeoUtils.getPolygonArea(overlay);
+                break;
+            case "[object Circle]":
+                var radius = overlay.getRadius();
+                result.data = Math.PI * radius * radius;
+                break;
             }
             //一场情况处理
             if (!result.data || result.data < 0) {
@@ -1136,7 +1136,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             result.label = this._addLabel(point, result.data);
         }
         return result;
-    }
+    };
 
     /**
      * 开启测距和测面功能需要依赖于GeoUtils库
@@ -1149,7 +1149,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             script.setAttribute("src", 'http://api.map.baidu.com/library/GeoUtils/1.2/src/GeoUtils_min.js');
             document.body.appendChild(script);
         }
-    }
+    };
 
     /**
      * 向地图中添加文本标注
@@ -1162,7 +1162,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
         });
         this._map.addOverlay(label);
         return label;
-    }
+    };
 
     /**
      * 根据起终点获取矩形的四个顶点
@@ -1171,12 +1171,12 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
      */
     DrawingManager.prototype._getRectanglePoint = function (startPoint, endPoint) {
         return [
-            new BMap.Point(startPoint.lng,startPoint.lat),
-            new BMap.Point(endPoint.lng,startPoint.lat),
-            new BMap.Point(endPoint.lng,endPoint.lat),
-            new BMap.Point(startPoint.lng,endPoint.lat)
+            new BMap.Point(startPoint.lng, startPoint.lat),
+            new BMap.Point(endPoint.lng, startPoint.lat),
+            new BMap.Point(endPoint.lng, endPoint.lat),
+            new BMap.Point(startPoint.lng, endPoint.lat)
         ];
-    }
+    };
 
     /**
      * 派发事件
@@ -1192,7 +1192,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
         }
         this.dispatchEvent(this._drawingType + 'complete', overlay);
         this.dispatchEvent('overlaycomplete', options);
-    }
+    };
 
     /**
      * 创建遮罩对象
@@ -1240,7 +1240,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
      */
     Mask.prototype.enableEdgeMove = function() {
         this._enableEdgeMove = true;
-    }
+    };
 
     /**
      * 关闭鼠标到地图边缘，自动平移地图
@@ -1248,7 +1248,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
     Mask.prototype.disableEdgeMove = function() {
         clearInterval(this._edgeMoveTimer);
         this._enableEdgeMove = false;
-    }
+    };
 
     /**
      * 绑定事件,派发自定义事件
@@ -1270,18 +1270,18 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             return {
                 x : e.clientX,
                 y : e.clientY
-            }
+            };
         };
 
         var domEvent = function(e) {
             var type = e.type;
-                e = baidu.getEvent(e);
-                point = me.getDrawPoint(e); //当前鼠标所在点的地理坐标
+            e = baidu.getEvent(e);
+            point = me.getDrawPoint(e); //当前鼠标所在点的地理坐标
 
             var dispatchEvent = function(type) {
                 e.point = point;
                 me.dispatchEvent(e);
-            }
+            };
 
             if (type == "mousedown") {
                 lastMousedownXY = getXYbyEvent(e);
@@ -1302,7 +1302,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             } else {
                 dispatchEvent(type);
             }
-        }
+        };
 
         /**
          * 将事件都遮罩层的事件都绑定到domEvent来处理
@@ -1371,7 +1371,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
                 this._edgeMoveTimer = null;
             }
         }
-    }
+    };
 
     /*
      * 调整大小
@@ -1391,9 +1391,9 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
     Mask.prototype.getDrawPoint = function(e) {
         
         var map = this._map,
-        trigger = baidu.getTarget(e),
-        x = e.offsetX || e.layerX || 0,
-        y = e.offsetY || e.layerY || 0;
+            trigger = baidu.getTarget(e),
+            x = e.offsetX || e.layerX || 0,
+            y = e.offsetY || e.layerY || 0;
         if (trigger.nodeType != 1) trigger = trigger.parentNode;
         while (trigger && trigger != map.getContainer()) {
             if (!(trigger.clientWidth == 0 &&
@@ -1408,7 +1408,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
         var point = map.pixelToPoint(pixel);
         return point;
 
-    }
+    };
 
     /**
      * 绘制工具面板，自定义控件
@@ -1433,7 +1433,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
         if (drawingToolOptions.drawingModes) {
             this.drawingModes = drawingToolOptions.drawingModes;
         } else {
-            this.drawingModes = this.defaultDrawingModes
+            this.drawingModes = this.defaultDrawingModes;
         }
 
         //用户设置停靠位置和偏移量
@@ -1469,7 +1469,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
         map.getContainer().appendChild(container);
         // 将DOM元素返回
         return container;
-    }
+    };
 
     //生成工具栏的html元素
     DrawingTool.prototype._generalHtml = function(map){
@@ -1485,7 +1485,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
 
         var getItem = function(className, drawingType) {
             return '<a class="' + className + '" drawingType="' + drawingType + '" href="javascript:void(0)" title="' + tips[drawingType] + '" onfocus="this.blur()"></a>';
-        }
+        };
 
         var html = [];
         html.push(getItem("BMapLib_box BMapLib_hander", "hander"));
@@ -1497,7 +1497,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             html.push(getItem(classStr, this.drawingModes[i]));
         }
         return html.join('');
-    }
+    };
 
     /**
      * 设置工具栏的缩放比例
@@ -1526,7 +1526,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             "M22=" + scale + ",",
             "SizingMethod='auto expand');"
         ].join('');
-    }
+    };
 
     //绑定工具栏的事件
     DrawingTool.prototype._bind = function(panel){
@@ -1537,7 +1537,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             me.setStyleByDrawingMode(drawingType);
             me._bindEventByDraingMode(drawingType);
         });
-    }
+    };
 
     //设置工具栏当前选中的项样式
     DrawingTool.prototype.setStyleByDrawingMode = function(drawingType){
@@ -1557,7 +1557,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
                 box.className = box.className.replace(/_hover/, "");
             }
         }
-    }
+    };
 
     //设置工具栏当前选中的项样式
     DrawingTool.prototype._bindEventByDraingMode = function(drawingType){
@@ -1569,7 +1569,7 @@ var BMAP_DRAWING_MARKER    = "marker",     // 鼠标画点模式
             drawingManager.setDrawingMode(drawingType);
             drawingManager.open();
         }
-    }
+    };
 
     //用来存储用户实例化出来的drawingmanager对象
     var instances = [];

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {AMapAsync,LocaAsync,BMapAsync} from '@js/AsyncCDN.js';
+import {AMapAsync, LocaAsync, BMapAsync} from '@js/AsyncCDN.js';
 import './aMap.less';
 import data from './data.json';// 市县位置数据
 
@@ -80,8 +80,8 @@ export default class AMapDemo extends Component {
     async renderBMap(){
         let BMap = await BMapAsync();
         let map = new BMap.Map('bMapDemoContainer');
-        map.centerAndZoom(new BMap.Point(104.070367,30.579786), 18);
-            // 百度地图API功能
+        map.centerAndZoom(new BMap.Point(104.070367, 30.579786), 18);
+        // 百度地图API功能
 
         this.BmapClass = map;
         this.BMapClass = BMap;
@@ -111,7 +111,7 @@ export default class AMapDemo extends Component {
 
         // this.BmapClass = map;
         // this.BMapClass = BMap;
-        var myKeys = ['超市','餐厅（饭馆）','公司','政府单位','金融科技大厦','网点','便利店（24小时）'];
+        var myKeys = ['超市', '餐厅（饭馆）', '公司', '政府单位', '金融科技大厦', '网点', '便利店（24小时）'];
         var local = new this.BMapClass.LocalSearch(this.BmapClass, {
             renderOptions:{map: this.BmapClass, panel:"r-result"},
             pageCapacity:1
@@ -119,19 +119,19 @@ export default class AMapDemo extends Component {
         local.searchInBounds(myKeys, this.BmapClass.getBounds());
         local.setSearchCompleteCallback(function(data){
             console.log(data);
-            let newData = data.reduce((prev,item)=>{
+            let newData = data.reduce((prev, item)=>{
 
-                prev.data[item.keyword]=item.Ar
+                prev.data[item.keyword]=item.Ar;
                 prev.totalNum+=item.Ar.length;
 
-                return prev
+                return prev;
 
-            },{
+            }, {
                 data:{},
                 totalNum:0
             });
             console.log(JSON.stringify(newData));
-        })
+        });
 
     }
 

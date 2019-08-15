@@ -7,7 +7,7 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const webpack = require('webpack');
 const paths = require('./paths');
 const url = require('url');
-const {iconFontCDNUrl,proIconFontDirectory,iconfontFileName,fetchPrefix,useKeepAlive} = require('./config.custom.js');
+const {iconFontCDNUrl, proIconFontDirectory, iconfontFileName, fetchPrefix, useKeepAlive} = require('./config.custom.js');
 // const { ReactLoadablePlugin } = require('react-loadable/webpack');
 // const HappyPack = require('happypack');
 // const os = require('os');
@@ -19,7 +19,7 @@ function common(config) {
     entry
     */
 
-    let originEntry = config.entry
+    let originEntry = config.entry;
 
     config.entry = {
         main: [
@@ -38,7 +38,7 @@ function common(config) {
             require.resolve('prop-types'),
             require.resolve(path.join(paths.appSrc, 'public', '/js/vendor.js'))
         ]
-    }
+    };
 
     /*
     alias
@@ -78,9 +78,9 @@ function common(config) {
                 { "libraryName": "antd", "libraryDirectory": "es", "style": "css" },
                 { "libraryName": "@common",
                     "customName": (name) => {
-                        let nameToUpperCase = name.replace(/-(\w)/g,function ($0,$1){
+                        let nameToUpperCase = name.replace(/-(\w)/g, function ($0, $1){
                             return $1.toUpperCase();
-                        })
+                        });
                         return `@common/${nameToUpperCase}/${nameToUpperCase}.jsx`;
                     }
                 }
@@ -153,8 +153,8 @@ exports.dev = function(config) {
         filename: path.join('static/js/[name].js')
     }));
     config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      minChunks: Infinity
+        name: 'manifest',
+        minChunks: Infinity
     }));
 
     config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
@@ -301,7 +301,7 @@ exports.dev = function(config) {
 
     return config;
 
-}
+};
 
 exports.prod = function(config, {
     shouldUseSourceMap,
@@ -365,19 +365,19 @@ exports.prod = function(config, {
 
 
 
-// {
-//       name: 'vendor',
-//       minChunks (module) {
-//         // any required modules inside node_modules are extracted to vendor
-//         return (
-//           module.resource &&
-//           /\.js$/.test(module.resource) &&
-//           module.resource.indexOf(
-//             path.join(__dirname, '../node_modules')
-//           ) === 0
-//         )
-//       }
-//     }
+    // {
+    //       name: 'vendor',
+    //       minChunks (module) {
+    //         // any required modules inside node_modules are extracted to vendor
+    //         return (
+    //           module.resource &&
+    //           /\.js$/.test(module.resource) &&
+    //           module.resource.indexOf(
+    //             path.join(__dirname, '../node_modules')
+    //           ) === 0
+    //         )
+    //       }
+    //     }
 
     //plugins
     config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
@@ -386,8 +386,8 @@ exports.prod = function(config, {
     }));
 
     config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      minChunks: Infinity
+        name: 'manifest',
+        minChunks: Infinity
     }));
 
     config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
@@ -415,10 +415,10 @@ exports.prod = function(config, {
         console.error('ExtractTextPlugin fail!');
     }
 
-//     config.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/,/moment$/));
-// config.plugins.push(new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/,/zh-cn/));
+    //     config.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/,/moment$/));
+    // config.plugins.push(new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/,/zh-cn/));
     return config;
-}
+};
 
 
 
