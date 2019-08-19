@@ -63,7 +63,7 @@ fetch.default({
         if(!/^((ht|f)tps?):\/\/[\s\S]+\/[\s\S]+\.[\s\S]+$/.test(response.url)){
 
             if (response.ok===false) {
-                message.error(`${response.status}\n${response.statusText}`);
+                message.error(`网络异常`);
                 return {}
             }
 
