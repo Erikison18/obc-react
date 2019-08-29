@@ -1,5 +1,6 @@
 const path = require('path');
-const homepage = require('./paths').servedPath;
+// const homepage = require('./paths').servedPath;
+const homepage = require("react-app-rewired").paths.servedPath;
 module.exports = {
     //本地开发设置iconfont cdn 地址 注意每次ui修改iconfont后都会生成最新的cdn地址，记得及时替换。
     iconFontCDNUrl:'//at.alicdn.com/t/font_639300_3fp1riujcg5.css',

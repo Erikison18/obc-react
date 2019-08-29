@@ -1,0 +1,12 @@
+.App {
+  text-align: center;
+}
+
+
+.aa{
+    height: 100px;
+    width: 100px;
+    background-color: red;
+    box-sizing: border-box;
+    display: flex;
+}

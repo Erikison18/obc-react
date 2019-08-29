@@ -1,7 +1,8 @@
 const request = require('request');
 const fs = require('fs');
 const fse = require('fs-extra');
-const paths = require('./paths');
+// const paths = require('./paths');
+const { paths } = require("react-app-rewired");
 const path = require('path');
 let {iconFontCDNUrl,proIconFontDirectory,iconfontFileName} = require('./config.custom.js');
 // const stream = require('stream');
