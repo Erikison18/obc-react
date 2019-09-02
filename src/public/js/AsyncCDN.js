@@ -2,7 +2,6 @@ const mapPath = document.body.getAttribute('mapPath');
 const pictureType = document.body.getAttribute('pictureType');
 //高德api
 
-console.log(23123)
 export const AMapAsync=(optins={})=>{
 
     let {plugin}=optins;

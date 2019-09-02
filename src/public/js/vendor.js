@@ -10,7 +10,7 @@
 // import 'fetch-default';
 
 (function(win) {
-    console.log(232);
+
     let oldFetch = fetch;
 
     class ModificationFetch {
