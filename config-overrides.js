@@ -7,6 +7,7 @@ const {
     addWebpackPlugin,
     addWebpackAlias,
     addBundleVisualizer,
+    addDecoratorsLegacy,
     addWebpackModuleRule,
     useBabelRc,
     addPostcssPlugins
@@ -31,30 +32,31 @@ const { paths } = require("react-app-rewired");
 module.exports = override(
     config => {
         console.log(config.plugins);
+        console.log(__dirname);
         return config;
     },
 
     // 原始配置
     config => {
-        let originEntry = config.entry;
-        config.entry = {
-            main: [...originEntry],
-            vendors: [
-                // ...originEntry,
-                require.resolve("babel-polyfill"),
-                require.resolve("fetch-polyfill"),
-                require.resolve("raf/polyfill"),
-                require.resolve("react"),
-                require.resolve("react-dom"),
-                require.resolve("react-router-dom"),
-                require.resolve("redux"),
-                require.resolve("react-redux"),
-                require.resolve("prop-types"),
-                require.resolve(
-                    path.join(paths.appSrc, "public", "/js/vendor.js")
-                )
-            ]
-        };
+        // let originEntry = config.entry;
+        // config.entry = {
+        //     main: [...originEntry],
+        //     vendors: [
+        //         // ...originEntry,
+        //         require.resolve("@babel/polyfill"),
+        //         require.resolve("fetch-polyfill"),
+        //         require.resolve("raf/polyfill"),
+        //         require.resolve("react"),
+        //         require.resolve("react-dom"),
+        //         require.resolve("react-router-dom"),
+        //         require.resolve("redux"),
+        //         require.resolve("react-redux"),
+        //         require.resolve("prop-types"),
+        //         require.resolve(
+        //             path.join(paths.appSrc, "public", "/js/vendor.js")
+        //         )
+        //     ]
+        // };
 
         config.plugins.unshift(
             new webpack.DefinePlugin({
@@ -68,11 +70,11 @@ module.exports = override(
         );
 
         // 自动识别后缀添加 less 类型
-        paths.moduleFileExtensions.push("less");
+        // paths.moduleFileExtensions.push("less");
 
-        // 添加 less
-        const arrLength = config.module.rules[2].oneOf.length - 1;
-        config.module.rules[2].oneOf[arrLength].exclude.push(/\.less$/);
+        // // 添加 less
+        // const arrLength = config.module.rules[2].oneOf.length - 1;
+        // config.module.rules[2].oneOf[arrLength].exclude.push(/\.less$/);
 
         // 按需加载对应组件
         config.module.rules[2].oneOf[1].options.plugins = [
@@ -99,38 +101,39 @@ module.exports = override(
             ]
         ];
 
-        config.optimization.splitChunks = {
-            chunks: "all",
-            name: true,
-            cacheGroups: {
-                vendors: {
-                    minChunks: 2,
-                    name: "vendors"
-                },
-                manifest: {
-                    name: "manifest",
-                    minChunks: Infinity
-                },
-                main: {
-                    name: "main",
-                    minChunks: 3
-                }
-            }
-        };
+        // config.optimization.splitChunks = {
+        //     chunks: "all",
+        //     name: true,
+        //     cacheGroups: {
+        //         vendors: {
+        //             minChunks: 2,
+        //             name: "vendors",
+        //             enforce: true
+        //         },
+        //         // manifest: {
+        //         //     name: "manifest",
+        //         //     minChunks: Infinity
+        //         // },
+        //         // main: {
+        //         //     name: "main",
+        //         //     minChunks: 3
+        //         // }
+        //     }
+        // };
 
         return config;
     },
 
     // 添加别名
     addWebpackAlias({
-        "@src": path.join(__dirname, "../src"),
-        "@router": path.join(__dirname, "../src/router"),
-        "@redux": path.join(__dirname, "../src/redux"),
-        "@models": path.join(__dirname, "../src/redux/models"),
-        "@middleware": path.join(__dirname, "../src/redux/middleware"),
-        "@components": path.join(__dirname, "../src/components"),
-        "@layout": path.join(__dirname, "../src/components/layout"),
-        "@common": path.join(__dirname, "../src/components/common"),
+        "@src": path.join(__dirname, "/src"),
+        "@router": path.join(__dirname, "/src/router"),
+        "@redux": path.join(__dirname, "/src/redux"),
+        "@models": path.join(__dirname, "/src/redux/models"),
+        "@middleware": path.join(__dirname, "/src/redux/middleware"),
+        "@components": path.join(__dirname, "/src/components"),
+        "@layout": path.join(__dirname, "/src/components/layout"),
+        "@common": path.join(__dirname, "/src/components/common"),
         "@js": path.join(paths.appSrc, "public", "/js"),
         "@style": path.join(paths.appSrc, "public", "/style"),
         "@img": path.join(paths.appSrc, "public", "/img"),
@@ -149,7 +152,12 @@ module.exports = override(
     addLessLoader(),
 
     // 添加 babelrc 配置
+
+
+
     useBabelRc(),
+
+    // addDecoratorsLegacy(),
 
     // antd 组件按需加载
     // fixBabelImports("import", {
@@ -179,7 +187,7 @@ module.exports = override(
     process.env.NODE_ENV === "production" &&
         addWebpackPlugin(
             new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
-                ICON_FONT_SOUCE: "123"
+                REACT_APP_ICON_FONT_SOUCE: "123"
                 // ICON_FONT_SOUCE:
                 //     iconFontCDNUrl && proIconFontDirectory && iconfontFileName
                 //         ? `<link rel="stylesheet" href="${proIconFontDirectory}/${iconfontFileName}.css">`
@@ -189,7 +197,7 @@ module.exports = override(
     process.env.NODE_ENV === "development" &&
         addWebpackPlugin(
             new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
-                ICON_FONT_SOUCE: iconFontCDNUrl
+                REACT_APP_ICON_FONT_SOUCE: iconFontCDNUrl
                     ? `<link rel="stylesheet" href="${iconFontCDNUrl}">`
                     : ""
             })

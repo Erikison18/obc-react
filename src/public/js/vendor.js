@@ -9,9 +9,8 @@
 
 // import 'fetch-default';
 
-
 (function(win) {
-
+    console.log(232);
     let oldFetch = fetch;
 
     class ModificationFetch {
@@ -123,6 +122,7 @@
     let dataFilter;
     let fail;
     let beforeSend;
+
 
     fetch.default = (option = {}) => {
 
