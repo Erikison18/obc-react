@@ -13,7 +13,7 @@ import {
 } from 'react-redux';
 
 import {
-    LocaleProvider,
+    ConfigProvider,
     message
 } from 'antd';
 import 'moment/locale/zh-cn';
@@ -134,7 +134,7 @@ const getConfirmation = (pathname, callback) => {
 class App extends Component {
     render() {
         return (
-            <LocaleProvider locale={zh_CN}>
+            <ConfigProvider locale={zh_CN}>
                 <Provider store={store}>
                     <div style={{height:'100%'}}>
                         <ProgressBar/>
@@ -158,7 +158,7 @@ class App extends Component {
                         </Router>
                     </div>
                 </Provider>
-            </LocaleProvider>
+            </ConfigProvider>
         );
     }
 }

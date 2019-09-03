@@ -7,10 +7,7 @@ const {
     addWebpackPlugin,
     addWebpackAlias,
     addBundleVisualizer,
-    addDecoratorsLegacy,
-    addWebpackModuleRule,
-    useBabelRc,
-    addPostcssPlugins
+    useBabelRc
 } = require("customize-cra");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const es3ifyPlugin = require("es3ify-webpack-plugin");
@@ -31,8 +28,7 @@ const { paths } = require("react-app-rewired");
 
 module.exports = override(
     config => {
-        console.log(config.plugins);
-        console.log(__dirname);
+        // console.log(config.plugins);
         return config;
     },
 
@@ -101,6 +97,10 @@ module.exports = override(
             ]
         ];
 
+        if (useKeepAlive === true) {
+            config.resolve.alias["react-router-config"] = path.join(paths.appSrc,"public","/js/react-router-config.js");
+        }
+
         // config.optimization.splitChunks = {
         //     chunks: "all",
         //     name: true,
@@ -152,12 +152,7 @@ module.exports = override(
     addLessLoader(),
 
     // 添加 babelrc 配置
-
-
-
     useBabelRc(),
-
-    // addDecoratorsLegacy(),
 
     // antd 组件按需加载
     // fixBabelImports("import", {
@@ -183,15 +178,15 @@ module.exports = override(
     //     include: [require.resolve("@ant-design/icons/lib/dist")]
     // }),
 
-    process.env.NODE_ENV === "production" && addWebpackPlugin(new es3ifyPlugin()),
+    process.env.NODE_ENV === "production" &&
+        addWebpackPlugin(new es3ifyPlugin()),
     process.env.NODE_ENV === "production" &&
         addWebpackPlugin(
             new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
-                REACT_APP_ICON_FONT_SOUCE: "123"
-                // ICON_FONT_SOUCE:
-                //     iconFontCDNUrl && proIconFontDirectory && iconfontFileName
-                //         ? `<link rel="stylesheet" href="${proIconFontDirectory}/${iconfontFileName}.css">`
-                //         : ""
+                ICON_FONT_SOUCE:
+                    iconFontCDNUrl && proIconFontDirectory && iconfontFileName
+                        ? `<link rel="stylesheet" href="${proIconFontDirectory}/${iconfontFileName}.css">`
+                        : ""
             })
         ),
     process.env.NODE_ENV === "development" &&
@@ -207,7 +202,8 @@ module.exports = override(
     addWebpackPlugin(new ProgressBarPlugin()),
 
     config => {
-        console.log(config.plugins);
+        // console.log(config.plugins);
+        // console.log(config.resolve.alias);
         return config;
     }
 );
