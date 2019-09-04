@@ -34,25 +34,26 @@ module.exports = override(
 
     // 原始配置
     config => {
-        // let originEntry = config.entry;
-        // config.entry = {
-        //     main: [...originEntry],
-        //     vendors: [
-        //         // ...originEntry,
-        //         require.resolve("@babel/polyfill"),
-        //         require.resolve("fetch-polyfill"),
-        //         require.resolve("raf/polyfill"),
-        //         require.resolve("react"),
-        //         require.resolve("react-dom"),
-        //         require.resolve("react-router-dom"),
-        //         require.resolve("redux"),
-        //         require.resolve("react-redux"),
-        //         require.resolve("prop-types"),
-        //         require.resolve(
-        //             path.join(paths.appSrc, "public", "/js/vendor.js")
-        //         )
-        //     ]
-        // };
+        let originEntry = config.entry;
+        config.entry = {
+            main: [...originEntry],
+            vendors: [
+                // ...originEntry,
+                // require.resolve("@babel/polyfill"),
+                // require.resolve("fetch-polyfill"),
+                // require.resolve("raf/polyfill"),
+                // require.resolve("react"),
+                // require.resolve("react-dom"),
+                // require.resolve("react-router-dom"),
+                // require.resolve("redux"),
+                // require.resolve("react-redux"),
+                // require.resolve("prop-types"),
+                // require.resolve(
+                //     path.join(paths.appSrc, "public", "/js/vendor.js")
+                // )
+                '@babel/polyfill','fetch-polyfill',"raf/polyfill",'react','react-dom','react-router-dom','redux','react-redux'
+            ]
+        };
 
         config.plugins.unshift(
             new webpack.DefinePlugin({
@@ -101,25 +102,21 @@ module.exports = override(
             config.resolve.alias["react-router-config"] = path.join(paths.appSrc,"public","/js/react-router-config.js");
         }
 
-        // config.optimization.splitChunks = {
-        //     chunks: "all",
-        //     name: true,
-        //     cacheGroups: {
-        //         vendors: {
-        //             minChunks: 2,
-        //             name: "vendors",
-        //             enforce: true
-        //         },
-        //         // manifest: {
-        //         //     name: "manifest",
-        //         //     minChunks: Infinity
-        //         // },
-        //         // main: {
-        //         //     name: "main",
-        //         //     minChunks: 3
-        //         // }
-        //     }
-        // };
+        config.optimization.splitChunks = {
+            chunks: "all",
+            name: true,
+            cacheGroups: {
+                vendors: {
+                    name: "vendors",
+                    chunks:'initial',
+                    minChunks:2,
+                },
+                // main: {
+                //     name: "main",
+                //     minChunks: 3
+                // }
+            }
+        };
 
         return config;
     },

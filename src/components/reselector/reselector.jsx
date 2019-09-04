@@ -25,11 +25,12 @@ function toProps(mapComponents,parseData){
 let mapStateToProps = createSelector([getMapComponents, getParseData],toProps);
 
 
-export default
+
 @connect(
     mapStateToProps,
     (dispatch, ownProps) => bindActionCreators(actiontor, dispatch)
-) class Reselector extends Component {
+)
+class Reselector extends Component {
 
     componentDidMount() {
         this.props.reselectData();
@@ -47,3 +48,4 @@ export default
     }
 }
 
+export default Reselector;

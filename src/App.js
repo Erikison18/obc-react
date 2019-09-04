@@ -34,15 +34,9 @@ import routes from '@router';
 import { showLoading, hideLoading} from 'react-redux-loading-bar';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import {getAutoPathPrefix} from "@js/utils.js";
+
 import "./public/js/vendor"
-import 'babel-polyfill';
-import 'raf/polyfill';
-import 'react';
-import 'react-dom';
-import 'react-router-dom';
-import 'redux';
-import 'react-redux';
-// import 'prop-types';
+
 
 const autoPathPrefix = getAutoPathPrefix();
 

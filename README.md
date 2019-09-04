@@ -151,6 +151,8 @@ project
 配置相关
 * [react-app-rewired](https://github.com/timarney/react-app-rewired/blob/master/README_zh.md)
 * [customize-cra](https://github.com/arackaf/customize-cra/blob/master/api.md)
+* [webpack-4](https://juejin.im/post/5b56909a518825195f499806)
+
 
 ### 技术栈脑图
 * [er.png](../er.png)
