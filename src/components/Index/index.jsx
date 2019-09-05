@@ -7,7 +7,6 @@ import MapTool from './AMap';
 import SettingBar from './SettingBar'
 import './index.less';
 
-
 class Index extends Component {
     state = {
         stateOverlays: [],

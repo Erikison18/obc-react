@@ -51,10 +51,11 @@ module.exports = override(
                 // require.resolve(
                 //     path.join(paths.appSrc, "public", "/js/vendor.js")
                 // )
-                '@babel/polyfill','fetch-polyfill',"raf/polyfill",'react','react-dom','react-router-dom','redux','react-redux'
+                'core-js','regenerator-runtime','fetch-polyfill',"raf/polyfill",'react','react-dom','react-router-dom','redux','react-redux'   // 提取公共资源-1
             ]
         };
 
+        // 变量注入
         config.plugins.unshift(
             new webpack.DefinePlugin({
                 "process.env": {
@@ -98,10 +99,12 @@ module.exports = override(
             ]
         ];
 
+        // 组件缓存相关
         if (useKeepAlive === true) {
             config.resolve.alias["react-router-config"] = path.join(paths.appSrc,"public","/js/react-router-config.js");
         }
 
+        // 提取公共资源-2
         config.optimization.splitChunks = {
             chunks: "all",
             name: true,

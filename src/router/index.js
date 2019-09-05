@@ -71,6 +71,11 @@ let Index = RouterLoadable({
         import ('@components/Index'),
 });
 
+let Hooks = RouterLoadable({
+    loader: () =>
+        import ('@components/hooks'),
+});
+
 const routes = [{
 path: '/auth/:id',
     component: AuthLayout,
@@ -116,6 +121,10 @@ path: '/auth/:id',
 }, {
     path: '/reselector',
     component: Reselector,
+    exact: true
+}, {
+    path: '/hooks',
+    component: Hooks,
     exact: true
 }, {
     path: '/keepAlive/:id',
