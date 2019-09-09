@@ -51,7 +51,15 @@ module.exports = override(
                 // require.resolve(
                 //     path.join(paths.appSrc, "public", "/js/vendor.js")
                 // )
-                'core-js','regenerator-runtime','fetch-polyfill',"raf/polyfill",'react','react-dom','react-router-dom','redux','react-redux'   // 提取公共资源-1
+                "core-js",
+                "regenerator-runtime",
+                "fetch-polyfill",
+                "raf/polyfill",
+                "react",
+                "react-dom",
+                "react-router-dom",
+                "redux",
+                "react-redux" // 提取公共资源-1
             ]
         };
 
@@ -68,11 +76,7 @@ module.exports = override(
         );
 
         // 自动识别后缀添加 less 类型
-        // paths.moduleFileExtensions.push("less");
-
-        // // 添加 less
-        // const arrLength = config.module.rules[2].oneOf.length - 1;
-        // config.module.rules[2].oneOf[arrLength].exclude.push(/\.less$/);
+        config.resolve.extensions.push(".less");
 
         // 按需加载对应组件
         config.module.rules[2].oneOf[1].options.plugins = [
@@ -99,7 +103,7 @@ module.exports = override(
             ]
         ];
 
-        // 组件缓存相关
+        // 组件缓存相关别名设置
         if (useKeepAlive === true) {
             config.resolve.alias["react-router-config"] = path.join(paths.appSrc,"public","/js/react-router-config.js");
         }
@@ -111,15 +115,40 @@ module.exports = override(
             cacheGroups: {
                 vendors: {
                     name: "vendors",
-                    chunks:'initial',
-                    minChunks:2,
-                },
+                    chunks: "initial",
+                    minChunks: 2
+                }
                 // main: {
                 //     name: "main",
                 //     minChunks: 3
                 // }
             }
         };
+
+        process.env.NODE_ENV === "production" &&
+            config.plugins.push(new es3ifyPlugin());
+
+        // iconfont 图标资源加载
+        process.env.NODE_ENV === "production" &&
+            config.plugins.push(
+                new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
+                    ICON_FONT_SOUCE:
+                        iconFontCDNUrl &&
+                        proIconFontDirectory &&
+                        iconfontFileName
+                            ? `<link rel="stylesheet" href="${proIconFontDirectory}/${iconfontFileName}.css">`
+                            : ""
+                })
+            );
+
+        process.env.NODE_ENV === "development" &&
+            config.plugins.push(
+                new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
+                    ICON_FONT_SOUCE: iconFontCDNUrl
+                        ? `<link rel="stylesheet" href="${iconFontCDNUrl}">`
+                        : ""
+                })
+            );
 
         return config;
     },
@@ -178,32 +207,12 @@ module.exports = override(
     //     include: [require.resolve("@ant-design/icons/lib/dist")]
     // }),
 
-    process.env.NODE_ENV === "production" &&
-        addWebpackPlugin(new es3ifyPlugin()),
-    process.env.NODE_ENV === "production" &&
-        addWebpackPlugin(
-            new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
-                ICON_FONT_SOUCE:
-                    iconFontCDNUrl && proIconFontDirectory && iconfontFileName
-                        ? `<link rel="stylesheet" href="${proIconFontDirectory}/${iconfontFileName}.css">`
-                        : ""
-            })
-        ),
-    process.env.NODE_ENV === "development" &&
-        addWebpackPlugin(
-            new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
-                REACT_APP_ICON_FONT_SOUCE: iconFontCDNUrl
-                    ? `<link rel="stylesheet" href="${iconFontCDNUrl}">`
-                    : ""
-            })
-        ),
-
     // 添加编译进度插件
     addWebpackPlugin(new ProgressBarPlugin()),
 
     config => {
+        // 这里只是输出一下配置进行检查
         // console.log(config.plugins);
-        // console.log(config.resolve.alias);
         return config;
     }
 );

@@ -5,7 +5,7 @@ import { Radio, message } from 'antd';
 
 import MapTool from './AMap';
 import SettingBar from './SettingBar'
-import './index.less';
+import './indexStyle';
 
 class Index extends Component {
     state = {

@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "start": "node config/downloadIconFontFile.js && react-app-rewired start",
+        "start": "react-app-rewired start",
         "build": "node config/downloadIconFontFile.js && react-app-rewired build",
         "test": "react-app-rewired test",
         "eject": "react-scripts eject",
