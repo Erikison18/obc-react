@@ -1,5 +1,8 @@
 const mapPath = document.body.getAttribute('mapPath');
 const pictureType = document.body.getAttribute('pictureType');
+
+export const EmEditAsync=()=>loadScript('http://127.0.0.1:7001/3m/edit?v=test&key=onhzbc00sfot4oek','EmEdit');
+
 //高德api
 export const AMapAsync=(optins={})=>{
 
