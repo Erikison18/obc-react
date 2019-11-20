@@ -65,7 +65,10 @@ let KeepAlive= RouterLoadable({
         import ('@components/keepAlive/keepAlive.jsx'),
 });
 
-
+let EmEdit = RouterLoadable({
+    loader: () =>
+        import ('@components/emEdit/emEdit.jsx'),
+});
 
 
 
@@ -123,6 +126,10 @@ const routes = [{
 }, {
     path: '/keepAlive/:id',
     component: KeepAlive,
+    exact: true
+}, {
+    path: '/em/edit',
+    component: EmEdit,
     exact: true
 }, {
     path: '/',

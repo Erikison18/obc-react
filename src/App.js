@@ -32,6 +32,7 @@ import './App.less';
 import { renderRoutes, matchRoutes } from 'react-router-config';
 import routes from '@router';
 import { showLoading, hideLoading} from 'react-redux-loading-bar';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import {getAutoPathPrefix} from "@js/utils.js";
 
 const autoPathPrefix = getAutoPathPrefix();
@@ -62,8 +63,8 @@ fetch.default({
         if(!/^((ht|f)tps?):\/\/[\s\S]+\/[\s\S]+\.[\s\S]+$/.test(response.url)){
 
             if (response.ok===false) {
-                message.error(`${response.status}\n${response.statusText}`);
-                return {};
+                message.error(`网络异常`);
+                return {}
             }
 
             let data = await response.json();

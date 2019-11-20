@@ -308,7 +308,6 @@ exports.prod = function(config, {
     extractTextPluginOptions,
     cssFilename
 }) {
-
     config = common(config);
 
     //添加polyfill
