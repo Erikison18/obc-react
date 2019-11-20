@@ -150,6 +150,8 @@ project
 * [fetch](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch)
 * [ducks-modular-redux](https://github.com/erikras/ducks-modular-redux)
 * [react-router-config](https://www.npmjs.com/package/react-router-config)
+* [eslint](https://cn.eslint.org)
+
 
 
 ### 技术栈脑图
@@ -159,5 +161,4 @@ project
 	
 	
 
-	
 	
