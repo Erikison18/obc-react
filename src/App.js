@@ -32,7 +32,6 @@ import './App.less';
 import { renderRoutes, matchRoutes } from 'react-router-config';
 import routes from '@router';
 import { showLoading, hideLoading} from 'react-redux-loading-bar';
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 import {getAutoPathPrefix} from "@js/utils.js";
 
 const autoPathPrefix = getAutoPathPrefix();
@@ -64,7 +63,7 @@ fetch.default({
 
             if (response.ok===false) {
                 message.error(`网络异常`);
-                return {}
+                return {};
             }
 
             let data = await response.json();

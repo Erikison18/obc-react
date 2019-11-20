@@ -75,6 +75,7 @@
         "start": "node scripts/start.js",
         "build": "node config/downloadIconFontFile.js && node scripts/build.js",
         "test": "node scripts/test.js --env=jsdom",
+        "lint": "eslint --fix --ext .jsx --ext .js src/",
         "analyz": "node config/downloadIconFontFile.js && node scripts/build.js --npm_config_report=true"
     },
     "jest": {

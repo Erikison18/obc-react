@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {AMapAsync,EmEditAsync} from '@js/AsyncCDN.js';
+import {AMapAsync, EmEditAsync} from '@js/AsyncCDN.js';
 import './aMap.less';
 import treeObj from './tree.obj';
 import modelObj from './model.obj';
@@ -9,11 +9,11 @@ let data = {
     objects:[
         {
             paths:[
-                [106.532066,29.622376],
-                [106.52307,29.617414],
-                [106.526619,29.619541],
-                [106.526019,29.622376],
-                [106.523585,29.622824]
+                [106.532066, 29.622376],
+                [106.52307, 29.617414],
+                [106.526619, 29.619541],
+                [106.526019, 29.622376],
+                [106.523585, 29.622824]
             ],
             geometryParameters:{
                 depth:3000,
@@ -26,19 +26,19 @@ let data = {
             //     opacity:.8,
             //     flatShading:true
             // },
-            offset:[0,0,2000],
+            offset:[0, 0, 2000],
             type:'POLYGON'
         },
         {
             paths:[
-                [106.534066,29.622376],
-                [106.523078,29.617414],
-                [106.526619,29.619841],
-                [106.527019,29.622376],
-                [106.523585,29.622824]
+                [106.534066, 29.622376],
+                [106.523078, 29.617414],
+                [106.526619, 29.619841],
+                [106.527019, 29.622376],
+                [106.523585, 29.622824]
             ],
             type:'POLYGON'
-        },{
+        }, {
             paths:[
                 [106.578948, 29.580787],
                 [106.532514, 29.552867],
@@ -48,25 +48,25 @@ let data = {
             ],
             type:'POLYGON'
         }
-        ,{
+        , {
             type:'MODEL',
             meshPath:treeObj,
-            lnglat:[106.498066,29.622376],
-            scale:[20000,20000,20000],
-            offset:[0,0,5000]
+            lnglat:[106.498066, 29.622376],
+            scale:[20000, 20000, 20000],
+            offset:[0, 0, 5000]
         }
-        ,{
+        , {
             type:'MODEL',
             meshPath:modelObj,
             materialsPath:modelMtl,
-            lnglat:[106.518066,29.622376],
-            scale:[2000,2000,2000]
+            lnglat:[106.518066, 29.622376],
+            scale:[2000, 2000, 2000]
         }
     ],
     decorate:[{
 
     }]
-}
+};
 
 
 
@@ -89,18 +89,18 @@ export default class AMapDemo extends Component {
             mapStyle: 'amap://styles/whitesmoke'
         });
 
-        let EmEdit = new this.EmEdit(map,data);
+        let EmEdit = new this.EmEdit(map, data);
 
         await EmEdit.create();
 
         setTimeout(function(){
-            EmEdit.editObject(0,{
+            EmEdit.editObject(0, {
                 paths:[
-                    [106.534066,29.622376],
-                    [106.523078,29.617414],
-                    [106.526619,29.619841],
-                    [106.527019,29.622376],
-                    [106.523585,29.622824]
+                    [106.534066, 29.622376],
+                    [106.523078, 29.617414],
+                    [106.526619, 29.619841],
+                    [106.527019, 29.622376],
+                    [106.523585, 29.622824]
                 ],
                 geometryParameters:{
                     depth:3000,
@@ -113,10 +113,10 @@ export default class AMapDemo extends Component {
                     opacity:.8,
                     flatShading:true
                 },
-                offset:[0,0,5000],
+                offset:[0, 0, 5000],
                 type:'POLYGON'
             });
-        },5000)
+        }, 5000);
 
     }
 
