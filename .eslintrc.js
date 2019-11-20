@@ -30,7 +30,7 @@ module.exports = {
     rules: {
         // 禁止 for 循环出现方向错误的循环，比如 for (i = 0; i < 10; i--)
         'for-direction': 'error',
-        'indent': ['error', 4],
+        'indent': ['error', 4, { "SwitchCase": 1 }],
         'linebreak-style': [
             'error',
             'unix'
@@ -138,16 +138,16 @@ module.exports = {
         // 禁止混用空格和缩进
         'no-mixed-spaces-and-tabs': 'error',
         // @off 不强制要求写 displayName
-        "react/display-name": "off",
+        'react/display-name': 'off',
         // 不强制要求写 prop-types
-        "react/prop-types": "off",
+        'react/prop-types': 'off',
         // 禁止使用已废弃的 api
-        "react/no-deprecated": "error",
+        'react/no-deprecated': 'error',
         // 禁止直接修改 this.state
-        "react/no-direct-mutation-state": "error",
+        'react/no-direct-mutation-state': 'error',
         // 数组中的 jsx 必须有 key
-        "react/jsx-key": "error",
+        'react/jsx-key': 'error',
         // @fixable jsx 的 props 缩进必须为四个空格
-        "react/jsx-indent-props": ["error", 4]
+        'react/jsx-indent-props': ['error', 4]
     }
 };
