@@ -67,9 +67,7 @@ module.exports = override(
         config.plugins.unshift(
             new webpack.DefinePlugin({
                 "process.env": {
-                    NODE_ENV: JSON.stringify(
-                        process.env.NODE_ENV || "development"
-                    ),
+                    NODE_ENV: JSON.stringify(process.env.NODE_ENV || "development"),
                     FETCH_PREFIX: JSON.stringify(fetchPrefix)
                 }
             })
@@ -80,20 +78,13 @@ module.exports = override(
 
         // 按需加载对应组件
         config.module.rules[2].oneOf[1].options.plugins = [
-            [
-                "import",
-                { libraryName: "antd", libraryDirectory: "es", style: "css" },
-                "antd"
-            ],
+            ["import", { libraryName: "antd", libraryDirectory: "es", style: "css" }, "antd"],
             [
                 "import",
                 {
                     libraryName: "@common",
                     customName: name => {
-                        let nameToUpperCase = name.replace(/-(\w)/g, function(
-                            $0,
-                            $1
-                        ) {
+                        let nameToUpperCase = name.replace(/-(\w)/g, function($0, $1) {
                             return $1.toUpperCase();
                         });
                         return `@common/${nameToUpperCase}/${nameToUpperCase}.jsx`;
@@ -105,7 +96,11 @@ module.exports = override(
 
         // 组件缓存相关别名设置
         if (useKeepAlive === true) {
-            config.resolve.alias["react-router-config"] = path.join(paths.appSrc,"public","/js/react-router-config.js");
+            config.resolve.alias["react-router-config"] = path.join(
+                paths.appSrc,
+                "public",
+                "/js/react-router-config.js"
+            );
         }
 
         // 提取公共资源-2
@@ -117,25 +112,23 @@ module.exports = override(
                     name: "vendors",
                     chunks: "initial",
                     minChunks: 2
+                },
+                commons: {
+                    name: "commons",
+                    chunks: "all",
+                    minChunks: 3
                 }
-                // main: {
-                //     name: "main",
-                //     minChunks: 3
-                // }
             }
         };
 
-        process.env.NODE_ENV === "production" &&
-            config.plugins.push(new es3ifyPlugin());
+        process.env.NODE_ENV === "production" && config.plugins.push(new es3ifyPlugin());
 
         // iconfont 图标资源加载
         process.env.NODE_ENV === "production" &&
             config.plugins.push(
                 new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
                     ICON_FONT_SOUCE:
-                        iconFontCDNUrl &&
-                        proIconFontDirectory &&
-                        iconfontFileName
+                        iconFontCDNUrl && proIconFontDirectory && iconfontFileName
                             ? `<link rel="stylesheet" href="${proIconFontDirectory}/${iconfontFileName}.css">`
                             : ""
                 })
@@ -144,9 +137,7 @@ module.exports = override(
         process.env.NODE_ENV === "development" &&
             config.plugins.push(
                 new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
-                    ICON_FONT_SOUCE: iconFontCDNUrl
-                        ? `<link rel="stylesheet" href="${iconFontCDNUrl}">`
-                        : ""
+                    ICON_FONT_SOUCE: iconFontCDNUrl ? `<link rel="stylesheet" href="${iconFontCDNUrl}">` : ""
                 })
             );
 
@@ -167,11 +158,7 @@ module.exports = override(
         "@style": path.join(paths.appSrc, "public", "/style"),
         "@img": path.join(paths.appSrc, "public", "/img"),
         "@other": path.join(paths.appSrc, "public", "/other"),
-        "@ant-design/icons/lib/dist$": path.join(
-            paths.appSrc,
-            "public",
-            "/js/icons.js"
-        ) // 配置本地图标
+        "@ant-design/icons/lib/dist$": path.join(paths.appSrc, "public", "/js/icons.js") // 配置本地图标
     }),
 
     // 启用打包文件分析
