@@ -1,6 +1,6 @@
 // reduce-reducers 可以用于同时触发不同reduce
 // import reduceReducers from 'reduce-reducers';
-import { combineReducers } from 'redux';
+// import { combineReducers } from 'redux';
 import { createActions, handleActions } from 'redux-actions';
 
 //一个假的异步

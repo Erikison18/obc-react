@@ -14,51 +14,61 @@ let UnAuthLayout = RouterLoadable({
 
 let Complex = RouterLoadable({
     loader: () =>
-        import ('@components/layout/complex/complex.jsx'),
+        import ('@components/Test/complex/complex.jsx'),
 });
 
 let WorkHome = RouterLoadable({
     loader: () =>
-        import ('@components/workHome/workHome.jsx'),
+        import ('@components/Test/workHome/workHome.jsx'),
 });
 
 let Personage = RouterLoadable({
     loader: () =>
-        import ('@components/workHome/personage/personage.jsx'),
+        import ('@components/Test/workHome/personage/personage.jsx'),
 });
 
 let Project = RouterLoadable({
     loader: () =>
-        import ('@components/workHome/project/project.jsx'),
+        import ('@components/Test/workHome/project/project.jsx'),
 });
 
 let AMap = RouterLoadable({
     loader: () =>
-        import ('@components/aMap/aMap.jsx'),
+        import ('@components/Test/aMap/aMap.jsx'),
 });
 
 let AMap1 = RouterLoadable({
     loader: () =>
-        import ('@components/aMap/aMap1.jsx'),
+        import ('@components/Test/aMap/aMap1.jsx'),
 });
 
 let Animation = RouterLoadable({
     loader: () =>
-        import ('@components/animation/animation.jsx'),
+        import ('@components/Test/animation/animation.jsx'),
 });
 let DateC= RouterLoadable({
     loader: () =>
-        import ('@components/date/date.jsx'),
+        import ('@components/Test/date/date.jsx'),
 });
 
 let Reselector= RouterLoadable({
     loader: () =>
-        import ('@components/reselector/reselector.jsx'),
+        import ('@components/Test/reselector/reselector.jsx'),
 });
 
 let KeepAlive= RouterLoadable({
     loader: () =>
-        import ('@components/keepAlive/keepAlive.jsx'),
+        import ('@components/Test/keepAlive/keepAlive.jsx'),
+});
+
+let Hooks = RouterLoadable({
+    loader: () =>
+        import ('@components/Test/hooks'),
+});
+
+let Index = RouterLoadable({
+    loader: () =>
+        import ('@components/Test/Index'),
 });
 
 let ErrorComponent = RouterLoadable({
@@ -66,15 +76,9 @@ let ErrorComponent = RouterLoadable({
         import ('@components/common/error'),
 });
 
-let Index = RouterLoadable({
-    loader: () =>
-        import ('@components/Index'),
-});
 
-let Hooks = RouterLoadable({
-    loader: () =>
-        import ('@components/hooks'),
-});
+
+
 
 const routes = [{
 path: '/auth/:id',
@@ -127,6 +131,10 @@ path: '/auth/:id',
     component: Hooks,
     exact: true
 }, {
+    path: '/3m',
+    component: Index,
+    exact: true
+}, {
     path: '/keepAlive/:id',
     component: KeepAlive,
     exact: true
@@ -134,7 +142,7 @@ path: '/auth/:id',
     path: '/',
     exact: true,
     // component: (props) => <Redirect to='/login'/>
-    component: Index,
+    component: Hooks,
 }, {
     path: '/error',
     exact: true,

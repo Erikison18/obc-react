@@ -3,9 +3,9 @@ import React, {
 } from 'react';
 import {
     HashRouter as Router,
-    Link,
     Prompt,
-    withRouter
+    withRouter,
+    Link
 } from 'react-router-dom';
 
 import {
@@ -32,7 +32,7 @@ import './App.less';
 import { renderRoutes, matchRoutes } from 'react-router-config';
 import routes from '@router';
 import { showLoading, hideLoading} from 'react-redux-loading-bar';
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+// import { TransitionGroup, CSSTransition } from "react-transition-group";
 import {getAutoPathPrefix} from "@js/utils.js";
 
 import "./public/js/vendor"
@@ -135,7 +135,7 @@ class App extends Component {
                         <Router getUserConfirmation={getConfirmation} keyLength={12}>
                             <CatchErrorBoundary>
                                 <Prompt message={({pathname})=>pathname}/>
-                                {/* <ul>
+                                <ul>
                                     <li><Link to='/auth/123/workhome/project'>简单的redux例子</Link></li>
                                     <li><Link to='/unauth'>简单的async redux例子</Link></li>
                                     <li><Link to='/complex'>一个稍复杂的例子（redux models包含多个reduce的例子、多个action关联）</Link></li>
@@ -146,7 +146,9 @@ class App extends Component {
                                     <li><Link to='/reselector'>reselector</Link></li>
                                     <li><Link to='/keepAlive/1'>/keepAlive/:1</Link></li>
                                     <li><Link to='/keepAlive/2'>/keepAlive/:2</Link></li>
-                                </ul> */}
+                                    <li><Link to='/3m'>3m</Link></li>
+                                    <li><Link to='/hooks'>hooks</Link></li>
+                                </ul>
                                 <Layout/>
                             </CatchErrorBoundary>
                         </Router>
@@ -160,12 +162,12 @@ class App extends Component {
 @withRouter
 class Layout extends Component {
     render(){
-        let key;
-        try{
-            key = this.props.location.pathname.match(/^\/[^\/]+/)[0]
-        }catch(e){
-            key='';
-        }
+        // let key;
+        // try{
+        //     key = this.props.location.pathname.match(/^\/[^\/]+/)[0]
+        // }catch(e){
+        //     key='';
+        // }
         return(
             renderRoutes(routes,this.props,{location:this.props.location})
         )

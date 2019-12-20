@@ -13,7 +13,7 @@ import {
     bindActionCreators
 } from 'redux';
 
-import { actiontor } from '@models/complex.js';
+import { actiontor } from '@models/test/complex.js';
 
 
 /*

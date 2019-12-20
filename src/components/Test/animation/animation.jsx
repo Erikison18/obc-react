@@ -1,10 +1,8 @@
 import React, { Component,Fragment} from 'react';
-import PropTypes from 'prop-types';
-import { InputNumber, Button, Checkbox } from 'antd';
+import { Button } from 'antd';
 import TweenOne from 'rc-tween-one';
 import Children from 'rc-tween-one/lib/plugin/ChildrenPlugin';
 import './animation.less'
-import ReactDOM from 'react-dom';
 
 
 TweenOne.plugins.push(Children);

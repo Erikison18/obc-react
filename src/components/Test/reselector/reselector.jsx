@@ -5,7 +5,7 @@ import {
 import {
     bindActionCreators
 } from 'redux';
-import {actiontor}  from '@models/reselector.js';
+import {actiontor}  from '@models/test/reselector.js';
 import { createSelector } from 'reselect';
 
 

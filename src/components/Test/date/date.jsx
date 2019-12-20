@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { DatePicker, Radio } from 'antd';
-import moment from 'moment';
 import {monthLastDate,dayLastDate} from '@js/utils'
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;

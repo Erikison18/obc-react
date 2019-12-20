@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {AMapAsync} from '@js/AsyncCDN.js';
 import './aMap.less';
-import data from './data.json';// 市县位置数据
 
 export default class AMapDemo extends Component {
 

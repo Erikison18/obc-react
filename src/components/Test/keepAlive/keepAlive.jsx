@@ -9,12 +9,7 @@ import {
 import CatchErrorBoundary from '@common/catchErrorBoundary';
 
 
-export default @withRouter class AuthLayout extends Component {
-    constructor(props, ...args){
-        super(props, ...args);
-        // props.cacheLifecycles.didCache(this.componentDidCache)
-        // props.cacheLifecycles.didRecover(this.componentDidRecover)
-    }
+ @withRouter class AuthLayout extends Component {
 
     componentDidMount() {
         //action
@@ -52,5 +47,7 @@ export default @withRouter class AuthLayout extends Component {
         );
     }
 }
+
+export default AuthLayout;
 
 

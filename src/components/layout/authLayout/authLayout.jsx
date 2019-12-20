@@ -18,7 +18,7 @@ import {
 */
 // import RouterLoadable from '@common/routerLoadable/routerLoadable.jsx';
 import './authLayout.less';
-import {actiontor}  from '@models/count.js';
+import {actiontor}  from '@models/test/count.js';
 
 import { renderRoutes } from 'react-router-config';
 import CatchErrorBoundary from '@common/catchErrorBoundary';

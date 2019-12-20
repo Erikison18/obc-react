@@ -12,7 +12,7 @@ import {
     bindActionCreators
 } from 'redux';
 
-import {actiontor}  from '@models/async.js';
+import {actiontor}  from '@models/test/async.js';
 
 /*
 组件AuthLayout连接到store，
