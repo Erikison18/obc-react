@@ -143,6 +143,14 @@ exports.dev = function(config) {
                 }
             }, {
                 loader: require.resolve('less-loader'),
+            }, {
+                loader: require.resolve('style-resources-loader'),
+                options: {
+                    patterns: [
+                        path.join(paths.appSrc, 'public', '/style/variables.less'),
+                        path.join(paths.appSrc, 'public', '/style/mixins.less'),
+                    ]
+                }
             }
         ]
     });

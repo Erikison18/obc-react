@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { DatePicker, Radio } from 'antd';
 import {monthLastDate, dayLastDate} from '@js/utils';
+import './date.less';
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
@@ -16,7 +17,7 @@ export default class PickerSizesDemo extends Component {
   render() {
       const { size } = this.state;
       return (
-          <div>
+          <div className="date-background">
               <Radio.Group value={size} onChange={this.handleSizeChange}>
                   <Radio.Button value="large">Large</Radio.Button>
                   <Radio.Button value="default">Default</Radio.Button>
