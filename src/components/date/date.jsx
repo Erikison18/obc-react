@@ -8,11 +8,13 @@ const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 export default class PickerSizesDemo extends Component {
   state = {
       size: 'default',
+      count: 0
   };
 
   handleSizeChange = (e) => {
       this.setState({ size: e.target.value });
   }
+
 
   render() {
       const { size } = this.state;

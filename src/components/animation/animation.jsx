@@ -10,12 +10,29 @@ class TweenOneDemo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value:0
+            value:0,
+            count:0
         };
     }
 
+
+
     componentDidMount() {
         this.setAnimation(this.props.value);
+        this.setState({count: this.state.count+1});
+        console.log(this.state.count);
+        this.setState({count: this.state.count+1});
+        console.log(this.state.count);
+        setTimeout(()=>{
+            console.log(this.state.count);
+            this.setState({count: this.state.count+1});
+            console.log(this.state.count);
+        }, 0);
+        setTimeout(()=>{
+            console.log(this.state.count);
+            this.setState({count: this.state.count+1});
+            console.log(this.state.count);
+        }, 0);
     }
 
     componentWillReceiveProps(nextProps) {
