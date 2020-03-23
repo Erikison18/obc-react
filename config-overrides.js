@@ -199,7 +199,16 @@ module.exports = override(
 
     config => {
         // 这里只是输出一下配置进行检查
-        // console.log(config.plugins);
+        // 注入公共变量
+        config.module.rules[2].oneOf[7].use.push({
+            loader: require.resolve("style-resources-loader"),
+            options: {
+                patterns: [
+                    path.join(paths.appSrc, "public", "/style/variables.less"),
+                    path.join(paths.appSrc, "public", "/style/mixins.less")
+                ]
+            }
+        });
         return config;
     }
 );
