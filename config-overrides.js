@@ -32,6 +32,59 @@ module.exports = override(
         return config;
     },
 
+    // 添加别名
+    addWebpackAlias({
+        "@src": path.join(__dirname, "/src"),
+        "@router": path.join(__dirname, "/src/router"),
+        "@redux": path.join(__dirname, "/src/redux"),
+        "@models": path.join(__dirname, "/src/redux/models"),
+        "@middleware": path.join(__dirname, "/src/redux/middleware"),
+        "@components": path.join(__dirname, "/src/components"),
+        "@layout": path.join(__dirname, "/src/components/layout"),
+        "@common": path.join(__dirname, "/src/components/common"),
+        "@js": path.join(paths.appSrc, "public", "/js"),
+        "@style": path.join(paths.appSrc, "public", "/style"),
+        "@img": path.join(paths.appSrc, "public", "/img"),
+        "@other": path.join(paths.appSrc, "public", "/other"),
+        "@ant-design/icons/lib/dist$": path.join(paths.appSrc, "public", "/js/icons.js") // 配置本地图标
+    }),
+
+    // 启用打包文件分析
+    addBundleVisualizer({ analyzerMode: "server" }, true),
+
+    // 添加 less 文件解析
+    addLessLoader(),
+
+    // 添加 babelrc 配置
+    useBabelRc(),
+
+    // antd 组件按需加载
+    // fixBabelImports("import", {
+    //     libraryName: "antd",
+    //     libraryDirectory: "es",
+    //     style: "css"
+    // }),
+
+    // fixBabelImports("import", {
+    //     libraryName: "@common",
+    //     customName: name => {
+    //         let nameToUpperCase = name.replace(/-(\w)/g, function($0, $1) {
+    //             return $1.toUpperCase();
+    //         });
+    //         return `@common/${nameToUpperCase}/${nameToUpperCase}.jsx`;
+    //     }
+    // }),
+
+    // antd 图标单独拆分
+    // addWebpackModuleRule({
+    //     loader: "webpack-ant-icon-loader",
+    //     enforce: "pre",
+    //     include: [require.resolve("@ant-design/icons/lib/dist")]
+    // }),
+
+    // 添加编译进度插件
+    addWebpackPlugin(new ProgressBarPlugin()),
+
     // 原始配置
     config => {
         let originEntry = config.entry;
@@ -94,6 +147,17 @@ module.exports = override(
             ]
         ];
 
+        // less 文件注入公共变量
+        config.module.rules[2].oneOf[7].use.push({
+            loader: require.resolve("style-resources-loader"),
+            options: {
+                patterns: [
+                    path.join(paths.appSrc, "public", "/style/variables.less"),
+                    path.join(paths.appSrc, "public", "/style/mixins.less")
+                ]
+            }
+        });
+
         // 组件缓存相关别名设置
         if (useKeepAlive === true) {
             config.resolve.alias["react-router-config"] = path.join(
@@ -144,71 +208,8 @@ module.exports = override(
         return config;
     },
 
-    // 添加别名
-    addWebpackAlias({
-        "@src": path.join(__dirname, "/src"),
-        "@router": path.join(__dirname, "/src/router"),
-        "@redux": path.join(__dirname, "/src/redux"),
-        "@models": path.join(__dirname, "/src/redux/models"),
-        "@middleware": path.join(__dirname, "/src/redux/middleware"),
-        "@components": path.join(__dirname, "/src/components"),
-        "@layout": path.join(__dirname, "/src/components/layout"),
-        "@common": path.join(__dirname, "/src/components/common"),
-        "@js": path.join(paths.appSrc, "public", "/js"),
-        "@style": path.join(paths.appSrc, "public", "/style"),
-        "@img": path.join(paths.appSrc, "public", "/img"),
-        "@other": path.join(paths.appSrc, "public", "/other"),
-        "@ant-design/icons/lib/dist$": path.join(paths.appSrc, "public", "/js/icons.js") // 配置本地图标
-    }),
-
-    // 启用打包文件分析
-    addBundleVisualizer({ analyzerMode: "server" }, true),
-
-    // 添加 less 文件解析
-    addLessLoader(),
-
-    // 添加 babelrc 配置
-    useBabelRc(),
-
-    // antd 组件按需加载
-    // fixBabelImports("import", {
-    //     libraryName: "antd",
-    //     libraryDirectory: "es",
-    //     style: "css"
-    // }),
-
-    // fixBabelImports("import", {
-    //     libraryName: "@common",
-    //     customName: name => {
-    //         let nameToUpperCase = name.replace(/-(\w)/g, function($0, $1) {
-    //             return $1.toUpperCase();
-    //         });
-    //         return `@common/${nameToUpperCase}/${nameToUpperCase}.jsx`;
-    //     }
-    // }),
-
-    // antd 图标单独拆分
-    // addWebpackModuleRule({
-    //     loader: "webpack-ant-icon-loader",
-    //     enforce: "pre",
-    //     include: [require.resolve("@ant-design/icons/lib/dist")]
-    // }),
-
-    // 添加编译进度插件
-    addWebpackPlugin(new ProgressBarPlugin()),
-
     config => {
         // 这里只是输出一下配置进行检查
-        // 注入公共变量
-        config.module.rules[2].oneOf[7].use.push({
-            loader: require.resolve("style-resources-loader"),
-            options: {
-                patterns: [
-                    path.join(paths.appSrc, "public", "/style/variables.less"),
-                    path.join(paths.appSrc, "public", "/style/mixins.less")
-                ]
-            }
-        });
         return config;
     }
 );
