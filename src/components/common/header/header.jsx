@@ -2,10 +2,10 @@ import React from 'react';
 // import Loadable from 'react-loadable';
 // import Loading from '../loading/loading.jsx';
 
-function Header(){
+function Header(props){
 
     return (
-        <div>Header</div>
+        <div>{props.children}</div>
     )
 
 }
