@@ -110,7 +110,11 @@ project
 	- reducer `@/models/index.js` 下进行收集，如`export complex from './complex.js';`。
 	- 需要进行缓存的状态值可以通过 `@redux/localstorageStatesConfig.js` 下进行配置。
 	- 异步请求使用统一归纳到redux models `异步action` 中，为页面增加progress-bar状态。
-	
+
+- router约定
+	- 应用通过 `project/src/router/index.js` 统一管理。
+	- 使用 `keepAlive` 功能设计到模块 `react-router-cache-route` ，新增生命周期函数 `componentDidCache` 与 `componentDidRecover`，具体参考[react-router-cache-route](https://github.com/CJY0208/react-router-cache-route/blob/master/README_CN.md)
+
 ### 注意事项
 
 - 因为 `antd` 的 `Icon` 组件加载icon图标是直接引用的 `dist.js` 整个包，所以造成项目体积变大。当我们只使用其中少部分图标时是得不偿失的。最后临时解决方案为：
@@ -147,6 +151,8 @@ project
 * [fetch](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch)
 * [ducks-modular-redux](https://github.com/erikras/ducks-modular-redux)
 * [react-router-config](https://www.npmjs.com/package/react-router-config)
+* [react-router-cache-route](https://github.com/CJY0208/react-router-cache-route/blob/master/README_CN.md)
+
 
 配置相关
 * [react-app-rewired](https://github.com/timarney/react-app-rewired/blob/master/README_zh.md)
