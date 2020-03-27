@@ -1,15 +1,17 @@
+// const rewireLodash = require('react-app-rewire-lodash');
+const overrides = require('../config-overrides.js');
 module.exports = {
     stories: ['../src/components/**/*.stories.js'],
     addons: [
-        '@storybook/preset-create-react-app',
-        '@storybook/addon-actions',
-        '@storybook/addon-links',
-        '@storybook/addon-notes'
+        {
+          name: '@storybook/preset-create-react-app',
+          options: {
+            scriptsPackageName: './',
+          },
+        },
+        '/Users/dengshiwei/Documents/AsiaInfo/product/react/.storybook/storybook-addons-iframe/register.js'
+        // '@storybook/addon-docs'
+        // 'storybook-addon-preview'
     ],
-    webpackFinal: async config => {
-        // console.log(JSON.stringify(config.module.rules));
-        // const rules = config.module.rules.filter(rule => rule.loader === require.resolve('babel-loader'));
-        console.log(config.module.rules.length)
-        return config;
-      }
+    // webpackFinal: overrides
 };

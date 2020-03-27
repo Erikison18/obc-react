@@ -1,48 +1,30 @@
-import React from 'react';
-import Button from './button.jsx';
-import { withInfo } from '@storybook/addon-info';
+import {withHtmlDocument} from '/Users/dengshiwei/Documents/AsiaInfo/product/react/.storybook/storybook-addons-iframe/decorators/html.js';
+
+// console.log(imageFile,imageFile2);
+// import WechatIMG118 from '../public/WechatIMG118.jpg';
+// console.log(WechatIMG118,imageFile);
 
 export default {
-  title: 'Button',
-  decorators: [withInfo()],
-  component: Button,
-  // parameters: {
-  //   info: TableComponent,
-  // },
+  title: 'Demo',
+  decorators: [withHtmlDocument],
+  parameters: {
+    htmlDocument: {
+      data: 'this data is passed to the addon',
+    },
+  }
 };
 
-// const Red = props => <span style={{ color: 'red' }} {...props} />;
 
-// const TableComponent = ({ propDefinitions }) => {
-//   const props = propDefinitions.map(
-//     ({ property, propType, required, description, defaultValue }) => {
-//       return (
-//         <tr key={property}>
-//           <td>
-//             {property}
-//             {required ? <Red>*</Red> : null}
-//           </td>
-//           <td>{propType.name}</td>
-//           <td>{defaultValue}</td>
-//           <td>{description}</td>
-//         </tr>
-//       );
-//     }
-//   );
+// export const html = () => imageFile;
 
-//   return (
-//     <table>
-//       <thead>
-//         <tr>
-//           <th>name</th>
-//           <th>type</th>
-//           <th>default</th>
-//           <th>description</th>
-//         </tr>
-//       </thead>
-//       <tbody>{props}</tbody>
-//     </table>
-//   );
+// export const iframe = () => '<iframe src="/index.html"></iframe>';
+export const heading = () => '../public/canvas-it.html';
+
+
+
+// export const button = () => {
+//   const btn = document.createElement('button');
+//   btn.type = 'button';
+//   btn.innerText = 'Hello Button';
+//   return btn;
 // };
-
-export const defaultView = () => <Button/>;
