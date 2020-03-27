@@ -189,21 +189,15 @@ module.exports = override(
 
         // iconfont 图标资源加载
         process.env.NODE_ENV === "production" &&
-            config.plugins.push(
-                new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
-                    ICON_FONT_SOUCE:
-                        iconFontCDNUrl && proIconFontDirectory && iconfontFileName
-                            ? `<link rel="stylesheet" href="${proIconFontDirectory}/${iconfontFileName}.css">`
-                            : ""
-                })
-            );
+            (config.plugins[2].replacements["ICON_FONT_SOUCE"] =
+                iconFontCDNUrl && proIconFontDirectory && iconfontFileName
+                    ? `<link rel="stylesheet" href="${proIconFontDirectory}/${iconfontFileName}.css">`
+                    : "");
 
         process.env.NODE_ENV === "development" &&
-            config.plugins.push(
-                new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
-                    ICON_FONT_SOUCE: iconFontCDNUrl ? `<link rel="stylesheet" href="${iconFontCDNUrl}">` : ""
-                })
-            );
+            (config.plugins[2].replacements["ICON_FONT_SOUCE"] = iconFontCDNUrl
+                ? `<link rel="stylesheet" href="${iconFontCDNUrl}">`
+                : "");
 
         return config;
     },
