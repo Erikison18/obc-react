@@ -19,15 +19,14 @@ module.exports = {
         // 'storybook-addon-preview'
     ],
     webpackFinal: async function(storybookConfig){
-        console.dir(storybookConfig.module.rules, { depth: null });
 
         let baseConfig = overrides.webpack(config(process.env.NODE_ENV), process.env.NODE_ENV)
 
         baseConfig.entry = storybookConfig.entry;
         baseConfig.output = storybookConfig.output;
         // baseConfig.output.publicPath = '/'
-
         baseConfig.resolve.alias = {
+            '@.storybook':path.join(__dirname, './'),
             ...baseConfig.resolve.alias,
             ...storybookConfig.resolve.alias
         }
@@ -92,27 +91,36 @@ module.exports = {
 
         baseConfig.module.rules.push({
             test: /\.(html)$/,
-            include:[path.join(appPath,'/src')],
+            include:[path.join(appPath,'/src'),path.join(__dirname, './')],
             exclude: path.join(appPath,'/public/index.html'),
             use: [
-            // // {
-            // //     loader:'file-loader?name=[name].[ext]',
-
-            // // },
-            // {
-            //     loader:'extract-loader',
-
-            // },
             {
                 loader:'html-loader',
-                // options: {
-                //     attrs: ['script:src']
-                // }
+                options: {
+                    // attrs: ['script:src']
+                    // preprocessor(content,loadercontext){
+                    //     console.log(content);
+                    //     console.log(loadercontext);
+                    //     return content
+                    // }
+                }
             }]
         })
 
+        baseConfig.module.rules.push({
+            loader:'file-loader',
+            include:[path.join(__dirname, './stories')],
+            exclude: [ /\.html$/ ],
+            options: { name: 'static/media/[name].[hash:8].[ext]' }
+        })
 
-        // console.dir(baseConfig, { depth: null });
+        // {
+        //     loader: '/Users/dengshiwei/Documents/AsiaInfo/product/react/node_modules/_file-loader@4.3.0@file-loader/dist/cjs.js',
+        //     exclude: [ /\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/ ],
+        //     options: { name: 'static/media/[name].[hash:8].[ext]' } } 
+
+
+        console.dir(baseConfig.module.rules, { depth: null });
 
         //optimization、保持
 
