@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Node } from 'global';
 import { addons, makeDecorator } from '@storybook/addons';
 import { EVENT_CODE_RECEIVED } from '../shared';
 import { parameters } from '.';
@@ -53,8 +54,14 @@ export const withHTML = makeDecorator({
         </ReactWrapper>
       );
     }else{
-      channel.emit(EVENT_CODE_RECEIVED, { html:element, options });
-      return <HtmlWrapper srcDoc={element}/>;
+      let html
+      if (typeof element === 'string') {
+        html = element;
+      } else if (element instanceof Node) {
+        html = element.outerHTML;
+      }
+      channel.emit(EVENT_CODE_RECEIVED, { html, options });
+      return <HtmlWrapper srcDoc={html}/>;
     }
   },
 });

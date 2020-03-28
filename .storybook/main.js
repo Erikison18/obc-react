@@ -24,18 +24,21 @@ module.exports = {
 
         baseConfig.entry = storybookConfig.entry;
         baseConfig.output = storybookConfig.output;
-        // baseConfig.output.publicPath = '/'
+
+
+
         baseConfig.resolve.alias = {
             '@.storybook':path.join(__dirname, './'),
             ...baseConfig.resolve.alias,
             ...storybookConfig.resolve.alias
         }
-
         baseConfig.resolve.plugins = baseConfig.resolve.plugins.filter(plugin => {
             return !(
                 plugin.constructor.name === 'ModuleScopePlugin'
             )
         })
+
+
 
         baseConfig.plugins = baseConfig.plugins.filter(plugin => {
             return !(
@@ -47,9 +50,7 @@ module.exports = {
                 plugin.constructor.name === 'InterpolateHtmlPlugin'
             )
         });
-
         storybookConfig.plugins.push(...baseConfig.plugins);
-
         baseConfig.plugins = storybookConfig.plugins;
 
 
@@ -107,6 +108,7 @@ module.exports = {
             }]
         })
 
+        //解决导入html文件中js由于react项目中flie-loader排除js，顾把html example部署到storybook stories中单独配置
         baseConfig.module.rules.push({
             loader:'file-loader',
             include:[path.join(__dirname, './stories')],
@@ -114,13 +116,7 @@ module.exports = {
             options: { name: 'static/media/[name].[hash:8].[ext]' }
         })
 
-        // {
-        //     loader: '/Users/dengshiwei/Documents/AsiaInfo/product/react/node_modules/_file-loader@4.3.0@file-loader/dist/cjs.js',
-        //     exclude: [ /\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/ ],
-        //     options: { name: 'static/media/[name].[hash:8].[ext]' } } 
-
-
-        console.dir(baseConfig.module.rules, { depth: null });
+        // console.dir(baseConfig.module.rules, { depth: null });
 
         //optimization、保持
 

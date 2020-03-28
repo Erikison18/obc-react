@@ -14,6 +14,9 @@ export const html = () => `<div><div>??????
 ??????????</div>
 </div>`;
 
+export const rawEl = () => document.createElement('div');
+
+
 export const reactEl1 = () => <div>reactEl1</div>;
 export const reactEl2 = () => <Button>reactEl2</Button>;
 
