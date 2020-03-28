@@ -1,5 +1,5 @@
-import { addParameters } from '@storybook/react';
+// import { addParameters } from '@storybook/react';
 
-addParameters({
-  notes: 'global notes',
-});
+// addParameters({
+//   notes: 'global notes',
+// });
