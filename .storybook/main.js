@@ -6,17 +6,9 @@ const path = require('path');
 const appPath = path.join(__dirname,'../');
 
 module.exports = {
-    stories: ['../src/components/common/button/button.stories.js'],
+    stories: ['../src/components/common/**/*.stories.js'],
     addons: [
-        // {
-        //   name: '@storybook/preset-create-react-app',
-        //   // options: {
-        //   //   scriptsPackageName: 'react-app-rewired',
-        //   // },
-        // },
         path.join(appPath,'/.storybook/storybook-addons-iframe/register.js'),
-        // '@storybook/addon-docs'
-        // 'storybook-addon-preview'
     ],
     webpackFinal: async function(storybookConfig){
 
@@ -28,8 +20,7 @@ module.exports = {
 
         baseConfig.resolve.alias = {
             '@.storybook':path.join(__dirname, './'),
-            '@stories':path.join(__dirname, '../stories'),
-            '@public':path.join(__dirname, '../public'),
+            '@.sr':path.join(__dirname, './resource'),
             ...baseConfig.resolve.alias,
             ...storybookConfig.resolve.alias
         }
@@ -47,8 +38,8 @@ module.exports = {
                 plugin.constructor.name === 'HotModuleReplacementPlugin'||
                 plugin.constructor.name === 'CaseSensitivePathsPlugin'||
                 plugin.constructor.name === 'WatchMissingNodeModulesPlugin'||
-                plugin.constructor.name === 'ProgressPlugin'||
-                plugin.constructor.name === 'InterpolateHtmlPlugin'
+                plugin.constructor.name === 'ProgressPlugin'
+                // plugin.constructor.name === 'InterpolateHtmlPlugin'
             )
         });
         storybookConfig.plugins.push(...baseConfig.plugins);
@@ -93,7 +84,7 @@ module.exports = {
 
         baseConfig.module.rules.push({
             test: /\.(html)$/,
-            include:[path.join(appPath,'/.storybook/stories')],
+            include:[path.join(appPath,'/.storybook/resource')],
             exclude: path.join(appPath,'/public/index.html'),
             use: [{
                 loader:'html-loader',
@@ -103,8 +94,9 @@ module.exports = {
             }]
         })
 
-        //解决导入html文件中js由于react项目中flie-loader排除js，顾把html example部署到storybook stories中单独配置
-        //解决html中引入非stories js资源
+        //解决导入html文件中js由于react项目中flie-loader排除js，顾把html example部署到storybook resource中单独配置
+        //解决html中引入非resource js资源
+        //解决业务js以外的js执行此loader
         baseConfig.module.rules.push({
             include:function(url){
                 //排除loader注入文件
@@ -115,7 +107,7 @@ module.exports = {
                 }
             },
             issuer:function(url){
-                if(/\.storybook\/stories.+\.html/.test(url)){
+                if(/\.storybook\/resource.+\.html/.test(url)){
                     // console.log(url)
                     return true
                 }

@@ -1,6 +1,8 @@
 import React from 'react';
-import it from '@.storybook/stories/canvas/canvas-it.html';
-import time from '@.storybook/stories/canvasTime.html';
+//外部例子统一在.storybook/resource中定义编写
+import it from '@.sr/canvas/canvas-it.html';
+import time from '@.sr/canvasTime.html';
+//内部组件例子按同名策略放置编写
 import Button from './button.jsx';
 
 export default {

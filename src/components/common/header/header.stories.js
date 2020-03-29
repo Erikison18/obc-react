@@ -1,16 +1,14 @@
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 import Header from './header.jsx';
 
 export default {
   title: 'Header',
-  // component: Header,
 };
 
-export const Text = () => <Header onClick={action('clicked')}>Hello Header</Header>;
+export const Text = () => <Header>Hello Header</Header>;
 
 export const Emoji = () => (
-  <Header onClick={action('clicked')}>
+  <Header>
     <span role="img" aria-label="so cool">
       😀 😎 👍 💯
     </span>
