@@ -8,6 +8,7 @@ const appPath = path.join(__dirname,'../');
 module.exports = {
     stories: ['../src/components/common/**/*.stories.js'],
     addons: [
+        '@storybook/preset-create-react-app',
         path.join(appPath,'/.storybook/storybook-addons-iframe/register.js'),
     ],
     webpackFinal: async function(storybookConfig){
