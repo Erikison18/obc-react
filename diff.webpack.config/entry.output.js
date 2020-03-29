@@ -38,5 +38,5 @@
      filename: '[name].[hash].bundle.js',
      publicPath: '' },
 
-
+Error: ENOENT: no such file or directory, stat '/Users/dengshiwei/Documents/AsiaInfo/product/react/node_modules/_@storybook_core@5.3.17@@storybook/core/dist/public/Users/dengshiwei/Documents/AsiaInfo/product/react/src/components/common/button/canvas-it.js'
      把storybook的合并过去

@@ -26,9 +26,10 @@ module.exports = {
         baseConfig.output = storybookConfig.output;
 
 
-
         baseConfig.resolve.alias = {
             '@.storybook':path.join(__dirname, './'),
+            '@stories':path.join(__dirname, '../stories'),
+            '@public':path.join(__dirname, '../public'),
             ...baseConfig.resolve.alias,
             ...storybookConfig.resolve.alias
         }
@@ -92,31 +93,41 @@ module.exports = {
 
         baseConfig.module.rules.push({
             test: /\.(html)$/,
-            include:[path.join(appPath,'/src'),path.join(__dirname, './')],
+            include:[path.join(appPath,'/.storybook/stories')],
             exclude: path.join(appPath,'/public/index.html'),
-            use: [
-            {
+            use: [{
                 loader:'html-loader',
-                options: {
-                    // attrs: ['script:src']
-                    // preprocessor(content,loadercontext){
-                    //     console.log(content);
-                    //     console.log(loadercontext);
-                    //     return content
-                    // }
+                options:{
+                    minimize:false
                 }
             }]
         })
 
         //解决导入html文件中js由于react项目中flie-loader排除js，顾把html example部署到storybook stories中单独配置
+        //解决html中引入非stories js资源
         baseConfig.module.rules.push({
+            include:function(url){
+                //排除loader注入文件
+                if(!/node\_modules\/.*?\-loader/.test(url)){
+                    return true
+                }else{
+                    // console.log(url)
+                }
+            },
+            issuer:function(url){
+                if(/\.storybook\/stories.+\.html/.test(url)){
+                    // console.log(url)
+                    return true
+                }
+            },
             loader:'file-loader',
-            include:[path.join(__dirname, './stories')],
-            exclude: [ /\.html$/ ],
-            options: { name: 'static/media/[name].[hash:8].[ext]' }
+            options: {
+                name: 'static/media/[name].[hash:8].[ext]'
+            }
         })
 
-        // console.dir(baseConfig.module.rules, { depth: null });
+
+        // console.dir(baseConfig, { depth: null });
 
         //optimization、保持
 

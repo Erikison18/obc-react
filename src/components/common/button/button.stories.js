@@ -1,12 +1,10 @@
 import React from 'react';
-import {withHTML} from '@.storybook/storybook-addons-iframe/decorators/react.js';
-import it from '@.storybook/stories/canvas-it.html';
+import it from '@.storybook/stories/canvas/canvas-it.html';
 import time from '@.storybook/stories/canvasTime.html';
 import Button from './button.jsx';
 
 export default {
   title: 'Demo',
-  decorators: [withHTML],
 };
 export const itDemo = () => it;
 export const timeDemo = () => time;
