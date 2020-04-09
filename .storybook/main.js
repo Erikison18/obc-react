@@ -9,7 +9,7 @@ module.exports = {
     stories: ['../src/components/common/**/*.stories.js'],
     addons: [
         '@storybook/preset-create-react-app',
-        // path.join(appPath,'/.storybook/storybook-addons-iframe/register.js'),
+        '@storybook/addon-actions',
         'storybook-addon-html-document'
     ],
     webpackFinal: async function(storybookConfig){
