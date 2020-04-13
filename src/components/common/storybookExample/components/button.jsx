@@ -4,13 +4,15 @@ import './button.less'
 
 class Test extends React.PureComponent {
   render() {
-    return <button className="hah">test</button>;
+    return (
+      <button className={this.props.background === 'red'? 'background-red' : 'background-yellow'}>test</button>
+    )
   }
 }
 
 Test.propTypes = {
   /** Some description here */
-  randomProp: PropTypes.string
+  background: PropTypes.string.isRequired
 };
 
 export default Test;

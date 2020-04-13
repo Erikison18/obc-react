@@ -9,7 +9,9 @@ module.exports = {
     stories: ['../src/components/common/**/*.stories.js'],
     addons: [
         '@storybook/preset-create-react-app',
+        '@storybook/addon-storysource',
         'storybook-addon-html-document',
+        // '@storybook/addon-info',
         '@storybook/addon-actions'
     ],
     webpackFinal: async function(storybookConfig){
@@ -75,7 +77,7 @@ module.exports = {
 
         //处理ejs文件问题
         baseConfig.module.rules[2].oneOf.map((item)=>{
-            if(item.loader&&/file\-loader/.test(item.loader)) item.exclude = [ /\.(ejs|js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/ ];
+            if(item.loader&&/file\-loader/.test(item.loader)) item.exclude = [ /\.(ejs|js|mjs|jsx|ts|tsx)$/,/\.md$/, /\.html$/, /\.json$/ ];
             return item
         })
 
@@ -116,14 +118,34 @@ module.exports = {
             },
             loader:'file-loader',
             options: {
-                name: 'static/media/[name].[hash:8].[ext]'
+                name: function(filePath){
+                    // 'static/media/[name].[hash:8].[ext]'
+                    return path.relative(appPath,filePath)
+                }
             }
         })
 
 
-        // console.dir(baseConfig, { depth: null });
+        // console.dir(baseConfig.module.rules, { depth: null });
 
         //optimization、保持
+
+
+        baseConfig.module.rules.push({
+            test: /\.stories\.jsx?$/,
+            loaders: [
+                {
+                    loader: require.resolve('@storybook/source-loader'),
+                    options: {
+                        prettierConfig: {
+                            printWidth: 100,
+                            singleQuote: false,
+                          },
+                    },
+                },
+            ],
+            enforce: 'pre',
+        });
 
         return baseConfig
     }
