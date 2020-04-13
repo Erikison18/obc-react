@@ -17,29 +17,23 @@
 			autoPlay(ctx);
 		setInterval(function(){autoPlay(ctx)},1000);
 
-		var o2oDemo=document.getElementById("o2oDemo"), 
-			content=o2oDemo.getContext("2d");
-			content.scale(4,4);
-
-			o2oPlay(content);
-			setInterval(function(){o2oPlay(content)},1000);
 	}
 
-	function countTime(){
+	// function countTime(){
 
-		var currentTimeStamp= new Date().getTime();
-		var endTimeStamp = new Date('2017-07-30 18:00:00').getTime();
-		var residueStamp=(endTimeStamp-currentTimeStamp)/1000;
-		var minute = parseInt(residueStamp/60);
-        var secondv = parseInt(residueStamp)%60;
-  		var rate = residueStamp/3600;
+	// 	var currentTimeStamp= new Date().getTime();
+	// 	var endTimeStamp = new Date('2017-07-30 18:00:00').getTime();
+	// 	var residueStamp=(endTimeStamp-currentTimeStamp)/1000;
+	// 	var minute = parseInt(residueStamp/60);
+ //        var secondv = parseInt(residueStamp)%60;
+ //  		var rate = residueStamp/3600;
 
-  		return {
-  			distance:rate*2*Math.PI,
-  			minute:minute,
-  			secondv:secondv
-  		}
-	}
+ //  		return {
+ //  			distance:rate*2*Math.PI,
+ //  			minute:minute,
+ //  			secondv:secondv
+ //  		}
+	// }
 
 	// console.log(countTime());
 
@@ -155,25 +149,7 @@
 	}
 	
 </script>
-<script type="text/javascript">
-	setTimeout(function(){
-	html2canvas(document.querySelector("body"), {
-            onrendered: function(canvas) {
-                //document.body.appendChild(canvas);
-                var url = canvas.toDataURL("image/png");
-　　　　　　　 let img = document.createElement('img');
 
-        img.src = url;
-        document.body.appendChild(img);
-
-            }
-        });
-	},1000)
-	// html2canvas(document.querySelector("body")).then(canvas => {
-	//     console.log(canvas.getContext("experimental-webgl", {preserveDrawingBuffer: true}))
-	// })
-
-</script>
 </body>
 
 </html>

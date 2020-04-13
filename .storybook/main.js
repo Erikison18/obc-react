@@ -9,8 +9,8 @@ module.exports = {
     stories: ['../src/components/common/**/*.stories.js'],
     addons: [
         '@storybook/preset-create-react-app',
-        '@storybook/addon-actions',
-        'storybook-addon-html-document'
+        'storybook-addon-html-document',
+        '@storybook/addon-actions'
     ],
     webpackFinal: async function(storybookConfig){
 
