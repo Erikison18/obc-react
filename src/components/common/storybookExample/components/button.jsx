@@ -15,6 +15,11 @@ Test.propTypes = {
   background: PropTypes.string.isRequired
 };
 
+Test.defaultProps = {
+    /** Some description here */
+    background: 'red'
+}
+
 export default Test;
 
 export const Test2 = () => <div>Hi</div>;
