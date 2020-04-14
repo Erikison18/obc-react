@@ -10,6 +10,7 @@
 
 ## 2、storybook的功能介绍。
 ### 1.Plan
+
 - addons：增强storybook能力模块。
 - story：`stroies` 调用组件（例子）入口文件的编码展示，通过story我们能通过例子快速的了解到组件（例子）的使用方式。
 - htmlDocument：展示组件（例子）html元素节点。
@@ -27,17 +28,27 @@
 - react components
 - html document
 - other
+
+
 ## 3、storybook应用项目结构浏览
+
 ### 1.stories
 - 组件（例子）编写处。
+
+
 ### 2.main
 - `storybook` 功能注册等配置处。
+
+
 ### 3.preview
 - `storybook` 功能全局设置处。
+
+
 ## 4、使用storybook
 ### 1.启动 npm run storybook
 ### 2.编写 stories
 ### 3.打包 npm run build-storybook
+
 >（略过，因为有jenkins）
 
 ### 4.发布 jenkins
