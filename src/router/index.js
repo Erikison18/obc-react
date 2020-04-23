@@ -49,6 +49,10 @@ let KeepAlive = RouterLoadable({
     loader: () => import("@components/Test/keepAlive/keepAlive.jsx")
 });
 
+let Mobile = RouterLoadable({
+    loader: () => import("@components/Test/mobile/mobile.jsx")
+});
+
 let Hooks = RouterLoadable({
     loader: () => import("@components/Test/hooks")
 });
@@ -90,6 +94,11 @@ const routes = [
     {
         path: "/unauth",
         component: UnAuthLayout,
+        exact: true
+    },
+    {
+        path: "/mobile",
+        component: Mobile,
         exact: true
     },
     {

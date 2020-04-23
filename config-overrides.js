@@ -46,7 +46,7 @@ module.exports = override(
         "@style": path.join(paths.appSrc, "public", "/style"),
         "@img": path.join(paths.appSrc, "public", "/img"),
         "@other": path.join(paths.appSrc, "public", "/other"),
-        "@ant-design/icons/lib/dist$": path.join(paths.appSrc, "public", "/js/icons.js") // 配置本地图标
+        // "@ant-design/icons/lib/dist$": path.join(paths.appSrc, "public", "/js/icons.js") // 配置本地图标
     }),
 
     // 启用打包文件分析
@@ -132,6 +132,7 @@ module.exports = override(
         // 按需加载对应组件
         config.module.rules[2].oneOf[1].options.plugins = [
             ["import", { libraryName: "antd", libraryDirectory: "es", style: "css" }, "antd"],
+            ["import", { libraryName: "antd-mobile", style: "css" }, "antd-mobile"],
             [
                 "import",
                 {

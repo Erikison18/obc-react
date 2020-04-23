@@ -150,6 +150,9 @@ class App extends Component {
                                     <li>
                                         <Link to="/hooks">hooks</Link>
                                     </li>
+                                    <li>
+                                        <Link to="/mobile">mobile</Link>
+                                    </li>
                                 </ul>
                                 <Layout />
                             </CatchErrorBoundary>
