@@ -23,7 +23,7 @@ import {actiontor}  from '@models/test/async.js';
     (dispatch, ownProps) => bindActionCreators(actiontor, dispatch)
 )
 class UnAuthLayout extends Component {
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         // this.props.history.push('/auth/marketingHistory/historyQuery');
         this.props.asyncFetchDemo();
     }
@@ -37,4 +37,4 @@ class UnAuthLayout extends Component {
     }
 }
 
-export default UnAuthLayout
+export default UnAuthLayout;

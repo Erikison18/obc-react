@@ -11,11 +11,11 @@ import {
 /****重点：定义action type格式为filename_key，防止重复定义引起的不可预估的错误。使用时redux-action会将它转换成驼峰形式。*****/
 export const actiontor = createActions({
     async_fetch_demo:() => fetch('/subitemSendHistory/messageToday')
-})
+});
 
 export default handleActions({
     async_fetch_demo: (state, action) => Object.assign({}, state, action)
-}, {})
+}, {});
 
 /* 也可以利用 next throw处理错误,但不推荐这么做
 export const reduce = handleAction('FETCH', {

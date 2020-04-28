@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { WingBlank, WhiteSpace, Button, Carousel } from 'antd-mobile';
-import './mobile.less'
+import './mobile.less';
 
 export default class Mobile extends Component{
     state = {
@@ -33,12 +33,12 @@ export default class Mobile extends Component{
                     <Button icon={<img src="https://gw.alipayobjects.com/zos/rmsportal/jBfVSpDwPbitsABtDDlB.svg" alt="" />}>with custom icon</Button><WhiteSpace />
                     <Button icon="check-circle-o" inline size="small" style={{ marginRight: '4px' }}>with icon and inline</Button>
                     <Button icon="check-circle-o" inline size="small">with icon and inline</Button>
-                <WhiteSpace />
+                    <WhiteSpace />
 
                     {/* <Button activeStyle={false}>无点击反馈</Button><WhiteSpace /> */}
                     {/* <Button activeStyle={{ backgroundColor: 'red' }}>custom feedback style</Button><WhiteSpace /> */}
 
-                <WhiteSpace />
+                    <WhiteSpace />
                     <Button type="primary" inline style={{ marginRight: '4px' }}>inline primary</Button>
                     {/* use `am-button-borderfix`. because Multiple buttons inline arranged, the last one border-right may not display */}
                     <Button type="ghost" inline style={{ marginRight: '4px' }} className="am-button-borderfix">inline ghost</Button>
@@ -58,28 +58,28 @@ export default class Mobile extends Component{
                         beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
                         afterChange={index => console.log('slide to', index)}
                     >
-                    {this.state.data.map(val => (
-                        <a
-                            key={val}
-                            href="http://www.alipay.com"
-                            style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
-                        >
-                            <img
-                                src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
-                                alt=""
-                                style={{ width: '100%', verticalAlign: 'top' }}
-                                onLoad={() => {
+                        {this.state.data.map(val => (
+                            <a
+                                key={val}
+                                href="http://www.alipay.com"
+                                style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                            >
+                                <img
+                                    src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
+                                    alt=""
+                                    style={{ width: '100%', verticalAlign: 'top' }}
+                                    onLoad={() => {
                                     // fire window resize event to change height
-                                    window.dispatchEvent(new Event('resize'));
-                                    this.setState({ imgHeight: 'auto' });
-                                }}
-                            />
-                        </a>
-                      ))}
+                                        window.dispatchEvent(new Event('resize'));
+                                        this.setState({ imgHeight: 'auto' });
+                                    }}
+                                />
+                            </a>
+                        ))}
                     </Carousel>
                 </WingBlank>
             </div>
-        )
+        );
 
     }
 }

@@ -4,7 +4,7 @@ import time from '@.sr/canvasTime.html';
 
 
 export default {
-  title: 'htmlDocuments',
+    title: 'htmlDocuments',
 };
 export const itDemo = () => it;
 export const timeDemo = () => time;

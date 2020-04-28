@@ -12,17 +12,17 @@ export default class CatchErrorBoundary extends Component {
         this.setState({
             error,
             info
-        })
+        });
     }
-    componentWillReceiveProps(){
+    UNSAFE_componentWillReceiveProps(){
         this.setState({
             error:null,
             info:null
-        })
+        });
     }
     render(){
 
-        let {error,info}=this.state;
+        let {error, info}=this.state;
 
         if(error)
 
@@ -33,23 +33,23 @@ export default class CatchErrorBoundary extends Component {
                         description='程序员已经在修复了，稍安勿躁'
                         type='error'
                     />
-                )
+                );
             }else{
                 return (
                     <Alert
                         message={`Error: ${error.toString()}`}
                         description={
                             <div
-                            dangerouslySetInnerHTML={{
-                                __html:info &&info.componentStack.replace(/[\n\r]/g,'<br/>').replace(/\s/g,'&nbsp;')}}
+                                dangerouslySetInnerHTML={{
+                                    __html:info &&info.componentStack.replace(/[\n\r]/g, '<br/>').replace(/\s/g, '&nbsp;')}}
                             />
                         }
                         type='error'
                     />
-                )
+                );
             }
 
-        return this.props.children
+        return this.props.children;
 
     }
 }

@@ -10,7 +10,7 @@ class MapTool {
     }
 
     deepCopy = (obj) => {
-        return JSON.parse(JSON.stringify(obj))
+        return JSON.parse(JSON.stringify(obj));
     }
 
     initMouseTool(_this) {
@@ -30,19 +30,19 @@ class MapTool {
                 if (item.getExtData().id !== this.currId) {
                     item.hide();
                 }
-            })
+            });
         }, 1);
         contextMenu.addItem("删除", () => {
             this.overlays.forEach((item, index) => {
                 if (item.id === this.currId) {
                     this.overlays.splice(index, 1);
                 }
-            })
+            });
             _this.setState({
                 stateOverlays: [...this.overlays]
             }, () => {
                 console.log('删除结束，当前数据', _this.state.stateOverlays);
-            })
+            });
             this.map.remove(this.currTarget);
         }, 2);
         contextMenu.addItem("编辑", () => {
@@ -56,12 +56,12 @@ class MapTool {
                 if (item.id === this.currId) {
                     this.overlays[index].info = newInfo;
                 }
-            })
+            });
             _this.setState({
                 stateOverlays: [...this.overlays]
             }, () => {
                 console.log('编辑结束，当前数据', _this.state.stateOverlays);
-            })
+            });
         }, 4);
 
         // 绘制结束
@@ -72,7 +72,7 @@ class MapTool {
 
             let data = { info: {}, height: 0, color: '#fff', texture: 'abab' };  // 预设图形数据
             data.id = Math.random().toString(36).slice(-8);  // 产生随机图形 ID
-            e.obj.setExtData({ id: data.id })
+            e.obj.setExtData({ id: data.id });
             data.type = type;
             data.info = this.handleGetInfo(type, e.obj);
 
@@ -92,19 +92,19 @@ class MapTool {
                             currColor: item.color,
                             currTexture: item.texture,
                             currHeight: item.height
-                        }
+                        };
                     }
-                })
+                });
                 _this.setState({
                     currTargetId: this.currId,
                     stickInfo: currTargetInfo,
-                })
-            })
+                });
+            });
 
             // 拖拽事件
             e.obj.on('dragging', () => {
                 console.log('拖拽');
-            })
+            });
 
             // 右键点击事件
             e.obj.on('rightclick', () => {
@@ -125,8 +125,8 @@ class MapTool {
                 this.currTarget = e.obj;
                 _this.setState({
                     currTargetId: this.currId,
-                })
-            })
+                });
+            });
 
             this.mouseTool.close();
             this.overlays.push(data);
@@ -136,8 +136,8 @@ class MapTool {
                 stateOverlays: [...this.overlays],
             }, () => {
                 console.log('绘制结束，当前数据', _this.state.stateOverlays);
-            })
-        })
+            });
+        });
     }
 
     // 图形信息提取
@@ -145,7 +145,7 @@ class MapTool {
         let info = {};
         if (type === CIRCLE) {
             info.center = obj.getCenter();
-            info.radius = obj.getRadius()
+            info.radius = obj.getRadius();
         } else if (type === POLYGON) {
             info.path = obj.getPath();
         } else if (type === RECTANGLE) {
@@ -158,11 +158,11 @@ class MapTool {
     handleEditTarget() {
         switch (this.currTarget.CLASS_NAME) {
             case RECTANGLE:
-                this.RectangleEditor = new this.AMap.RectangleEditor(this.map, this.currTarget)
+                this.RectangleEditor = new this.AMap.RectangleEditor(this.map, this.currTarget);
                 this.RectangleEditor.open();
                 break;
             case CIRCLE:
-                this.circleEditor = new this.AMap.CircleEditor(this.map, this.currTarget)
+                this.circleEditor = new this.AMap.CircleEditor(this.map, this.currTarget);
                 this.circleEditor.open();
                 break;
             case POLYGON:
@@ -181,15 +181,15 @@ class MapTool {
         switch (this.currTarget.CLASS_NAME) {
             case RECTANGLE:
                 this.RectangleEditor.close();
-                newInfo = this.handleGetInfo(RECTANGLE, this.currTarget)
+                newInfo = this.handleGetInfo(RECTANGLE, this.currTarget);
                 break;
             case CIRCLE:
                 this.circleEditor.close();
-                newInfo = this.handleGetInfo(CIRCLE, this.currTarget)
+                newInfo = this.handleGetInfo(CIRCLE, this.currTarget);
                 break;
             case POLYGON:
                 this.polylineEditor.close();
-                newInfo = this.handleGetInfo(POLYGON, this.currTarget)
+                newInfo = this.handleGetInfo(POLYGON, this.currTarget);
                 break;
             default:
                 console.log('未匹配到该形状！');
@@ -213,7 +213,7 @@ class MapTool {
             stateOverlays: [...this.overlays]
         }, () => {
             console.log(type + '删除结束，当前数据', _this.state.stateOverlays);
-        })
+        });
         this.map.remove(deletArr);
     }
 
@@ -223,11 +223,11 @@ class MapTool {
             if (operateType === 'Show') {
                 this.objs.forEach((element) => {
                     element.show();
-                })
+                });
             } else {
                 this.objs.forEach((element) => {
                     element.hide();
-                })
+                });
             }
             return;
         }
@@ -275,7 +275,7 @@ class MapTool {
                     fillColor: '#00b0ff',
                     strokeColor: '#80d8ff',
                     draggable: true,
-                })
+                });
                 break;
 
 
@@ -311,15 +311,15 @@ class MapTool {
         this.mouseTool.close(true);
         this.overlayEditors = [];
         this.overlays = [];
-        console.log('overlays', this.overlays)
+        console.log('overlays', this.overlays);
     }
 
     closeOverlayAllEdit() {
         this.overlayEditors.length > 0 && this.overlayEditors.forEach(overlay => {
             overlay.close();
-        })
+        });
     }
 
 }
 
-export default MapTool
+export default MapTool;

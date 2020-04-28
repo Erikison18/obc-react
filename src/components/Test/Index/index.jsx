@@ -4,7 +4,7 @@ import { AMapAsync } from '@js/AsyncCDN.js';
 import { Radio, message } from 'antd';
 
 import MapTool from './AMap';
-import SettingBar from './SettingBar'
+import SettingBar from './SettingBar';
 import './indexStyle';
 
 class Index extends Component {
@@ -34,7 +34,7 @@ class Index extends Component {
     handleTypeChange = (params) => {
         this.setState({
             aMapWith: params.target.value
-        })
+        });
     }
 
     handleDraw = (param) => {
@@ -49,9 +49,9 @@ class Index extends Component {
             if (item.getExtData().id === currTargetId) {
                 item.setOptions({
                     fillColor: currColor,
-                })
+                });
             }
-        })
+        });
         this.mapTool.overlays = paramOverlays;
         this.setState({
             stateOverlays: [...paramOverlays],
@@ -59,7 +59,7 @@ class Index extends Component {
         }, () => {
             message.success('数据绑定成功！');
             console.log('添加数据结束，当前数据', this.state.stateOverlays);
-        })
+        });
     }
 
     handleClear = (param) => {

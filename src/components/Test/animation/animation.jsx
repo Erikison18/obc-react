@@ -1,8 +1,8 @@
-import React, { Component,Fragment} from 'react';
-import { Button } from 'antd';
+import React, { Component, Fragment} from 'react';
+// import { Button } from 'antd';
 import TweenOne from 'rc-tween-one';
 import Children from 'rc-tween-one/lib/plugin/ChildrenPlugin';
-import './animation.less'
+import './animation.less';
 
 
 TweenOne.plugins.push(Children);
@@ -14,13 +14,13 @@ class TweenOneDemo extends Component {
         this.state = {
             value:0
         };
-     }
+    }
 
     componentDidMount() {
         this.setAnimation(this.props.value);
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.setAnimation(nextProps.value);
     }
 
@@ -44,11 +44,11 @@ class TweenOneDemo extends Component {
                 },
                 duration: 1000,
             }
-        })
+        });
     }
 
     parseFormat(value){
-        return (value.toFixed(2).toString()).replace(/\B(?=(\d{3})+\b)/g, ',').split('').map(this.props.format)
+        return (value.toFixed(2).toString()).replace(/\B(?=(\d{3})+\b)/g, ',').split('').map(this.props.format);
     }
 
     render() {
@@ -56,7 +56,7 @@ class TweenOneDemo extends Component {
             <div>
                 <TweenOne
                     animation={this.state.animation}
-                    style={{ fontSize: 56, marginBottom: 12,display:'none' }}
+                    style={{ fontSize: 56, marginBottom: 12, display:'none' }}
                 >
                 </TweenOne>
                 {this.state.value}
@@ -65,85 +65,85 @@ class TweenOneDemo extends Component {
     }
 }
 
-class BarrageDemo extends Component {
-    constructor(props) {
-        super(props);
-        this.moment = null;
-        this.animation = { left: '70%', duration: 2000 };
-        this.state = {
-            moment: null,
-            paused: true,
-            reverse: false,
-        };
-    }
+// class BarrageDemo extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.moment = null;
+//         this.animation = { left: '70%', duration: 2000 };
+//         this.state = {
+//             moment: null,
+//             paused: true,
+//             reverse: false,
+//         };
+//     }
 
-    onPause = () => {
-        this.setState({
-            paused: true,
-            moment: null,
-        });
-    }
+//     onPause = () => {
+//         this.setState({
+//             paused: true,
+//             moment: null,
+//         });
+//     }
 
-    onReverse = () => {
-        this.setState({
-            paused: false,
-            reverse: true,
-            moment: null,
-        });
-    }
+//     onReverse = () => {
+//         this.setState({
+//             paused: false,
+//             reverse: true,
+//             moment: null,
+//         });
+//     }
 
-    onRestart = () => {
-        this.setState({
-            paused: false,
-            reverse: false,
-            moment: 0,
-        }, () => {
-            this.setState({
-                moment: null,
-            });
-        });
-    }
+//     onRestart = () => {
+//         this.setState({
+//             paused: false,
+//             reverse: false,
+//             moment: 0,
+//         }, () => {
+//             this.setState({
+//                 moment: null,
+//             });
+//         });
+//     }
 
-    onClick = () => {
-        this.setState({
-            paused: false,
-            reverse: false,
-            moment: null,
-        });
-    }
-
-
-      render() {
+//     onClick = () => {
+//         this.setState({
+//             paused: false,
+//             reverse: false,
+//             moment: null,
+//         });
+//     }
 
 
-        return (
-          <div>
-            <TweenOne
-              animation={this.animation}
-              paused={this.state.paused}
-              reverse={this.state.reverse}
-              moment={this.state.moment}
-              className="code-box-shape"
-              style={{ margin: '40px 20px' }}
-            />
-            <div className="demo-buttons"
-              style={{
-                position: 'absolute',
-                width: 300,
-                left: '50%',
-                marginLeft: -150,
-                bottom: 25
-              }}
-            >
-              <Button type="primary" onClick={this.onClick}>play</Button>
-              <Button type="primary" onClick={this.onPause}>pause</Button>
-              <Button type="primary" onClick={this.onReverse}>reverse</Button>
-              <Button type="primary" onClick={this.onRestart}>restart</Button>
-            </div>
-          </div>
-        );
-    }
-}
+//     render() {
+
+
+//         return (
+//             <div>
+//                 <TweenOne
+//                     animation={this.animation}
+//                     paused={this.state.paused}
+//                     reverse={this.state.reverse}
+//                     moment={this.state.moment}
+//                     className="code-box-shape"
+//                     style={{ margin: '40px 20px' }}
+//                 />
+//                 <div className="demo-buttons"
+//                     style={{
+//                         position: 'absolute',
+//                         width: 300,
+//                         left: '50%',
+//                         marginLeft: -150,
+//                         bottom: 25
+//                     }}
+//                 >
+//                     <Button type="primary" onClick={this.onClick}>play</Button>
+//                     <Button type="primary" onClick={this.onPause}>pause</Button>
+//                     <Button type="primary" onClick={this.onReverse}>reverse</Button>
+//                     <Button type="primary" onClick={this.onRestart}>restart</Button>
+//                 </div>
+//             </div>
+//         );
+//     }
+// }
 
 class Demo extends Component {
     constructor(){
@@ -156,17 +156,17 @@ class Demo extends Component {
         setTimeout(()=>{
             this.setState({
                 value:100000
-            })
-        },2000)
+            });
+        }, 2000);
     }
     render(){
         return(
             <Fragment>
                 <div className="warning"/>
-                <TweenOneDemo value={this.state.value} format={(item,i)=><span key={i} style={{color:'red'}}>{item}</span>}/>
+                <TweenOneDemo value={this.state.value} format={(item, i)=><span key={i} style={{color:'red'}}>{item}</span>}/>
             </Fragment>
-        )
+        );
     }
 }
 
-export default Demo
+export default Demo;

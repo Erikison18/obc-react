@@ -20,7 +20,7 @@ export default class WorkHome extends Component {
     render() {
         return (
             <div className="block-two">
-                <a onClick={this.drawChannel.bind(this,'clear')} className="underline-words week" href>清除地图</a>
+                <a onClick={this.drawChannel.bind(this, 'clear')} className="underline-words week" href>清除地图</a>
                 <div onClick={this.mapZoomTo} className="zoom-btn"></div>
             </div>
         );

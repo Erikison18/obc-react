@@ -11,7 +11,7 @@ class SettingBar extends Component {
         currTargetId: '',
     };
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         const { barStickInfo, barCurrId } = nextProps.data;
         if (barCurrId === this.props.data.barCurrId)  // 去除无效点击
             return;
@@ -19,11 +19,11 @@ class SettingBar extends Component {
             currColor: barStickInfo.currColor,
             currHeight: barStickInfo.currHeight,
             currTexture: barStickInfo.currTexture,
-        })
+        });
     }
 
     deepCopy = (obj) => {
-        return JSON.parse(JSON.stringify(obj))
+        return JSON.parse(JSON.stringify(obj));
     }
 
     handleSendUp = () => {
@@ -40,19 +40,19 @@ class SettingBar extends Component {
                 copyOverlays[index].height = currHeight;
                 copyOverlays[index].texture = currTexture;
             }
-        })
+        });
         let currTargetInfo = {
             currColor: currColor,
             currTexture: currTexture,
             currHeight: currHeight,
-        }
+        };
         this.props.handleChange(copyOverlays, currTargetInfo);
     }
 
     handleContentChange = (e, target) => {
         this.setState({
             [target]: e.target.value,
-        })
+        });
     }
 
     render() {

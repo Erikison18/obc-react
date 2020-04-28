@@ -2,7 +2,7 @@ import React from 'react';
 import Button from './button.jsx';
 
 export default {
-  title: 'components',
+    title: 'components',
 };
 
 export const components1 = () => <div>

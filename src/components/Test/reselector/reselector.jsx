@@ -10,19 +10,19 @@ import { createSelector } from 'reselect';
 
 
 function getMapComponents({reselector}){
-    return reselector.map((item,i)=><li key={i}>{item}</li>)
+    return reselector.map((item, i)=><li key={i}>{item}</li>);
 
 }
 
 function getParseData({reselector}){
-    return reselector.reduce((prev,item)=>prev+item,0)
+    return reselector.reduce((prev, item)=>prev+item, 0);
 }
 
-function toProps(mapComponents,parseData){
-    return {mapComponents,parseData}
+function toProps(mapComponents, parseData){
+    return {mapComponents, parseData};
 }
 
-let mapStateToProps = createSelector([getMapComponents, getParseData],toProps);
+let mapStateToProps = createSelector([getMapComponents, getParseData], toProps);
 
 
 
