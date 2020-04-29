@@ -18,8 +18,7 @@ let replaceKeyWordsReg = new RegExp(getKeyWordsReg,'g');
 let fileType = ['svg','ttf','woff','eot'];
 let stamp = new Date().getTime();
 
-
-proIconFontDirectory = path.join(paths.appPublic,proIconFontDirectory);
+proIconFontDirectory = path.join(paths.appBuild, proIconFontDirectory);
 console.log('iconfont资源下载中...');
 
 request.get(`http:${iconFontCDNUrl}`,function(err,res,body){
