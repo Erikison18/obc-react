@@ -210,6 +210,10 @@ module.exports = override(
                 return plugin
             }));
 
+        // fix 因 react-script 升级导致的 less 文件打包后，背景 url 地址未指回根目录的问题
+        config.module.rules[2].oneOf[7].use[0].options = config.output.publicPath.startsWith('.') ? { publicPath: '../../' } : {};
+        config.module.rules[2].oneOf[8].use[0].options = config.output.publicPath.startsWith('.') ? { publicPath: '../../' } : {};
+
         return config;
     },
 
