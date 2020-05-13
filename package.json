@@ -76,7 +76,10 @@
     "es3ify-webpack-plugin": "^0.1.0",
     "html-loader": "^1.0.0",
     "html-webpack-plugin": "^4.0.0-beta.5",
+    "husky": "^4.2.5",
     "less-loader": "^5.0.0",
+    "lint-staged": "^10.2.2",
+    "prettier": "^2.0.5",
     "progress-bar-webpack-plugin": "^1.12.1",
     "react-app-rewire-lodash": "^2.0.0",
     "storybook-addon-html-document": "^1.0.0",
@@ -85,6 +88,17 @@
     "style-resources-loader": "^1.3.3",
     "webpack-ant-icon-loader": "^1.0.8",
     "webpack-bundle-analyzer": "^3.4.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,css,html,md}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "proxy": "http://10.1.241.102:8090/gajpt/",
   "homepage": "./"
