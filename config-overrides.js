@@ -7,7 +7,7 @@ const {
     addWebpackPlugin,
     addWebpackAlias,
     addBundleVisualizer,
-    useBabelRc
+    useBabelRc,
 } = require("customize-cra");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const es3ifyPlugin = require("es3ify-webpack-plugin");
@@ -20,14 +20,14 @@ const {
     proIconFontDirectory,
     iconfontFileName,
     fetchPrefix,
-    useKeepAlive
+    useKeepAlive,
 } = require("./config/config.custom.js");
 
 const path = require("path");
 const { paths } = require("react-app-rewired");
 
 module.exports = override(
-    config => {
+    (config) => {
         // console.log(config.plugins);
         return config;
     },
@@ -86,7 +86,7 @@ module.exports = override(
     addWebpackPlugin(new ProgressBarPlugin()),
 
     // 原始配置
-    config => {
+    (config) => {
         let originEntry = config.entry;
         config.entry = {
             main: [...originEntry],
@@ -112,8 +112,8 @@ module.exports = override(
                 "react-dom",
                 "react-router-dom",
                 "redux",
-                "react-redux" // 提取公共资源-1
-            ]
+                "react-redux", // 提取公共资源-1
+            ],
         };
 
         // 变量注入
@@ -121,8 +121,8 @@ module.exports = override(
             new webpack.DefinePlugin({
                 "process.env": {
                     NODE_ENV: JSON.stringify(process.env.NODE_ENV || "development"),
-                    FETCH_PREFIX: JSON.stringify(fetchPrefix)
-                }
+                    FETCH_PREFIX: JSON.stringify(fetchPrefix),
+                },
             })
         );
 
@@ -137,15 +137,15 @@ module.exports = override(
                 "import",
                 {
                     libraryName: "@common",
-                    customName: name => {
-                        let nameToUpperCase = name.replace(/-(\w)/g, function($0, $1) {
+                    customName: (name) => {
+                        let nameToUpperCase = name.replace(/-(\w)/g, function ($0, $1) {
                             return $1.toUpperCase();
                         });
                         return `@common/${nameToUpperCase}/${nameToUpperCase}.jsx`;
-                    }
+                    },
                 },
-                "@common"
-            ]
+                "@common",
+            ],
         ];
 
         // less 文件注入公共变量
@@ -154,9 +154,9 @@ module.exports = override(
             options: {
                 patterns: [
                     path.join(paths.appSrc, "public", "/style/variables.less"),
-                    path.join(paths.appSrc, "public", "/style/mixins.less")
-                ]
-            }
+                    path.join(paths.appSrc, "public", "/style/mixins.less"),
+                ],
+            },
         });
 
         // 组件缓存相关别名设置
@@ -176,48 +176,52 @@ module.exports = override(
                 vendors: {
                     name: "vendors",
                     chunks: "initial",
-                    minChunks: 2
+                    minChunks: 2,
                 },
                 commons: {
                     name: "commons",
                     chunks: "all",
-                    minChunks: 3
-                }
-            }
+                    minChunks: 3,
+                },
+            },
         };
 
         process.env.NODE_ENV === "production" && config.plugins.push(new es3ifyPlugin());
 
         // iconfont 图标资源加载
         process.env.NODE_ENV === "production" &&
-            (config.plugins = config.plugins.map(plugin => {
-                if(plugin.constructor.name === 'InterpolateHtmlPlugin'){
-                    plugin.replacements["ICON_FONT_SOUCE"] = iconFontCDNUrl && proIconFontDirectory && iconfontFileName
-                        ? `<link rel="stylesheet" href="${proIconFontDirectory}/${iconfontFileName}.css">`
-                        : "";
+            (config.plugins = config.plugins.map((plugin) => {
+                if (plugin.constructor.name === "InterpolateHtmlPlugin") {
+                    plugin.replacements["ICON_FONT_SOUCE"] =
+                        iconFontCDNUrl && proIconFontDirectory && iconfontFileName
+                            ? `<link rel="stylesheet" href="${proIconFontDirectory}/${iconfontFileName}.css">`
+                            : "";
                 }
-                return plugin
+                return plugin;
             }));
 
-
         process.env.NODE_ENV === "development" &&
-            (config.plugins = config.plugins.map(plugin => {
-                if(plugin.constructor.name === 'InterpolateHtmlPlugin'){
+            (config.plugins = config.plugins.map((plugin) => {
+                if (plugin.constructor.name === "InterpolateHtmlPlugin") {
                     plugin.replacements["ICON_FONT_SOUCE"] = iconFontCDNUrl
                         ? `<link rel="stylesheet" href="${iconFontCDNUrl}">`
                         : "";
                 }
-                return plugin
+                return plugin;
             }));
 
         // fix 因 react-script 升级导致的 less 文件打包后，背景 url 地址未指回根目录的问题
-        config.module.rules[2].oneOf[7].use[0].options = config.output.publicPath.startsWith('.') ? { publicPath: '../../' } : {};
-        config.module.rules[2].oneOf[8].use[0].options = config.output.publicPath.startsWith('.') ? { publicPath: '../../' } : {};
+        config.module.rules[2].oneOf[7].use[0].options = config.output.publicPath.startsWith(".")
+            ? { publicPath: "../../" }
+            : {};
+        config.module.rules[2].oneOf[8].use[0].options = config.output.publicPath.startsWith(".")
+            ? { publicPath: "../../" }
+            : {};
 
         return config;
     },
 
-    config => {
+    (config) => {
         // 这里只是输出一下配置进行检查
         return config;
     }
