@@ -6,7 +6,7 @@ const homepage = require("react-app-rewired").paths.publicUrlOrPath;
 
 module.exports = {
     //本地开发设置iconfont cdn 地址 注意每次ui修改iconfont后都会生成最新的cdn地址，记得及时替换。
-    iconFontCDNUrl: "//at.alicdn.com/t/font_639300_3fp1riujcg5.css",
+    iconFontCDNUrl: "",
 
     //发布时iconfont位置
     proIconFontDirectory: path.join(homepage, "/iconfont"),
@@ -19,6 +19,9 @@ module.exports = {
 
     //使用路由缓存，这种方案不能使用路由动画
     useKeepAlive: false,
+
+    // 需要支持 IE8 或者远古浏览器? 代价是编译至少慢 10s
+    needSupportIE8: true,
 };
 
 /*  useKeepAlive

@@ -2,7 +2,6 @@
 
 const {
     override,
-    fixBabelImports,
     addLessLoader,
     addWebpackPlugin,
     addWebpackAlias,
@@ -10,9 +9,7 @@ const {
     useBabelRc,
 } = require("customize-cra");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
-const es3ifyPlugin = require("es3ify-webpack-plugin");
-var HtmlWebpackPlugin = require("html-webpack-plugin");
-const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
+const Es3ifyPlugin = require("es3ify-webpack-plugin");
 
 const webpack = require("webpack");
 const {
@@ -21,6 +18,7 @@ const {
     iconfontFileName,
     fetchPrefix,
     useKeepAlive,
+    needSupportIE8,
 } = require("./config/config.custom.js");
 
 const path = require("path");
@@ -57,30 +55,6 @@ module.exports = override(
 
     // 添加 babelrc 配置
     useBabelRc(),
-
-    // antd 组件按需加载
-    // fixBabelImports("import", {
-    //     libraryName: "antd",
-    //     libraryDirectory: "es",
-    //     style: "css"
-    // }),
-
-    // fixBabelImports("import", {
-    //     libraryName: "@common",
-    //     customName: name => {
-    //         let nameToUpperCase = name.replace(/-(\w)/g, function($0, $1) {
-    //             return $1.toUpperCase();
-    //         });
-    //         return `@common/${nameToUpperCase}/${nameToUpperCase}.jsx`;
-    //     }
-    // }),
-
-    // antd 图标单独拆分
-    // addWebpackModuleRule({
-    //     loader: "webpack-ant-icon-loader",
-    //     enforce: "pre",
-    //     include: [require.resolve("@ant-design/icons/lib/dist")]
-    // }),
 
     // 添加编译进度插件
     addWebpackPlugin(new ProgressBarPlugin()),
@@ -186,29 +160,28 @@ module.exports = override(
             },
         };
 
-        process.env.NODE_ENV === "production" && config.plugins.push(new es3ifyPlugin());
+        // 支持 IE8 以及一些远古浏览器
+        needSupportIE8 && process.env.NODE_ENV === "production" && config.plugins.push(new Es3ifyPlugin());
 
         // iconfont 图标资源加载
         process.env.NODE_ENV === "production" &&
-            (config.plugins = config.plugins.map((plugin) => {
+            config.plugins.forEach((plugin) => {
                 if (plugin.constructor.name === "InterpolateHtmlPlugin") {
                     plugin.replacements["ICON_FONT_SOUCE"] =
                         iconFontCDNUrl && proIconFontDirectory && iconfontFileName
                             ? `<link rel="stylesheet" href="${proIconFontDirectory}/${iconfontFileName}.css">`
                             : "";
                 }
-                return plugin;
-            }));
+            });
 
         process.env.NODE_ENV === "development" &&
-            (config.plugins = config.plugins.map((plugin) => {
+            config.plugins.forEach((plugin) => {
                 if (plugin.constructor.name === "InterpolateHtmlPlugin") {
                     plugin.replacements["ICON_FONT_SOUCE"] = iconFontCDNUrl
                         ? `<link rel="stylesheet" href="${iconFontCDNUrl}">`
                         : "";
                 }
-                return plugin;
-            }));
+            });
 
         // fix 因 react-script 升级导致的 less 文件打包后，背景 url 地址未指回根目录的问题
         config.module.rules[2].oneOf[7].use[0].options = config.output.publicPath.startsWith(".")
