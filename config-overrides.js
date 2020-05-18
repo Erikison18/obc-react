@@ -61,35 +61,6 @@ module.exports = override(
 
     // 原始配置
     (config) => {
-        let originEntry = config.entry;
-        config.entry = {
-            main: [...originEntry],
-            vendors: [
-                // ...originEntry,
-                // require.resolve("@babel/polyfill"),
-                // require.resolve("fetch-polyfill"),
-                // require.resolve("raf/polyfill"),
-                // require.resolve("react"),
-                // require.resolve("react-dom"),
-                // require.resolve("react-router-dom"),
-                // require.resolve("redux"),
-                // require.resolve("react-redux"),
-                // require.resolve("prop-types"),
-                // require.resolve(
-                //     path.join(paths.appSrc, "public", "/js/vendor.js")
-                // )
-                "core-js",
-                "regenerator-runtime",
-                "fetch-polyfill",
-                "raf/polyfill",
-                "react",
-                "react-dom",
-                "react-router-dom",
-                "redux",
-                "react-redux", // 提取公共资源-1
-            ],
-        };
-
         // 变量注入
         config.plugins.unshift(
             new webpack.DefinePlugin({
@@ -142,15 +113,13 @@ module.exports = override(
             );
         }
 
-        // 提取公共资源-2
+        // 配置模块拆分
         config.optimization.splitChunks = {
-            chunks: "all",
-            name: true,
             cacheGroups: {
-                vendors: {
-                    name: "vendors",
-                    chunks: "initial",
-                    minChunks: 2,
+                vendor: {
+                    test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom|redux|react-redux|react-app-polyfill)[\\/]/,
+                    name: "vendor",
+                    chunks: "all",
                 },
                 commons: {
                     name: "commons",
