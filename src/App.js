@@ -29,14 +29,14 @@ const autoPathPrefix = getAutoPathPrefix();
 
 message.config({
     top: 200,
-    maxCount: 1
+    maxCount: 1,
 });
 
 fetch.default({
     method: "POST",
     headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
     },
     credentials: "include",
     beforeSend() {
@@ -75,7 +75,7 @@ fetch.default({
     fail(e) {
         message.error(e.toString());
         return { e };
-    }
+    },
 });
 
 const store = configureStore();
@@ -87,8 +87,8 @@ const getConfirmation = (pathname, callback) => {
         let branch = matchRoutes(routes, pathname);
         let componentsPreload = branch.map(({ route, match }) => route.component.preload());
 
-        Promise.all(componentsPreload).then(datas => {
-            setTimeout(function() {
+        Promise.all(componentsPreload).then((datas) => {
+            setTimeout(function () {
                 store.dispatch(hideLoading());
             }, 500);
             callback(true);
@@ -148,7 +148,7 @@ class App extends Component {
                                         <Link to="/3m">3m</Link>
                                     </li>
                                     <li>
-                                        <Link to="/hooks">hooks</Link>
+                                        <Link to="/">hooks</Link>
                                     </li>
                                     <li>
                                         <Link to="/mobile">mobile</Link>
