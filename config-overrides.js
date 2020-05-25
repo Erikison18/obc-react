@@ -132,6 +132,12 @@ module.exports = override(
         // 支持 IE8 以及一些远古浏览器
         needSupportIE8 && process.env.NODE_ENV === "production" && config.plugins.push(new Es3ifyPlugin());
 
+        // 生产环境代码移除 console
+        process.env.NODE_ENV === "production" &&
+            config.optimization.minimizer.forEach((item) => {
+                item.constructor.name === "TerserPlugin" && (item.options.terserOptions.compress.drop_console = true);
+            });
+
         // iconfont 图标资源加载
         process.env.NODE_ENV === "production" &&
             config.plugins.forEach((plugin) => {
