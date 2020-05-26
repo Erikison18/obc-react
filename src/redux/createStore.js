@@ -14,6 +14,13 @@ import * as reducers from "./models";
 import { getAutoPathPrefix } from "@js/utils.js";
 const autoPathPrefix = getAutoPathPrefix();
 // console.log(thunkMiddleware);
+let localstorageParameter = {
+    states: localstorageStates,
+};
+
+if (autoPathPrefix) {
+    localstorageParameter.namespace = autoPathPrefix;
+}
 
 let rootReducer = combineReducers(reducers);
 
@@ -28,10 +35,7 @@ let applyMiddlewares = [
     }),
     createLogger(reduxLoggerConfig),
     filterActionType(),
-    save({
-        states: localstorageStates,
-        namespace: autoPathPrefix,
-    }),
+    save(localstorageParameter),
 ];
 
 //如果是生产环境不打日志
@@ -42,10 +46,7 @@ let composes = [applyMiddleware(...applyMiddlewares)];
 const enhancer = compose(...composes);
 
 export default (initialState = {}) => {
-    let loadLocalstorage = load({
-        states: localstorageStates,
-        namespace: autoPathPrefix,
-    });
+    let loadLocalstorage = load(localstorageParameter);
 
     let mergeState = Object.assign({}, initialState, loadLocalstorage);
 

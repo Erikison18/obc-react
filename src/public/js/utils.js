@@ -12,8 +12,12 @@ export function formatTextCodeToview(string) {
 
 //获取自动前缀
 export function getAutoPathPrefix() {
-    if (process.env.NODE_ENV === "production") return document.body.getAttribute("prefix");
-    else return process.env.FETCH_PREFIX;
+    if (process.env.NODE_ENV === "production") {
+        let bodyPrefix = document.body.getAttribute("prefix");
+        return bodyPrefix === "$!{prefix}" ? "" : bodyPrefix;
+    } else {
+        return process.env.FETCH_PREFIX;
+    }
 }
 
 //根据当年月份返回月末的年月日
