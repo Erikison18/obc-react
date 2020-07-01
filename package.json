@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "node config/downloadIconFontFile.js && react-app-rewired build",
+    "build": "react-app-rewired build && node config/downloadIconFontFile.js",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "lint": "eslint --fix --ext .jsx --ext .js src/",
-    "analyze": "node config/downloadIconFontFile.js && react-app-rewired build --analyze",
+    "analyze": "react-app-rewired build --analyze",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "rm -rf ./storybook-static && build-storybook -s public"
   },
