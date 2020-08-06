@@ -4,7 +4,7 @@ asiainfo obc FE react 方案
 
 ## 开发环境
 
-* [download](https://nodejs.org/en/download/) - node<sup>^8.10.0</sup> npm<sup>^6.0.0</sup>
+-   [download](https://nodejs.org/en/download/) - node<sup>^8.10.0</sup> npm<sup>^6.0.0</sup>
 
 ### 安装依赖
 
@@ -29,11 +29,18 @@ npm run build
 //分析
 npm run analyze
 
+//快速生成业务组件
+qcc -c NewComponent
+
+//快速生成redux文件
+qcc -c NewComponent -r
+
 //测试
 npm run test
 ```
 
 ### 项目结构
+
 ```
 project
 	├── config
@@ -51,73 +58,43 @@ project
 	│		│		├──	js
 	│		│		├──	style
 	│		│		└──	img
-	│		├──	redux	
+	│		├──	redux
 	│		│		├──	middleware
 	│		│		├──	models
 	│		│		├──	config.js
 	│		│		├──	createStore.js
 	│		│		└──	localstorageStatesConfig.js
-	│		├──	router	
+	│		├──	router
 	│		│		└──	index.js
 	│		├──	App.js
 	│		└──	index.js
 	├── .babelrc
 	├── .babelrc
-	└── .gitignore		
+	└── .gitignore
 ```
 
 ### 项目结构说明
 
-- `config` create-react-app 默认配置和自定义配置
-	- `downloadIconFontFile.js` iconfont下载脚本
-	- `config.custom.js` 自定义参数配置文件
-- `public` create-react-app 公共资源目录(非应用逻辑开发公共资源目录)
-	- `index.html` 
-	- `manifest.json` 资源映射
-- `src` 应用逻辑开发目录
-	- `components` 组件
-	- `public` 公共资源目录
-	- `redux` react-redux
-		- `middleware` redux 自定义中间件目录
-		- `models` redux reducers action 样板代码编写目录
-		- `config.js` redux 相关配置
-		- `createStore.js` 创建redux store 入口
-		- `localstorageStatesConfig.js` 统一管理处理标注的redux state 存储到localstorage配置文件
-	- `router` 路由相关配置
-		
+-   `config` create-react-app 默认配置和自定义配置 - `downloadIconFontFile.js` iconfont 下载脚本 - `config.custom.js` 自定义参数配置文件
+-   `public` create-react-app 公共资源目录(非应用逻辑开发公共资源目录) - `index.html` - `manifest.json` 资源映射
+-   `src` 应用逻辑开发目录 - `components` 组件 - `public` 公共资源目录 - `redux` react-redux - `middleware` redux 自定义中间件目录 - `models` redux reducers action 样板代码编写目录 - `config.js` redux 相关配置 - `createStore.js` 创建 redux store 入口 - `localstorageStatesConfig.js` 统一管理处理标注的 redux state 存储到 localstorage 配置文件 - `router` 路由相关配置
+
 ### 开发约定
 
-- 项目健壮性约定
-	- 组件中含route组件的位置，请使用 `@common/catchErrorBoundary` 错误捕获组件包裹，防止整个应用垮掉或带来的风险操作。
-	- 子路由components通过 `@common/routerLoadable` 做分片处理并且统一页面的加载状态展示。
+-   项目健壮性约定 - 组件中含 route 组件的位置，请使用 `@common/catchErrorBoundary` 错误捕获组件包裹，防止整个应用垮掉或带来的风险操作。 - 子路由 components 通过 `@common/routerLoadable` 做分片处理并且统一页面的加载状态展示。
 
-- webpack约定
-	- webpack配置功能的新增在 `config-overrides.js` 下进行。
-	- 在 `config.custom.js` 中进行项目自定义项的参数配置。如：iconfont CDN地址的配置（注意ui对iconfont每次改动都会生成新的CDN地址，记得及时替换哟。）
+-   webpack 约定 - webpack 配置功能的新增在 `config-overrides.js` 下进行。 - 在 `config.custom.js` 中进行项目自定义项的参数配置。如：iconfont CDN 地址的配置（注意 ui 对 iconfont 每次改动都会生成新的 CDN 地址，记得及时替换哟。）
 
-- 目录约定
-	- 应用逻辑开发的公共资源在 `project/src/public` 下，而非 `project/public` 下。
-	- 公共components开发目录在 `project/src/components/common`。
-	- 不同布局类型的页面入口统一从 `project/src/components/layout` 开始。
+-   目录约定 - 应用逻辑开发的公共资源在 `project/src/public` 下，而非 `project/public` 下。 - 公共 components 开发目录在 `project/src/components/common`。 - 不同布局类型的页面入口统一从 `project/src/components/layout` 开始。
 
-- 公共组件约定
-	- 组件开发需带上 `prop-types` 进行类型管控。
-	- 拓展第三方组件时编写的资源（less、img）集中到到自定义组件下进行管理
-	
-- redux约定
-	- action、reducer模版代码统一在models目录中用 `redux-action` 方案进行编写---定义action type格式为 `filename_key` ，防止不同文件action type重复定义引起的不可预估的错误。使用时redux-action会将它转换成驼峰形式。
-	- models 中 action由 `export const actiontor` 导出,reducer由 `export defualt` 导出。风格参照 `ducks-modular-redux` 提议 结合redux-actions的拓展。
-	- reducer `@/models/index.js` 下进行收集，如`export complex from './complex.js';`。
-	- 需要进行缓存的状态值可以通过 `@redux/localstorageStatesConfig.js` 下进行配置。
-	- 异步请求使用统一归纳到redux models `异步action` 中，为页面增加progress-bar状态。
+-   公共组件约定 - 组件开发需带上 `prop-types` 进行类型管控。 - 拓展第三方组件时编写的资源（less、img）集中到到自定义组件下进行管理
+-   redux 约定 - action、reducer 模版代码统一在 models 目录中用 `redux-action` 方案进行编写---定义 action type 格式为 `filename_key` ，防止不同文件 action type 重复定义引起的不可预估的错误。使用时 redux-action 会将它转换成驼峰形式。 - models 中 action 由 `export const actiontor` 导出,reducer 由 `export defualt` 导出。风格参照 `ducks-modular-redux` 提议 结合 redux-actions 的拓展。 - reducer `@/models/index.js` 下进行收集，如`export complex from './complex.js';`。 - 需要进行缓存的状态值可以通过 `@redux/localstorageStatesConfig.js` 下进行配置。 - 异步请求使用统一归纳到 redux models `异步action` 中，为页面增加 progress-bar 状态。
 
-- router约定
-	- 应用通过 `project/src/router/index.js` 统一管理。
-	- 使用 `keepAlive` 功能设计到模块 `react-router-cache-route` ，新增生命周期函数 `componentDidCache` 与 `componentDidRecover`，具体参考[react-router-cache-route](https://github.com/CJY0208/react-router-cache-route/blob/master/README_CN.md)
+-   router 约定 - 应用通过 `project/src/router/index.js` 统一管理。 - 使用 `keepAlive` 功能设计到模块 `react-router-cache-route` ，新增生命周期函数 `componentDidCache` 与 `componentDidRecover`，具体参考[react-router-cache-route](https://github.com/CJY0208/react-router-cache-route/blob/master/README_CN.md)
 
 ### 注意事项
 
-- 因为 `antd` 的 `Icon` 组件加载icon图标是直接引用的 `dist.js` 整个包，所以造成项目体积变大。当我们只使用其中少部分图标时是得不偿失的。最后临时解决方案为：
+-   因为 `antd` 的 `Icon` 组件加载 icon 图标是直接引用的 `dist.js` 整个包，所以造成项目体积变大。当我们只使用其中少部分图标时是得不偿失的。最后临时解决方案为：
 
 ```
 	//通过webpack resolve.alias把antd包内的dist引用指向我们应用文件public/js/icons.js下
@@ -138,34 +115,27 @@ project
 
 ### 相关文档
 
-* [create-react-app](https://github.com/facebook/create-react-app)
-* [react](https://reactjs.org/)
-* [react-loadable](https://github.com/jamiebuilds/react-loadable)
-* [antd](https://ant.design/index-cn)
-* [react-router-dom4](https://reacttraining.com/react-router/web/example/basic)
-* [react-redux](https://cn.redux.js.org/docs/react-redux/)
-* [redux-actions](https://redux-actions.js.org/introduction)
-* [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware)
-* [react-redux-loading-bar](https://github.com/mironov/react-redux-loading-bar)
-* [redux-localstorage-simple](https://github.com/kilkelly/redux-localstorage-simple)
-* [fetch](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch)
-* [ducks-modular-redux](https://github.com/erikras/ducks-modular-redux)
-* [react-router-config](https://www.npmjs.com/package/react-router-config)
-* [react-router-cache-route](https://github.com/CJY0208/react-router-cache-route/blob/master/README_CN.md)
-
+-   [create-react-app](https://github.com/facebook/create-react-app)
+-   [react](https://reactjs.org/)
+-   [react-loadable](https://github.com/jamiebuilds/react-loadable)
+-   [antd](https://ant.design/index-cn)
+-   [react-router-dom4](https://reacttraining.com/react-router/web/example/basic)
+-   [react-redux](https://cn.redux.js.org/docs/react-redux/)
+-   [redux-actions](https://redux-actions.js.org/introduction)
+-   [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware)
+-   [react-redux-loading-bar](https://github.com/mironov/react-redux-loading-bar)
+-   [redux-localstorage-simple](https://github.com/kilkelly/redux-localstorage-simple)
+-   [fetch](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch)
+-   [ducks-modular-redux](https://github.com/erikras/ducks-modular-redux)
+-   [react-router-config](https://www.npmjs.com/package/react-router-config)
+-   [react-router-cache-route](https://github.com/CJY0208/react-router-cache-route/blob/master/README_CN.md)
 
 配置相关
-* [react-app-rewired](https://github.com/timarney/react-app-rewired/blob/master/README_zh.md)
-* [customize-cra](https://github.com/arackaf/customize-cra/blob/master/api.md)
-* [webpack-4](https://juejin.im/post/5b56909a518825195f499806)
 
+-   [react-app-rewired](https://github.com/timarney/react-app-rewired/blob/master/README_zh.md)
+-   [customize-cra](https://github.com/arackaf/customize-cra/blob/master/api.md)
+-   [webpack-4](https://juejin.im/post/5b56909a518825195f499806)
 
 ### 技术栈脑图
-* [er.png](../er.png)
-	
-	
-	
-	
 
-	
-	
+-   [er.png](../er.png)

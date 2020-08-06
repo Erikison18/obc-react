@@ -12,10 +12,14 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "rm -rf ./storybook-static && build-storybook -s public"
   },
+  "bin": {
+    "qcc": "config/createComponent.js"
+  },
   "dependencies": {
     "antd": "^4.1.4",
     "antd-mobile": "^2.3.1",
     "fetch-polyfill": "^0.8.2",
+    "g": "^2.0.1",
     "less": "^3.10.3",
     "prop-types": "^15.7.2",
     "raf": "^3.4.1",
