@@ -4,7 +4,12 @@ asiainfo obc FE react 方案
 
 ## 开发环境
 
-* [download](https://nodejs.org/en/download/) - node<sup>^8.10.0</sup> npm<sup>^6.0.0</sup>
+* [download](https://nodejs.org/zh-cn/download/) - node<sup>^8.10.0</sup> npm<sup>^6.0.0</sup>
+
+`重要`：建议参照 [这里](https://www.yuque.com/docs/share/d76bde47-6fac-4c00-96d2-b36448b6c68a?#) 的介绍，将作用域 @obc-fe 映射到私有仓库地址 http://npm.obcwork.com 以方便依赖的正确安装，命令如下
+```shell
+npm config set @obc-fe:registry=http://npm.obcwork.com
+```
 
 ### 安装依赖
 
