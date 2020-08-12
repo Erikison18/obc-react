@@ -22,6 +22,9 @@ module.exports = {
 
     // 需要支持 IE8 或者远古浏览器? 代价是编译至少慢 10s
     needSupportIE8: true,
+
+    // 项目在 @obc-fe/react-components 组件库里对应的项目文件夹名
+    componentsFolderName: "test",
 };
 
 /*  useKeepAlive

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "antd";
 
+import { ComponentA, ComponentB } from "@rc";
+
 function Example() {
     // 声明一个新的叫做 “count” 的 state 变量
     const [count, setCount] = useState(0);
@@ -23,6 +25,8 @@ function Example() {
     return (
         <div>
             <p>You clicked {count} times</p>
+            <ComponentA />
+            <ComponentB />
             <Button type="primary" onClick={handleClick}>
                 点我
             </Button>

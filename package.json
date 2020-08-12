@@ -16,6 +16,7 @@
     "qcc": "config/createComponent.js"
   },
   "dependencies": {
+    "@obc-fe/react-components": "^0.1.7",
     "antd": "^4.1.4",
     "antd-mobile": "^2.3.1",
     "fetch-polyfill": "^0.8.2",

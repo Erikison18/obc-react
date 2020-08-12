@@ -19,6 +19,7 @@ const {
     fetchPrefix,
     useKeepAlive,
     needSupportIE8,
+    componentsFolderName,
 } = require("./config/config.custom.js");
 
 const path = require("path");
@@ -45,6 +46,7 @@ module.exports = override(
         "@img": path.join(paths.appSrc, "public", "/img"),
         "@other": path.join(paths.appSrc, "public", "/other"),
         // "@ant-design/icons/lib/dist$": path.join(paths.appSrc, "public", "/js/icons.js") // 配置本地图标
+        "@rc": "@obc-fe/react-components",
     }),
 
     // 启用打包文件分析
@@ -90,6 +92,15 @@ module.exports = override(
                     },
                 },
                 "@common",
+            ],
+            [
+                "import",
+                {
+                    libraryName: "@rc",
+                    libraryDirectory: "esm/" + componentsFolderName,
+                    camel2DashComponentName: false,
+                },
+                "@rc",
             ],
         ];
 
