@@ -6,7 +6,7 @@ module.exports = {
         commonjs: true,
     },
     root: true,
-    extends: ["eslint:recommended", "plugin:react/recommended"],
+    extends: ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended", "prettier/react"],
     parserOptions: {
         ecmaVersion: 2019,
         ecmaFeatures: {
@@ -29,7 +29,7 @@ module.exports = {
     rules: {
         // 禁止 for 循环出现方向错误的循环，比如 for (i = 0; i < 10; i--)
         "for-direction": "error",
-        indent: ["error", 4, { SwitchCase: 1 }],
+        // indent: ["error", 4, { SwitchCase: 1 }],
         semi: ["error", "always"],
         // 总是使用 === 或 !==
         eqeqeq: ["error", "always"],
@@ -131,6 +131,6 @@ module.exports = {
         // 数组中的 jsx 必须有 key
         "react/jsx-key": "error",
         // @fixable jsx 的 props 缩进必须为四个空格
-        "react/jsx-indent-props": ["error", 4],
+        // "react/jsx-indent-props": ["error", 4],
     },
 };
