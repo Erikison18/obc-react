@@ -1,13 +1,6 @@
 /* config-overrides.js */
 
-const {
-    override,
-    addLessLoader,
-    addWebpackPlugin,
-    addWebpackAlias,
-    addBundleVisualizer,
-    useBabelRc,
-} = require("customize-cra");
+const { override, addLessLoader, addWebpackPlugin, addWebpackAlias, addBundleVisualizer, useBabelRc } = require("customize-cra");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const Es3ifyPlugin = require("es3ify-webpack-plugin");
 
@@ -117,11 +110,7 @@ module.exports = override(
 
         // 组件缓存相关别名设置
         if (useKeepAlive === true) {
-            config.resolve.alias["react-router-config"] = path.join(
-                paths.appSrc,
-                "public",
-                "/js/react-router-config.js"
-            );
+            config.resolve.alias["react-router-config"] = path.join(paths.appSrc, "public", "/js/react-router-config.js");
         }
 
         // 配置模块拆分
@@ -163,19 +152,13 @@ module.exports = override(
         process.env.NODE_ENV === "development" &&
             config.plugins.forEach((plugin) => {
                 if (plugin.constructor.name === "InterpolateHtmlPlugin") {
-                    plugin.replacements["ICON_FONT_SOUCE"] = iconFontCDNUrl
-                        ? `<link rel="stylesheet" href="${iconFontCDNUrl}">`
-                        : "";
+                    plugin.replacements["ICON_FONT_SOUCE"] = iconFontCDNUrl ? `<link rel="stylesheet" href="${iconFontCDNUrl}">` : "";
                 }
             });
 
         // fix 因 react-script 升级导致的 less 文件打包后，背景 url 地址未指回根目录的问题
-        config.module.rules[2].oneOf[7].use[0].options = config.output.publicPath.startsWith(".")
-            ? { publicPath: "../../" }
-            : {};
-        config.module.rules[2].oneOf[8].use[0].options = config.output.publicPath.startsWith(".")
-            ? { publicPath: "../../" }
-            : {};
+        config.module.rules[2].oneOf[7].use[0].options = config.output.publicPath.startsWith(".") ? { publicPath: "../../" } : {};
+        config.module.rules[2].oneOf[8].use[0].options = config.output.publicPath.startsWith(".") ? { publicPath: "../../" } : {};
 
         return config;
     },
