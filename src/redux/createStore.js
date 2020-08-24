@@ -14,6 +14,8 @@ import * as reducers from "./models";
 import { getAutoPathPrefix } from "@js/utils.js";
 const autoPathPrefix = getAutoPathPrefix();
 // console.log(thunkMiddleware);
+localstorageStates.length === 0 && localstorageStates.push("_default");
+
 let localstorageParameter = {
     states: localstorageStates,
 };
