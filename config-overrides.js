@@ -1,6 +1,14 @@
 /* config-overrides.js */
 
-const { override, addLessLoader, addWebpackPlugin, addWebpackAlias, addBundleVisualizer, useBabelRc } = require("customize-cra");
+const {
+    override,
+    addLessLoader,
+    addWebpackPlugin,
+    addWebpackAlias,
+    addBundleVisualizer,
+    useBabelRc,
+    overrideDevServer,
+} = require("customize-cra");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const Es3ifyPlugin = require("es3ify-webpack-plugin");
 
@@ -17,8 +25,9 @@ const {
 
 const path = require("path");
 const { paths } = require("react-app-rewired");
+const { prepareProxy } = require("./config/proxyUtils.js");
 
-module.exports = override(
+module.exports.webpack = override(
     (config) => {
         // console.log(config.plugins);
         return config;
@@ -164,6 +173,15 @@ module.exports = override(
     },
 
     (config) => {
+        // 这里只是输出一下配置进行检查
+        return config;
+    }
+);
+
+module.exports.devServer = overrideDevServer(
+    // dev server plugin
+    (config) => {
+        config.proxy = prepareProxy();
         // 这里只是输出一下配置进行检查
         return config;
     }

@@ -25,6 +25,19 @@ module.exports = {
 
     // 项目在 @obc-fe/react-components 组件库里对应的项目文件夹名
     componentsFolderName: "test",
+
+    // 代理的配置，此处的配置优先级高于 package.json 内的配置，且各个代理的优先级从上到下
+    // proxySetting: {
+    //     "/mytj/api": {
+    //         target: "http://10.1.241.102:10020/",
+    //         changeOrigin: true,
+    //         pathRewrite: { "/mytj/api": "/mytj" },
+    //     },
+    //     "/": {
+    //         target: "http://221.179.129.248:8081/",
+    //         changeOrigin: true,
+    //     },
+    // },
 };
 
 /*  useKeepAlive
