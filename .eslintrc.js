@@ -6,7 +6,7 @@ module.exports = {
         commonjs: true,
     },
     root: true,
-    extends: ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended", "prettier/react"],
+    extends: ["eslint:recommended", "plugin:react/recommended", "prettier", "prettier/react"],
     parserOptions: {
         ecmaVersion: 2019,
         ecmaFeatures: {
@@ -20,7 +20,7 @@ module.exports = {
         sourceType: "module",
     },
     parser: "babel-eslint",
-    plugins: ["react", "jsx-a11y"],
+    plugins: ["react", "jsx-a11y", "prettier"],
     settings: {
         react: {
             version: "16.9.0",
@@ -29,6 +29,7 @@ module.exports = {
     rules: {
         // 禁止 for 循环出现方向错误的循环，比如 for (i = 0; i < 10; i--)
         "for-direction": "error",
+        "prettier/prettier": 1,
         // indent: ["error", 4, { SwitchCase: 1 }],
         semi: ["error", "always"],
         // 总是使用 === 或 !==
