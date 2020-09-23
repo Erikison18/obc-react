@@ -7,3 +7,5 @@ export { default as asyncDemo } from "./test/async.js";
 export { default as count } from "./test/count.js";
 export { default as complex } from "./test/complex.js";
 export { default as reselector } from "./test/reselector.js";
+
+export * from "@rc/model.js";

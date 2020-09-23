@@ -48,7 +48,7 @@ module.exports.webpack = override(
         "@img": path.join(paths.appSrc, "public", "/img"),
         "@other": path.join(paths.appSrc, "public", "/other"),
         // "@ant-design/icons/lib/dist$": path.join(paths.appSrc, "public", "/js/icons.js") // 配置本地图标
-        "@rc": "@obc-fe/react-components",
+        "@rc": "@obc-fe/react-components/esm/" + componentsFolderName,
     }),
 
     // 启用打包文件分析
@@ -95,15 +95,15 @@ module.exports.webpack = override(
                 },
                 "@common",
             ],
-            [
-                "import",
-                {
-                    libraryName: "@rc",
-                    libraryDirectory: "esm/" + componentsFolderName,
-                    camel2DashComponentName: false,
-                },
-                "@rc",
-            ],
+            // [
+            //     "import",
+            //     {
+            //         libraryName: "@rc",
+            //         libraryDirectory: "esm/" + componentsFolderName,
+            //         camel2DashComponentName: false,
+            //     },
+            //     "@rc",
+            // ],
         ];
 
         // less 文件注入公共变量
