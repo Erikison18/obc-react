@@ -108,5 +108,6 @@
     ]
   },
   "proxy": "http://10.1.241.102:8090/gajpt/",
-  "homepage": "./"
+  "homepage": "./",
+  "appBuild": ""
 }

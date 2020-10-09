@@ -186,3 +186,11 @@ module.exports.devServer = overrideDevServer(
         return config;
     }
 );
+
+const resolveApp = (relativePath) => path.resolve(process.cwd(), relativePath);
+
+module.exports.paths = function (paths, env) {
+    let appBuild = require(resolveApp("package.json")).appBuild;
+    appBuild && (paths.appBuild = resolveApp(appBuild));
+    return paths;
+};
