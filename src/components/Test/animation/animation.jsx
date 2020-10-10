@@ -1,18 +1,16 @@
-import React, { Component, Fragment} from 'react';
+import React, { Component, Fragment } from "react";
 // import { Button } from 'antd';
-import TweenOne from 'rc-tween-one';
-import Children from 'rc-tween-one/lib/plugin/ChildrenPlugin';
-import './animation.less';
-
+import TweenOne from "rc-tween-one";
+import Children from "rc-tween-one/lib/plugin/ChildrenPlugin";
+import "./animation.less";
 
 TweenOne.plugins.push(Children);
 
 class TweenOneDemo extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
-            value:0
+            value: 0,
         };
     }
 
@@ -24,41 +22,42 @@ class TweenOneDemo extends Component {
         this.setAnimation(nextProps.value);
     }
 
-    setAnimation(value){
+    setAnimation(value) {
         this.setState({
             animation: {
                 Children: {
                     value: value,
                     floatLength: 2,
-                    formatMoney:true,
+                    formatMoney: true,
                 },
-                onUpdate:({ index, target, ratio })=>{
+                onUpdate: ({ index, target, ratio }) => {
                     this.setState({
-                        value:this.parseFormat(ratio*value)
+                        value: this.parseFormat(ratio * value),
                     });
                 },
-                onComplete:()=>{
+                onComplete: () => {
                     this.setState({
-                        value:this.parseFormat(value)
+                        value: this.parseFormat(value),
                     });
                 },
                 duration: 1000,
-            }
+            },
         });
     }
 
-    parseFormat(value){
-        return (value.toFixed(2).toString()).replace(/\B(?=(\d{3})+\b)/g, ',').split('').map(this.props.format);
+    parseFormat(value) {
+        return value
+            .toFixed(2)
+            .toString()
+            .replace(/\B(?=(\d{3})+\b)/g, ",")
+            .split("")
+            .map(this.props.format);
     }
 
     render() {
         return (
             <div>
-                <TweenOne
-                    animation={this.state.animation}
-                    style={{ fontSize: 56, marginBottom: 12, display:'none' }}
-                >
-                </TweenOne>
+                <TweenOne animation={this.state.animation} style={{ fontSize: 56, marginBottom: 12, display: "none" }}></TweenOne>
                 {this.state.value}
             </div>
         );
@@ -112,9 +111,7 @@ class TweenOneDemo extends Component {
 //         });
 //     }
 
-
 //     render() {
-
 
 //         return (
 //             <div>
@@ -146,24 +143,31 @@ class TweenOneDemo extends Component {
 // }
 
 class Demo extends Component {
-    constructor(){
+    constructor() {
         super();
-        this.state={
-            value:10000
+        this.state = {
+            value: 10000,
         };
     }
     componentDidMount() {
-        setTimeout(()=>{
+        setTimeout(() => {
             this.setState({
-                value:100000
+                value: 100000,
             });
         }, 2000);
     }
-    render(){
-        return(
+    render() {
+        return (
             <Fragment>
-                <div className="warning"/>
-                <TweenOneDemo value={this.state.value} format={(item, i)=><span key={i} style={{color:'red'}}>{item}</span>}/>
+                <div className="warning" />
+                <TweenOneDemo
+                    value={this.state.value}
+                    format={(item, i) => (
+                        <span key={i} style={{ color: "red" }}>
+                            {item}
+                        </span>
+                    )}
+                />
             </Fragment>
         );
     }

@@ -1,6 +1,6 @@
-const CIRCLE = 'AMap.Circle';
-const POLYGON = 'AMap.Polygon';
-const RECTANGLE = 'AMap.Rectangle';
+const CIRCLE = "AMap.Circle";
+const POLYGON = "AMap.Polygon";
+const RECTANGLE = "AMap.Rectangle";
 
 class MapTool {
     constructor(map, AMap) {
@@ -11,7 +11,7 @@ class MapTool {
 
     deepCopy = (obj) => {
         return JSON.parse(JSON.stringify(obj));
-    }
+    };
 
     initMouseTool(_this) {
         this.mouseTool = new this.AMap.MouseTool(this.map);
@@ -20,65 +20,91 @@ class MapTool {
 
         // 设置右键菜单
         let contextMenu = new this.AMap.ContextMenu();
-        contextMenu.addItem("隐藏", () => {
-            console.log('隐藏');
-            this.currTarget.hide();
-        }, 0);
-        contextMenu.addItem("隐藏其他", () => {
-            console.log('隐藏其他');
-            this.objs.forEach(item => {
-                if (item.getExtData().id !== this.currId) {
-                    item.hide();
-                }
-            });
-        }, 1);
-        contextMenu.addItem("删除", () => {
-            this.overlays.forEach((item, index) => {
-                if (item.id === this.currId) {
-                    this.overlays.splice(index, 1);
-                }
-            });
-            _this.setState({
-                stateOverlays: [...this.overlays]
-            }, () => {
-                console.log('删除结束，当前数据', _this.state.stateOverlays);
-            });
-            this.map.remove(this.currTarget);
-        }, 2);
-        contextMenu.addItem("编辑", () => {
-            console.log('编辑开始');
-            this.handleEditTarget();
-        }, 3);
-        contextMenu.addItem("关闭编辑", () => {
-            console.log('编辑关闭');
-            let newInfo = this.handleEditOff();
-            this.overlays.forEach((item, index) => {
-                if (item.id === this.currId) {
-                    this.overlays[index].info = newInfo;
-                }
-            });
-            _this.setState({
-                stateOverlays: [...this.overlays]
-            }, () => {
-                console.log('编辑结束，当前数据', _this.state.stateOverlays);
-            });
-        }, 4);
+        contextMenu.addItem(
+            "隐藏",
+            () => {
+                console.log("隐藏");
+                this.currTarget.hide();
+            },
+            0
+        );
+        contextMenu.addItem(
+            "隐藏其他",
+            () => {
+                console.log("隐藏其他");
+                this.objs.forEach((item) => {
+                    if (item.getExtData().id !== this.currId) {
+                        item.hide();
+                    }
+                });
+            },
+            1
+        );
+        contextMenu.addItem(
+            "删除",
+            () => {
+                this.overlays.forEach((item, index) => {
+                    if (item.id === this.currId) {
+                        this.overlays.splice(index, 1);
+                    }
+                });
+                _this.setState(
+                    {
+                        stateOverlays: [...this.overlays],
+                    },
+                    () => {
+                        console.log("删除结束，当前数据", _this.state.stateOverlays);
+                    }
+                );
+                this.map.remove(this.currTarget);
+            },
+            2
+        );
+        contextMenu.addItem(
+            "编辑",
+            () => {
+                console.log("编辑开始");
+                this.handleEditTarget();
+            },
+            3
+        );
+        contextMenu.addItem(
+            "关闭编辑",
+            () => {
+                console.log("编辑关闭");
+                let newInfo = this.handleEditOff();
+                this.overlays.forEach((item, index) => {
+                    if (item.id === this.currId) {
+                        this.overlays[index].info = newInfo;
+                    }
+                });
+                _this.setState(
+                    {
+                        stateOverlays: [...this.overlays],
+                    },
+                    () => {
+                        console.log("编辑结束，当前数据", _this.state.stateOverlays);
+                    }
+                );
+            },
+            4
+        );
 
         // 绘制结束
-        this.mouseTool.on('draw', (e) => {
-            let type = e.obj['CLASS_NAME'];
+        this.mouseTool.on("draw", (e) => {
+            let type = e.obj["CLASS_NAME"];
 
-            console.log(e.obj);  // 留以甄别画方的属性问题
+            console.log(e.obj); // 留以甄别画方的属性问题
 
-            let data = { info: {}, height: 0, color: '#fff', texture: 'abab' };  // 预设图形数据
-            data.id = Math.random().toString(36).slice(-8);  // 产生随机图形 ID
+            let data = { info: {}, height: 0, color: "#fff", texture: "abab" }; // 预设图形数据
+            data.id = Math.random().toString(36).slice(-8); // 产生随机图形 ID
             e.obj.setExtData({ id: data.id });
             data.type = type;
             data.info = this.handleGetInfo(type, e.obj);
 
             // 绑定左键点击事件
-            e.obj.on('click', () => {
-                console.log('左键点击');
+            e.obj.on("click", () => {
+                console.log("左键点击");
                 this.currId = e.obj.getExtData().id;
                 this.currTarget = e.obj;
                 this.handleEditTarget();
@@ -86,12 +112,12 @@ class MapTool {
                 //     fillColor: '#ff0000',
                 // })
                 let currTargetInfo = {};
-                this.overlays.forEach(item => {
+                this.overlays.forEach((item) => {
                     if (item.id === this.currId) {
                         currTargetInfo = {
                             currColor: item.color,
                             currTexture: item.texture,
-                            currHeight: item.height
+                            currHeight: item.height,
                         };
                     }
                 });
@@ -102,12 +128,12 @@ class MapTool {
             });
 
             // 拖拽事件
-            e.obj.on('dragging', () => {
-                console.log('拖拽');
+            e.obj.on("dragging", () => {
+                console.log("拖拽");
             });
 
             // 右键点击事件
-            e.obj.on('rightclick', () => {
+            e.obj.on("rightclick", () => {
                 switch (type) {
                     case RECTANGLE:
                         contextMenu.open(this.map, e.obj.getBounds().southwest);
@@ -132,11 +158,14 @@ class MapTool {
             this.overlays.push(data);
             this.objs.push(e.obj);
 
-            _this.setState({
-                stateOverlays: [...this.overlays],
-            }, () => {
-                console.log('绘制结束，当前数据', _this.state.stateOverlays);
-            });
+            _this.setState(
+                {
+                    stateOverlays: [...this.overlays],
+                },
+                () => {
+                    console.log("绘制结束，当前数据", _this.state.stateOverlays);
+                }
+            );
         });
     }
 
@@ -152,7 +181,7 @@ class MapTool {
             info.bounds = obj.getBounds();
         }
         return info;
-    }
+    };
 
     // 开始编辑
     handleEditTarget() {
@@ -170,7 +199,7 @@ class MapTool {
                 this.polylineEditor.open();
                 break;
             default:
-                console.log('未匹配到该形状！');
+                console.log("未匹配到该形状！");
                 break;
         }
     }
@@ -192,7 +221,7 @@ class MapTool {
                 newInfo = this.handleGetInfo(POLYGON, this.currTarget);
                 break;
             default:
-                console.log('未匹配到该形状！');
+                console.log("未匹配到该形状！");
                 break;
         }
         return newInfo;
@@ -209,18 +238,21 @@ class MapTool {
                 this.overlays.splice(index, 1);
             }
         });
-        _this.setState({
-            stateOverlays: [...this.overlays]
-        }, () => {
-            console.log(type + '删除结束，当前数据', _this.state.stateOverlays);
-        });
+        _this.setState(
+            {
+                stateOverlays: [...this.overlays],
+            },
+            () => {
+                console.log(type + "删除结束，当前数据", _this.state.stateOverlays);
+            }
+        );
         this.map.remove(deletArr);
     }
 
     // 某类图形的隐藏显示
-    handleTypeOperation(coverType, operateType = 'Show') {
-        if (coverType === 'All') {
-            if (operateType === 'Show') {
+    handleTypeOperation(coverType, operateType = "Show") {
+        if (coverType === "All") {
+            if (operateType === "Show") {
                 this.objs.forEach((element) => {
                     element.show();
                 });
@@ -234,71 +266,68 @@ class MapTool {
         let type = "AMap." + coverType;
         this.objs.forEach((element, index) => {
             if (element.CLASS_NAME === type) {
-                if (operateType === 'Hide') {
+                if (operateType === "Hide") {
                     element.hide();
                 } else {
                     element.show();
                 }
-
             }
         });
-        console.log(type + (operateType === 'Show' ? ' 显示结束' : ' 隐藏结束'));
+        console.log(type + (operateType === "Show" ? " 显示结束" : " 隐藏结束"));
     }
 
     // 绘制处理
     handleTypeDraw(dataType, _this) {
         switch (dataType) {
-            case 'Circle': {
+            case "Circle": {
                 this.mouseTool.circle({
-                    fillColor: '#00b0ff',
-                    strokeColor: '#80d8ff',
+                    fillColor: "#00b0ff",
+                    strokeColor: "#80d8ff",
                     draggable: true,
                 });
                 _this.setState({
-                    drawType: 'circle'
+                    drawType: "circle",
                 });
                 break;
             }
-            case 'Polygon': {
+            case "Polygon": {
                 this.mouseTool.polygon({
-                    fillColor: '#00b0ff',
-                    strokeColor: '#80d8ff',
+                    fillColor: "#00b0ff",
+                    strokeColor: "#80d8ff",
                     draggable: true,
                 });
                 _this.setState({
-                    drawType: 'polygon'
+                    drawType: "polygon",
                 });
                 break;
             }
-            case 'Rectangle':
+            case "Rectangle":
                 this.mouseTool.rectangle({
-                    fillColor: '#00b0ff',
-                    strokeColor: '#80d8ff',
+                    fillColor: "#00b0ff",
+                    strokeColor: "#80d8ff",
                     draggable: true,
                 });
                 break;
 
-
-
-            case 'Clear':
+            case "Clear":
                 this.clearOverlay();
                 _this.setState({
-                    drawType: 'clear'
+                    drawType: "clear",
                 });
                 break;
 
-            case 'move':
+            case "move":
                 //关闭，但不会清除覆盖物
                 this.closeOverlayAllEdit();
                 this.mouseTool.close(false);
                 this.overlayEditors = [];
                 _this.setState({
-                    drawType: 'move'
+                    drawType: "move",
                 });
                 break;
             default:
                 _this.setState({
-                    drawType: ''
+                    drawType: "",
                 });
                 break;
         }
@@ -311,15 +340,15 @@ class MapTool {
         this.mouseTool.close(true);
         this.overlayEditors = [];
         this.overlays = [];
-        console.log('overlays', this.overlays);
+        console.log("overlays", this.overlays);
     }
 
     closeOverlayAllEdit() {
-        this.overlayEditors.length > 0 && this.overlayEditors.forEach(overlay => {
-            overlay.close();
-        });
+        this.overlayEditors.length > 0 &&
+            this.overlayEditors.forEach((overlay) => {
+                overlay.close();
+            });
     }
-
 }
 
 export default MapTool;

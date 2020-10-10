@@ -1,10 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 export default class Project extends Component {
-
     render() {
-        return (
-            <div>work home project</div>
-        );
+        return <div>work home project</div>;
     }
 }
