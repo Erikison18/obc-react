@@ -1,12 +1,12 @@
 module.exports = {
-    env: {
-        browser: true,
-        es6: true,
-        node: true,
-        commonjs: true,
-    },
-    root: true,
-    extends: ["eslint:recommended", "plugin:react/recommended", "prettier", "prettier/react"],
+    extends: [
+        "react-app",
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:prettier/recommended",
+        "prettier/flowtype",
+        "prettier/react",
+    ],
     parserOptions: {
         ecmaVersion: 2019,
         ecmaFeatures: {
@@ -18,13 +18,6 @@ module.exports = {
             defaultParams: true,
         },
         sourceType: "module",
-    },
-    parser: "babel-eslint",
-    plugins: ["react", "jsx-a11y", "prettier"],
-    settings: {
-        react: {
-            version: "16.9.0",
-        },
     },
     rules: {
         // 禁止 for 循环出现方向错误的循环，比如 for (i = 0; i < 10; i--)
