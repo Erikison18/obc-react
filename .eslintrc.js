@@ -25,12 +25,13 @@ module.exports = {
     parser: 'babel-eslint',
     plugins: [
         'react',
-        'jsx-a11y'
+        'jsx-a11y',
+        "prettier"
     ],
     rules: {
         // 禁止 for 循环出现方向错误的循环，比如 for (i = 0; i < 10; i--)
         'for-direction': 'error',
-        'indent': ['error', 4, { "SwitchCase": 1 }],
+        // 'indent': ['error', 4, { "SwitchCase": 1 }],
         'semi': [
             'error',
             'always'
@@ -144,6 +145,7 @@ module.exports = {
         // 数组中的 jsx 必须有 key
         'react/jsx-key': 'error',
         // @fixable jsx 的 props 缩进必须为四个空格
-        'react/jsx-indent-props': ['error', 4]
+        // 'react/jsx-indent-props': ['error', 4],
+        "prettier/prettier": 1
     }
 };
