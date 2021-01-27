@@ -1,34 +1,17 @@
-import {
-    createStore,
-    applyMiddleware,
-    compose,
-    combineReducers
-} from 'redux';
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 
-import {
-    loadingBarMiddleware
-} from 'react-redux-loading-bar';
-import {
-    createLogger
-} from 'redux-logger';
-import {
-    save,
-    load
-} from 'redux-localstorage-simple';
+import { loadingBarMiddleware } from "react-redux-loading-bar";
+import { createLogger } from "redux-logger";
+import { save, load } from "redux-localstorage-simple";
 
-import promiseMiddleware from 'redux-promise-middleware';
-import thunkMiddleware from '@middleware/reduxThunkPayload';
-import filterActionType from '@middleware/filterActionType';
+import promiseMiddleware from "redux-promise-middleware";
+import thunkMiddleware from "@middleware/reduxThunkPayload";
+import filterActionType from "@middleware/filterActionType";
 
-import {
-    promiseTypeSuffixes,
-    promiseTypeDelimiter,
-    localstorageStates,
-    reduxLoggerConfig
-} from './config';
+import { promiseTypeSuffixes, promiseTypeDelimiter, localstorageStates, reduxLoggerConfig } from "./config";
 
-import * as reducers from './models';
-import {getAutoPathPrefix} from "@js/utils.js";
+import * as reducers from "./models";
+import { getAutoPathPrefix } from "@js/utils.js";
 
 const autoPathPrefix = getAutoPathPrefix();
 
@@ -38,7 +21,7 @@ let applyMiddlewares = [
     thunkMiddleware,
     promiseMiddleware({
         promiseTypeSuffixes,
-        promiseTypeDelimiter
+        promiseTypeDelimiter,
     }),
     loadingBarMiddleware({
         promiseTypeSuffixes,
@@ -47,25 +30,21 @@ let applyMiddlewares = [
     filterActionType(),
     save({
         states: localstorageStates,
-        namespace: autoPathPrefix
-    })
+        namespace: autoPathPrefix,
+    }),
 ];
 
 //如果是生产环境不打日志
-if(process.env.NODE_ENV==='production')
-    applyMiddlewares.splice(3, 1);
+if (process.env.NODE_ENV === "production") applyMiddlewares.splice(3, 1);
 
 let composes = [applyMiddleware(...applyMiddlewares)];
 
-const enhancer = compose(
-    ...composes
-);
+const enhancer = compose(...composes);
 
 export default (initialState = {}) => {
-
     let loadLocalstorage = load({
         states: localstorageStates,
-        namespace: autoPathPrefix
+        namespace: autoPathPrefix,
     });
 
     let mergeState = Object.assign({}, initialState, loadLocalstorage);
@@ -73,5 +52,4 @@ export default (initialState = {}) => {
     let store = createStore(rootReducer, mergeState, enhancer);
 
     return store;
-
 };

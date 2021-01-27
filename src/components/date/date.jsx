@@ -1,44 +1,64 @@
-import React, { Component } from 'react';
-import { DatePicker, Radio } from 'antd';
-import {monthLastDate, dayLastDate} from '@js/utils';
-import './date.less';
+import React, { Component } from "react";
+import { DatePicker, Radio } from "antd";
+import { monthLastDate, dayLastDate } from "@js/utils";
+import "./date.less";
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
 export default class PickerSizesDemo extends Component {
-  state = {
-      size: 'default',
-      count: 0
-  };
+    state = {
+        size: "default",
+        count: 0,
+    };
 
-  handleSizeChange = (e) => {
-      this.setState({ size: e.target.value });
-  }
+    handleSizeChange = (e) => {
+        this.setState({ size: e.target.value });
+    };
 
-
-  render() {
-      const { size } = this.state;
-      return (
-          <div className="date-background">
-              <Radio.Group value={size} onChange={this.handleSizeChange}>
-                  <Radio.Button value="large">Large</Radio.Button>
-                  <Radio.Button value="default">Default</Radio.Button>
-                  <Radio.Button value="small">Small</Radio.Button>
-              </Radio.Group>
-              <br /><br />
-              <DatePicker size={size}  onPanelChange={(...a)=>{console.log(a);}}/>
-              <br />
-              <MonthPicker size={size} placeholder="Select Month"  onChange={(moment, value)=>{
-                  console.log(monthLastDate(value));
-              }}/>
-              <br />
-              <RangePicker size={size} onCalendarChange={(...a)=>{console.log(a);}} onChange={(...a)=>{console.log(a);}}/>
-              <br />
-              <WeekPicker size={size} placeholder="Select Week" onChange={(moment, value)=>{
-                  console.log(dayLastDate(value));
-              }}/>
-          </div>
-      );
-  }
+    render() {
+        const { size } = this.state;
+        return (
+            <div className="date-background">
+                <Radio.Group value={size} onChange={this.handleSizeChange}>
+                    <Radio.Button value="large">Large</Radio.Button>
+                    <Radio.Button value="default">Default</Radio.Button>
+                    <Radio.Button value="small">Small</Radio.Button>
+                </Radio.Group>
+                <br />
+                <br />
+                <DatePicker
+                    size={size}
+                    onPanelChange={(...a) => {
+                        console.log(a);
+                    }}
+                />
+                <br />
+                <MonthPicker
+                    size={size}
+                    placeholder="Select Month"
+                    onChange={(moment, value) => {
+                        console.log(monthLastDate(value));
+                    }}
+                />
+                <br />
+                <RangePicker
+                    size={size}
+                    onCalendarChange={(...a) => {
+                        console.log(a);
+                    }}
+                    onChange={(...a) => {
+                        console.log(a);
+                    }}
+                />
+                <br />
+                <WeekPicker
+                    size={size}
+                    placeholder="Select Week"
+                    onChange={(moment, value) => {
+                        console.log(dayLastDate(value));
+                    }}
+                />
+            </div>
+        );
+    }
 }
-

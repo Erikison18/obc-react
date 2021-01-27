@@ -1,19 +1,16 @@
-import React, { Component } from 'react';
-import {AMapAsync} from '@js/AsyncCDN.js';
-import './aMap.less';
+import React, { Component } from "react";
+import { AMapAsync } from "@js/AsyncCDN.js";
+import "./aMap.less";
 
 export default class AMapDemo extends Component {
-
-    async renderAMap(){
-
+    async renderAMap() {
         this.AMap = await AMapAsync();
-        this.map = new this.AMap.Map('aMapDemoContainer', {
-            viewMode:'3D',
+        this.map = new this.AMap.Map("aMapDemoContainer", {
+            viewMode: "3D",
             pitch: 50,
             zoom: 10,
-            mapStyle: 'amap://styles/whitesmoke'
+            mapStyle: "amap://styles/whitesmoke",
         });
-
     }
 
     componentDidMount() {
@@ -28,7 +25,3 @@ export default class AMapDemo extends Component {
         );
     }
 }
-
-
-
-

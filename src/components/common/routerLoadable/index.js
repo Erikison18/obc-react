@@ -1,34 +1,27 @@
-import React, {
-    Component
-} from 'react';
+import React, { Component } from "react";
 
-import ReactDOM from 'react-dom';
-import Loadable from 'react-loadable';
-import { Spin } from 'antd';
+import ReactDOM from "react-dom";
+import Loadable from "react-loadable";
+import { Spin } from "antd";
 
-import './routerLoadable.less';
-
+import "./routerLoadable.less";
 
 let routerLoadableContainer;
 
-if(!document.getElementById('routerLoadableContainer')){
+if (!document.getElementById("routerLoadableContainer")) {
+    let body = document.getElementsByTagName("body")[0];
 
-    let body = document.getElementsByTagName('body')[0];
-
-    routerLoadableContainer=document.createElement('div');
-    routerLoadableContainer.id='routerLoadableContainer';
-    routerLoadableContainer.className='router-loadable-container';
+    routerLoadableContainer = document.createElement("div");
+    routerLoadableContainer.id = "routerLoadableContainer";
+    routerLoadableContainer.className = "router-loadable-container";
 
     body.appendChild(routerLoadableContainer);
-
 }
 
-
 class Modal extends Component {
-
     constructor(props) {
         super(props);
-        this.el = document.createElement('div');
+        this.el = document.createElement("div");
     }
 
     componentDidMount() {
@@ -48,32 +41,29 @@ class Modal extends Component {
     }
 
     render() {
-        return ReactDOM.createPortal(
-            this.props.children,
-            this.el,
-        );
+        return ReactDOM.createPortal(this.props.children, this.el);
     }
-
 }
 
-function loading(){
+function loading() {
     return (
         <Modal>
-            <Spin delay={300}/>
+            <Spin delay={300} />
         </Modal>
     );
 }
 
-
-function RouterLoadable(opts){
-// console.log(opts.loader())
+function RouterLoadable(opts) {
+    // console.log(opts.loader())
     return Loadable(
-        Object.assign({}, {
-            loading
-        }, opts)
+        Object.assign(
+            {},
+            {
+                loading,
+            },
+            opts
+        )
     );
-
 }
-
 
 export default RouterLoadable;
