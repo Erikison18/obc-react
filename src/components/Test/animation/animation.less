@@ -1,18 +1,27 @@
-.code-box-shape{
-  height: 100px;
-  width: 100px;
-  background: red;
-  position: absolute;
+.code-box-shape {
+    height: 100px;
+    width: 100px;
+    background: red;
+    position: absolute;
 }
 
 .warning {
     height: 20px;
     position: relative;
-    background-color: #6DA807;
-    border: 1px solid #6DA807;
+    background-color: #6da807;
+    border: 1px solid #6da807;
     border-radius: 10px;
     background-size: 3em 3em;
-    background-image: linear-gradient(-45deg, transparent 0em, transparent 1.5em, #96D923 0.9em, #96D923 2.1em, transparent 2.1em, transparent 3.6em, #96D923 3.1em);
+    background-image: linear-gradient(
+        -45deg,
+        transparent 0em,
+        transparent 1.5em,
+        #96d923 0.9em,
+        #96d923 2.1em,
+        transparent 2.1em,
+        transparent 3.6em,
+        #96d923 3.1em
+    );
     animation: warning-animation 750ms infinite linear;
 }
 // .warning:before {
@@ -28,10 +37,10 @@
 // }
 
 @keyframes warning-animation {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 3em 0;
-  }
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 3em 0;
+    }
 }
