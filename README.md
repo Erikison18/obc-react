@@ -4,7 +4,7 @@ asiainfo obc FE react 方案
 
 ## 开发环境
 
-* [download](https://nodejs.org/zh-cn/download/) - node<sup>^8.10.0</sup> npm<sup>^6.0.0</sup>
+* [node](https://nodejs.org/zh-cn/download/)
 
 `重要`：建议参照 [这里](https://www.yuque.com/docs/share/d76bde47-6fac-4c00-96d2-b36448b6c68a?#) 的介绍，将作用域 @obc-fe 映射到私有仓库地址 http://npm.obcwork.com 以方便依赖的正确安装，命令如下
 
@@ -134,21 +134,15 @@ project
 
 -   因为 `antd` 的 `Icon` 组件加载 icon 图标是直接引用的 `dist.js` 整个包，所以造成项目体积变大。当我们只使用其中少部分图标时是得不偿失的。最后临时解决方案为：
 
-```
-	//通过webpack resolve.alias把antd包内的dist引用指向我们应用文件public/js/icons.js下
-	config.resolve.alias['@ant-design/icons/lib/dist$'] = path.join(paths.appSrc, 'public', '/js/icons.js');
-	//然后再在icons中手动按需加入对应图标文件
-	// export what you need
-	export {
-  		default as SmileOutline
-	} from '@ant-design/icons/lib/outline/SmileOutline';
-	export {
-  		default as MehOutline
-	} from '@ant-design/icons/lib/outline/MehOutline';
-	// export what antd other components need
-	export {
-  		default as CloseOutline
-	} from '@ant-design/icons/lib/outline/CloseOutline';
+```JavaScript
+// 通过webpack resolve.alias把antd包内的dist引用指向我们应用文件public/js/icons.js下
+config.resolve.alias["@ant-design/icons/lib/dist$"] = path.join(paths.appSrc, "public", "/js/icons.js");
+// 然后再在icons中手动按需加入对应图标文件
+// export what you need
+export { default as SmileOutline } from "@ant-design/icons/lib/outline/SmileOutline";
+export { default as MehOutline } from "@ant-design/icons/lib/outline/MehOutline";
+// export what antd other components need
+export { default as CloseOutline } from "@ant-design/icons/lib/outline/CloseOutline";
 ```
 
 ### 相关文档
